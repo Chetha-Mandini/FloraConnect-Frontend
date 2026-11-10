@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export default function Brand() {
   return (
-    <a className="brand" href="#home" aria-label="FloraConnect home">
+    <Link className="brand" to="/" aria-label="FloraConnect home">
       <svg viewBox="0 0 52 57" aria-hidden="true">
         <path
           fill="#184a29"
@@ -47,6 +49,6 @@ export default function Brand() {
         </span>
         <span className="brand-tagline">SRI LANKA’S FLOWER COMMUNITY</span>
       </span>
-    </a>
+    </Link>
   );
 }
