@@ -1,6 +1,6 @@
 ﻿# FloraConnect Frontend
 
-A responsive sample home page built with React 19, TypeScript, Vite, and Tailwind CSS.
+A responsive FloraConnect frontend built with React 19, TypeScript, Vite, Tailwind CSS, and React Router.
 
 ## Development
 
@@ -9,17 +9,28 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173, or the URL printed by Vite. Run the backend with `npm run dev` in FloraConnect-Backend to enable the live connection status. The sample page remains usable when the backend is unavailable.
+Open http://localhost:5173, or the URL printed by Vite. Copy `.env.example` to `.env.local` to override the API base URL for local work; the example points to the local backend. Run the backend with `npm run dev` in FloraConnect-Backend to enable the live connection status. The sample page remains usable when the backend is unavailable.
 
 ## Checks and production preview
 
 ```sh
 npm run lint
+npm run typecheck
+npm run format:check
+npm test
 npm run build
 npm run preview
 ```
 
-The production build is generated in `dist/`. `npm start` is also available as an alias for the local production preview.
+Use `npm run format` to format project files. ESLint checks code quality; Prettier handles consistent formatting. `npm test` runs the focused route tests and `npm run test:watch` runs them in watch mode. The production build is generated in `dist/`. `npm start` is also available as an alias for the local production preview.
+
+## Routes
+
+Client-side navigation is configured in `src/app/routes.tsx`. The homepage is `/`; the feature placeholders are `/flowers`, `/associations`, `/announcements`, `/login`, and `/register`. Unknown paths render the dedicated 404 page. Feature pages are intentionally placeholders; full feature implementations are outside the scope of this foundation.
+
+## Environment variables
+
+`VITE_API_BASE_URL` overrides the API base URL and must include `/api`. When it is unset, development uses `http://localhost:3001/api` and production uses the existing FloraConnect API URL. Vite exposes `VITE_` variables in browser code, so never put credentials, private keys, or other secrets in them.
 
 ## Files
 
@@ -54,4 +65,4 @@ Images are served locally from `public/images/`. Third-party image attribution a
 
 ## Code organization
 
-See [folder structure and conventions](docs/architecture/README.md). All local image files are in `public/images`; attribution is served at `/credits/images.html` and source/license metadata is in `docs/assets/image-sources.json`.
+See [folder structure and conventions](docs/architecture/README.md). Routes and app composition live in `src/app`; pages live in `src/pages`; reusable UI and layout components live in `src/components`; shared hooks belong in `src/hooks`; feature-specific code lives in `src/features`; API access lives in `src/services/api`; environment configuration lives in `src/config`; shared types and utilities belong in `src/types` and `src/utils` as the application grows. All local image files are in `public/images`; attribution is served at `/credits/images.html` and source/license metadata is in `docs/assets/image-sources.json`.

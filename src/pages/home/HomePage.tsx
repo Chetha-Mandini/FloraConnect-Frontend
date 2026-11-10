@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { Link, NavLink } from "react-router-dom";
 import ApiStatus from "../../features/health/ApiStatus";
 import Icon from "../../components/ui/Icon";
 import Brand from "../../components/layout/Brand";
@@ -58,20 +59,18 @@ export default function HomePage() {
             className={menu ? "main-nav is-open" : "main-nav"}
             aria-label="Main navigation"
           >
-            <a
-              className="active"
-              href="#home"
-              onClick={() => setMenu(false)}
-              aria-current="page"
-            >
+            <NavLink to="/" onClick={() => setMenu(false)}>
               Home
-            </a>
-            <a href="#flowers" onClick={() => setMenu(false)}>
+            </NavLink>
+            <NavLink to="/flowers" onClick={() => setMenu(false)}>
               Explore Flowers
-            </a>
-            <button onClick={() => openPanel("associations")}>
+            </NavLink>
+            <NavLink to="/associations" onClick={() => setMenu(false)}>
               Associations
-            </button>
+            </NavLink>
+            <NavLink to="/announcements" onClick={() => setMenu(false)}>
+              Announcements
+            </NavLink>
             <button onClick={() => openPanel("marketplace")}>
               Marketplace
             </button>
@@ -88,18 +87,12 @@ export default function HomePage() {
             />
           </form>
           <div className="header-actions">
-            <button
-              className="button outline login-button"
-              onClick={() => openPanel("login")}
-            >
+            <Link className="button outline login-button" to="/login">
               Login
-            </button>
-            <button
-              className="button primary"
-              onClick={() => openPanel("join")}
-            >
+            </Link>
+            <Link className="button primary" to="/register">
               Get Started
-            </button>
+            </Link>
             <button
               className="icon-button mobile-toggle"
               aria-label={menu ? "Close navigation" : "Open navigation"}
@@ -513,11 +506,9 @@ export default function HomePage() {
                 {panel === "join"
                   ? "Already part of the community?"
                   : "New to FloraConnect?"}{" "}
-                <button
-                  onClick={() => openPanel(panel === "join" ? "login" : "join")}
-                >
+                <Link to={panel === "join" ? "/login" : "/register"}>
                   {panel === "join" ? "Login" : "Get started"}
-                </button>
+                </Link>
               </p>
             </div>
           ) : panel === "associations" ? (
