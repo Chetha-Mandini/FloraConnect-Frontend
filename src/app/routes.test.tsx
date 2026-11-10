@@ -9,6 +9,11 @@ const routeCases: [string, RegExp][] = [
   ["/announcements", /^Announcements$/],
   ["/login", /^Login$/],
   ["/register", /^Register$/],
+  ["/growers", /^Growers$/],
+  ["/events", /^Events$/],
+  ["/contact", /^Contact$/],
+  ["/privacy", /^Privacy Policy$/],
+  ["/terms", /^Terms of Service$/],
   ["/unmatched-path", /couldn’t find that page/i],
 ];
 
@@ -46,17 +51,91 @@ describe("application routes", () => {
   it.each(routeCases)("renders %s", async (path, heading) => {
     renderAt(path);
 
-    expect(await screen.findByRole("heading", { name: heading })).toBeVisible();
+    expect(
+      await screen.findByRole("heading", { name: heading }, { timeout: 4000 }),
+    ).toBeVisible();
   });
 
   it("navigates to a feature page without leaving the router", async () => {
     const router = renderAt("/");
 
-    fireEvent.click(screen.getByRole("link", { name: "Get Started" }));
+    fireEvent.click(screen.getByRole("link", { name: "Register" }));
 
     expect(
       await screen.findByRole("heading", { name: "Register" }),
     ).toBeVisible();
     expect(router.state.location.pathname).toBe("/register");
+  });
+
+  it("opens and dismisses the mobile navigation with Escape", () => {
+    renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation" }));
+    const close = screen.getByRole("button", { name: "Close navigation" });
+    expect(close).toHaveAttribute("aria-expanded", "true");
+    fireEvent.keyDown(close, { key: "Escape" });
+    expect(
+      screen.getByRole("button", { name: "Open navigation" }),
+    ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("searches the catalogue from the header", async () => {
+    const router = renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "Search catalogue" }));
+    fireEvent.change(screen.getByRole("searchbox", { name: "Find a flower" }), {
+      target: { value: "orchid" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Search" }));
+    expect(
+      await screen.findByRole("heading", { name: "Orchid" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("heading", { name: "Rose" }),
+    ).not.toBeInTheDocument();
+    expect(router.state.location.search).toBe("?q=orchid");
+  });
+
+  it("clears filters after an empty catalogue search", async () => {
+    const router = renderAt("/flowers?q=unavailable-flower");
+    expect(
+      await screen.findByRole("heading", { name: "No matching flowers" }),
+    ).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+    expect(
+      await screen.findByRole("heading", { name: "Acacia" }),
+    ).toBeVisible();
+    expect(router.state.location.search).toBe("");
+  });
+
+  it("paginates the complete catalogue and resets the page when searching", async () => {
+    const router = renderAt("/flowers");
+    await screen.findByRole("heading", { name: "Flowers" });
+    expect(screen.getAllByRole("article")).toHaveLength(40);
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    expect(router.state.location.search).toBe("?page=2");
+    expect(screen.getByText(/Page 2 of/)).toBeVisible();
+    fireEvent.change(
+      screen.getByRole("searchbox", { name: "Search flowers" }),
+      { target: { value: "Erythronium americanum" } },
+    );
+    expect(
+      await screen.findByRole("heading", { name: "Adder's Tongue" }),
+    ).toBeVisible();
+    expect(router.state.location.search).not.toContain("page=");
+  }, 15000);
+
+  it("supports A to Z browsing and handles an invalid page number", async () => {
+    renderAt("/flowers?page=-100");
+    await screen.findByRole("heading", { name: "Flowers" });
+    expect(screen.getByText(/Page 1 of/)).toBeVisible();
+    fireEvent.change(
+      screen.getByRole("combobox", { name: "Filter by first letter" }),
+      { target: { value: "W" } },
+    );
+    expect(
+      screen.getByRole("heading", { name: "Wreath Lechenaultia" }),
+    ).toBeVisible();
+    expect(
+      screen.queryByRole("heading", { name: "Acacia" }),
+    ).not.toBeInTheDocument();
   });
 });

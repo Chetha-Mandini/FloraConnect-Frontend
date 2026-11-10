@@ -1,38 +1,52 @@
-[
+﻿[
   {
-    "file": "South Vietnam's Water Lily.JPG",
-    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Es.ntp\" title=\"User:Es.ntp\">Nguy\u1ec5n T\u1ea5n Ph\u00e1t</a>",
+    "file": "South Vietnam\u0027s Water Lily.JPG",
+    "author": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Es.ntp\" title=\"User:Es.ntp\"\u003eNguyễn Tấn Phát\u003c/a\u003e",
     "license": "CC BY-SA 3.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   {
     "file": "AnthuriumAndraenum.jpg",
-    "author": "Taken by <a href=\"//commons.wikimedia.org/wiki/User:Fanghong\" title=\"User:Fanghong\">Fanghong</a>",
+    "author": "Taken by \u003ca href=\"//commons.wikimedia.org/wiki/User:Fanghong\" title=\"User:Fanghong\"\u003eFanghong\u003c/a\u003e",
     "license": "CC BY 2.5",
     "license_url": "https://creativecommons.org/licenses/by/2.5"
   },
   {
     "file": "Dendrobium-kingianum.jpg",
-    "author": "The original uploader was <a href=\"https://en.wikipedia.org/wiki/User:JoJan\" class=\"extiw\" title=\"wikipedia:User:JoJan\">JoJan</a> at <a href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\">English Wikipedia</a>.",
+    "author": "The original uploader was \u003ca href=\"https://en.wikipedia.org/wiki/User:JoJan\" class=\"extiw\" title=\"wikipedia:User:JoJan\"\u003eJoJan\u003c/a\u003e at \u003ca href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\"\u003eEnglish Wikipedia\u003c/a\u003e.",
     "license": "Attribution",
     "license_url": ""
   },
   {
     "file": "Chrysanthemum.JPG",
-    "author": "<a href=\"https://en.wikipedia.org/wiki/ml:User:Aruna\" class=\"extiw\" title=\"w:ml:User:Aruna\">Aruna</a> at <a href=\"https://en.wikipedia.org/wiki/ml:\" class=\"extiw\" title=\"w:ml:\">Malayalam Wikipedia</a>",
+    "author": "\u003ca href=\"https://en.wikipedia.org/wiki/ml:User:Aruna\" class=\"extiw\" title=\"w:ml:User:Aruna\"\u003eAruna\u003c/a\u003e at \u003ca href=\"https://en.wikipedia.org/wiki/ml:\" class=\"extiw\" title=\"w:ml:\"\u003eMalayalam Wikipedia\u003c/a\u003e",
     "license": "CC BY-SA 3.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   {
     "file": "Rosa_rubiginosa_1.jpg",
-    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Stan_Shebs\" title=\"User:Stan Shebs\">Stan Shebs</a>",
+    "author": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Stan_Shebs\" title=\"User:Stan Shebs\"\u003eStan Shebs\u003c/a\u003e",
     "license": "CC BY-SA 3.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
   },
   {
     "file": "Unidentified_Gerbera.jpg",
-    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Knopik-som\" title=\"User:Knopik-som\">Dmitry Makeev</a>",
+    "author": "\u003ca href=\"//commons.wikimedia.org/wiki/User:Knopik-som\" title=\"User:Knopik-som\"\u003eDmitry Makeev\u003c/a\u003e",
     "license": "CC BY-SA 4.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "file": "lotus.jpg",
+    "author": "Hong Zhang",
+    "source": "https://commons.wikimedia.org/wiki/File:Lotus_flower_(978659).jpg",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  {
+    "file": "sunflower.jpg",
+    "author": "Couleur",
+    "source": "https://commons.wikimedia.org/wiki/File:Sunflower_Generic.jpg",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
   }
 ]
