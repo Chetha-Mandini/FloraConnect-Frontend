@@ -1,17 +1,17 @@
-﻿# FloraConnect Frontend
+# FloraConnect Frontend
 
-A responsive FloraConnect frontend built with React 19, TypeScript, Vite, Tailwind CSS, and React Router.
+A responsive community homepage built with React, TypeScript, Vite, Tailwind CSS, React Router, Motion for React and Lucide.
 
-## Development
+## Run locally
 
 ```sh
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173, or the URL printed by Vite. Copy `.env.example` to `.env.local` to override the API base URL for local work; the example points to the local backend. Run the backend with `npm run dev` in FloraConnect-Backend to enable the live connection status. The sample page remains usable when the backend is unavailable.
+Open http://localhost:5173. In a second terminal, run `npm run dev` inside `../FloraConnect-Backend`. The backend requires its own `npm install` on a fresh checkout. MongoDB defaults to `mongodb://localhost:27017/floraconnect`; set `MONGODB_URI` in the backend environment to change it. The API health endpoint and homepage remain usable if MongoDB is unavailable.
 
-## Checks and production preview
+## Checks
 
 ```sh
 npm run lint
@@ -22,47 +22,70 @@ npm run build
 npm run preview
 ```
 
-Use `npm run format` to format project files. ESLint checks code quality; Prettier handles consistent formatting. `npm test` runs the focused route tests and `npm run test:watch` runs them in watch mode. The production build is generated in `dist/`. `npm start` is also available as an alias for the local production preview.
+The production bundle is generated in `dist/`. On Vercel, select Vite, build with `npm run build` and use `dist` as the output directory. Keep the existing SPA route rewrites. Do not edit generated backend or frontend `dist` files.
 
-## Routes
+## Homepage and routes
 
-Client-side navigation is configured in `src/app/routes.tsx`. The homepage is `/`; the feature placeholders are `/flowers`, `/associations`, `/announcements`, `/login`, and `/register`. Unknown paths render the dedicated 404 page. Feature pages are intentionally placeholders; full feature implementations are outside the scope of this foundation.
+The homepage follows the approved reference with an organic Nymphaea nouchali water-lily hero, four quick links, featured flowers, a grower community section, an upcoming events empty state and a curved forest-green footer. Entrances and hover effects respect reduced-motion preferences. Fonts use Inter and Playfair Display with system fallbacks.
 
-## Environment variables
+`/flowers` supports `?q=` search and `?category=` variety filtering over explicitly labeled sample data. Header search and all four category cards use these filters. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?role=grower` for future registration integration. Unknown paths render the existing 404 page.
 
-`VITE_API_BASE_URL` overrides the API base URL and must include `/api`. When it is unset, development uses `http://localhost:3001/api` and production uses the existing FloraConnect API URL. Vite exposes `VITE_` variables in browser code, so never put credentials, private keys, or other secrets in them.
+## Implementation files
 
-## Files
+- `src/pages/home/HomePage.tsx`: homepage composition.
+- `src/components/home/HomeSections.tsx`: reusable sections, section headings and motion reveals.
+- `src/components/layout/Navbar.tsx`, `Footer.tsx`, `Brand.tsx`: shared responsive application shell.
+- `src/pages/FlowerCataloguePage.tsx`: searchable sample catalogue.
+- `src/pages/CommunityPage.tsx`: empty states for unpublished directories and platform information.
+- `src/styles/global.css`: design tokens, responsive layouts and reduced-motion styling.
+- `src/app/routes.tsx`: application routes.
+- `src/app/routes.test.tsx`: routing, menu and search regression tests.
 
-- `src/pages/home/HomePage.tsx`: reference-inspired home page, local flower search/category filtering, flower detail dialogs and responsive navigation.
-- `src/styles/global.css`: responsive styles.
-- `src/main.tsx`: React entry point.
-- `index.html`: document title and metadata.
-- `vite.config.ts`: Vite, React, and Tailwind configuration.
-- `public/images/flowers.jpg`: floral image from Unsplash (photo-1490750967868-88aa4486c946).
-
-Grower profiles are sample content. The join button shows a coming-soon message and does not store or submit information.
-
-For Vercel, select the Vite framework preset, use `npm run build`, and set the output directory to `dist`.
-
-`.gitignore` excludes dependencies, build output, caches, local environment files, logs, editor settings, and test reports. Keep `package-lock.json` committed for reproducible installations.
+See [architecture conventions](docs/architecture/README.md) for the full folder structure.
 
 ## Backend connection
 
-The footer checks `/api/health` with a ten-second timeout and offers Retry on failure. Development defaults to `http://localhost:3001/api`; production defaults to `https://flora-connect-backend-gules.vercel.app/api`. Override the base URL with `VITE_API_BASE_URL` in `.env.local` or Vercel environment settings, then restart/rebuild. Include `/api` in the URL. Do not put secrets in VITE variables. No environment changes are needed for the current production domains. Preview deployments require their exact origin to be allowed by the backend.
+The footer checks `/api/health` with a ten-second timeout and offers Retry on failure. Development defaults to `http://localhost:3001/api`; production retains `https://flora-connect-backend-gules.vercel.app/api`. Set `VITE_API_BASE_URL` in `.env.local` or your hosting environment to override it, including `/api`, then restart or rebuild. Never put secrets in `VITE_` variables. Preview deployment origins must be allowed by the backend.
+
+## Assets and remaining integrations
+
+Local images are in `public/images`. The current national-flower hero shows three blue-violet Nymphaea nouchali water lilies in AI-generated reference-inspired artwork. The original pink-lotus hero is retained as an unused source asset. The original lotus photograph and sunflower photograph are CC0 assets; attribution and existing photo licenses are preserved at `/credits/images.html` and `docs/assets/image-sources.json`. The existing grower artwork is AI generated and does not depict a verified platform member.
+
+No statistics, events, contacts or social URLs are invented. Supply verified email/phone details, social URLs, approved legal policies, and live grower/event APIs to enable those features. Authentication and event APIs do not exist in the current backend; existing login and registration remain clearly labeled previews. The registration role query is not yet consumed by an account service.
 
 ## License
 
 Copyright (c) 2026 TourGo organization. All rights reserved.
 
-No use, copying, modification, distribution, or sublicensing is permitted without prior written permission from TourGo organization. See [LICENSE](LICENSE).
+No use, copying, modification, distribution, or sublicensing is permitted without prior written permission from TourGo organization. See [LICENSE](LICENSE). Third-party image licenses remain separate.
 
-## Home page design
+## Events and footer reference update
 
-The botanical homepage includes a custom SVG wordmark, an AI-generated grower hero, six illustrative flower cards, responsive navigation, search/filter controls and accessible native dialogs. Login, registration, associations, notices, marketplace and events show clearly marked previews until their APIs are implemented. Existing API health checking remains in the footer.
+The pre-footer section uses two image cards for event categories, with unknown-date badges and an explicit unpublished-events notice. These are not scheduled events. The five-column forest-green footer matches the approved reference with a curved edge, divider lines, script tagline and paired botanical branches. Social marks are decorative until verified profile URLs are supplied; they are not interactive links. Existing API health checking and image credits remain available. Generated event images and their full prompts are documented in `docs/assets/event-artwork-prompts.md`.
 
-Images are served locally from `public/images/`. Third-party image attribution and original license links are available at `/credits/images.html`; these assets retain their original licenses. The hero is an AI-generated illustration and does not depict a verified platform member. No production membership totals, association partnerships or government endorsement are claimed.
+## Expanded flower catalogue
 
-## Code organization
+`/flowers` includes all 464 named entries from the user-supplied BioExplorer excerpt, plus existing catalogue varieties not already named in the list (469 unique named entries in total). Common-name aliases remain separate where they appear separately in the supplied list; this is not a count of distinct biological species. Descriptions are supplied reference excerpts, not live product listings or verified Sri Lankan cultivation/medical advice.
 
-See [folder structure and conventions](docs/architecture/README.md). Routes and app composition live in `src/app`; pages live in `src/pages`; reusable UI and layout components live in `src/components`; shared hooks belong in `src/hooks`; feature-specific code lives in `src/features`; API access lives in `src/services/api`; environment configuration lives in `src/config`; shared types and utilities belong in `src/types` and `src/utils` as the application grows. All local image files are in `public/images`; attribution is served at `/credits/images.html` and source/license metadata is in `docs/assets/image-sources.json`.
+The catalogue uses five columns at 1400px and wider, four on laptops, three on tablets and one or two on phones. Search, collection filters, A-Z browsing, sorting, URL-backed pagination (40 cards per page) and full-description dialogs work together. Existing homepage category links and header search remain supported.
+
+Data lives in `src/features/flowers/data/flower-reference.json`; the typed catalogue merges it with existing entries in `flowers.ts`. Representative botanical photos are downloaded into `public/images/catalogue`. Per-image author/license metadata is stored in `flower-images.json`, displayed in the detail dialog and published at `/credits/catalogue-images.html`. An explicit botanical fallback is used where no suitable licensed image is available, and image-load failures use the same fallback.
+
+The one-time import helpers use Python's standard library and add no runtime dependencies:
+
+```sh
+python scripts/import_flower_reference.py /path/to/supplied-excerpt.txt
+python scripts/fetch_flower_photos.py
+```
+
+The importer excludes navigation, related-article headings and plant-order classification headings. It preserves the supplied descriptions and only extracts scientific names where explicitly given. The photo helper uses Wikipedia plant pages and Wikimedia Commons license metadata, skips disambiguation pages and unsupported licenses, caches successful local downloads, and never runs in a visitor's browser. Imported facts and representative photography can still require botanical editorial review. Source/count provenance is recorded in `docs/assets/flower-reference-import.json`.
+
+## Catalogue refinement
+
+The starting-letter filter is now a compact dropdown instead of the long A-Z button row. Flower profiles open in a centered, responsive photo-and-description dialog with a sticky close button, background scroll locking and expandable source/photography credits. Every one of the 464 supplied reference entries now has a locally saved, licensed photograph; common-name and cultivar entries may use a labeled representative taxon. An error fallback remains for failed image loads.
+
+## Supplementary flower references
+
+The eight supplied follow-up attachments were audited by `scripts/merge_flower_supplements.py`. Two are identical WFO background articles rather than individual-flower lists. The six A-F BioExplorer guides contain 191 flower entries, all already present in the catalogue. The fuller descriptions are merged by canonical ID from `flower-supplements.json`; no new cards were needed and the catalogue remains at 469 entries. Per-profile source links now point to the corresponding letter guide. Name matching normalizes case, accents, hyphens and straight/curly apostrophes, with the original canonical names, IDs and photos preserved. This is name-level duplicate prevention, not a claim to resolve every taxonomic synonym or merge genus-level and species-level entries.
+
+The complete attachment audit, content hashes, source URLs and matches are in `docs/assets/flower-supplement-audit.json`. The original imported reference excerpts remain preserved separately. Re-run the merge helper with paths to supplied text files as arguments to reproduce the comparison.

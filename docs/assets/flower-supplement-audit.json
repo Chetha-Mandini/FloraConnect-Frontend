@@ -1,0 +1,1021 @@
+{
+  "files": [
+    {
+      "sha256": "bcc14d35c290dc8aa564ae68a7e913eaae4e4247be12834b182c282f343c59cf",
+      "attachment": "a49860ae-c6dd-4b22-b795-6fd9697731eb",
+      "kind": "taxonomy-background",
+      "entries": 0,
+      "note": "No individual-flower list in this supplied text."
+    },
+    {
+      "sha256": "23895923a12b8fb4a736fc0ad32c8e705ec1f12be1d09180f6bc37c7a30a1b82",
+      "attachment": "719b4f87-3be9-4231-ab63-8ffbcd7e27d1",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/",
+      "entries": 38
+    },
+    {
+      "sha256": "f3524d99c9293d6919339365229c47db3c2473a993a7681ca4a365dd48ec7bed",
+      "attachment": "78823af3-4bfd-43d5-9def-39d251ededca",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/",
+      "entries": 41
+    },
+    {
+      "sha256": "e28cec257befadd83073f49d4f0ce1e1f99bee381a9bf873d3edcf21e46ff713",
+      "attachment": "7d789c3b-5268-4c2a-8381-371f4fd91879",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/",
+      "entries": 48
+    },
+    {
+      "sha256": "e68cabb803b871497889c45270add962a5f15fdae68b3060f47674695eb8c58c",
+      "attachment": "59cfe16c-e8de-4a37-948c-5bf8bd06fb3c",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/",
+      "entries": 27
+    },
+    {
+      "sha256": "9c1c51982797162985fb6f14d07f553aadb33e76511b31cac492d79388011882",
+      "attachment": "9476e131-9225-48bf-a3c8-3f8a58e22b0a",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/",
+      "entries": 16
+    },
+    {
+      "sha256": "dc0af34353b6b1849ca129d582663e5371e95c58790284cc6c62a351a99f0f43",
+      "attachment": "00947f6d-7cd3-4424-a600-2d5962a03a1d",
+      "kind": "flower-guide",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/",
+      "entries": 21
+    }
+  ],
+  "new_entries": [],
+  "matched_entries": [
+    {
+      "name": "Acacia",
+      "id": "acacia",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Acanthus",
+      "id": "acanthus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Achillea",
+      "id": "achillea",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Aconite",
+      "id": "aconite",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Adam’s Needle",
+      "id": "adam-s-needle",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Adder’s Tongue",
+      "id": "adder-s-tongue",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "African Boxwood",
+      "id": "african-boxwood",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "African Flame Lily",
+      "id": "african-flame-lily",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Agapanthus",
+      "id": "agapanthus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Ageratum",
+      "id": "ageratum",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Alfalfa",
+      "id": "alfalfa",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Allium",
+      "id": "allium",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Almond Blossom",
+      "id": "almond-blossom",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Aloe Succotrina",
+      "id": "aloe-succotrina",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Alstroemeria",
+      "id": "alstroemeria",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Alyssum",
+      "id": "alyssum",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Amaranthus hypochondriacus",
+      "id": "amaranthus-hypochondriacus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Amarnath",
+      "id": "amarnath",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Amaryllis",
+      "id": "amaryllis",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Ambrosia",
+      "id": "ambrosia",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "American Ash",
+      "id": "american-ash",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Ammi majus",
+      "id": "ammi-majus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Amur Adonis",
+      "id": "amur-adonis",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Anemone",
+      "id": "anemone",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Angelica",
+      "id": "angelica",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Angelonia",
+      "id": "angelonia",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Apache Plume",
+      "id": "apache-plume",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Apple Blossom",
+      "id": "apple-blossom",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Arbutus",
+      "id": "arbutus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Ardisia",
+      "id": "ardisia",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Aromatic Aster",
+      "id": "aromatic-aster",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Artemisia",
+      "id": "artemisia",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Artichoke thistle",
+      "id": "artichoke-thistle",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Asian Spider Flower",
+      "id": "asian-spider-flower",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Astilbes",
+      "id": "astilbes",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Astragalus",
+      "id": "astragalus",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "August Lily",
+      "id": "august-lily",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Azalea",
+      "id": "azalea",
+      "source": "https://www.bioexplorer.net/plants/flowers/a/"
+    },
+    {
+      "name": "Baby’s Breath",
+      "id": "baby-s-breath",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bachelor’s Button",
+      "id": "bachelor-s-button",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Balloon Flower",
+      "id": "balloon-flower",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Balsam",
+      "id": "balsam",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Baneberry",
+      "id": "baneberry",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Banksia",
+      "id": "banksia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Barberry",
+      "id": "barberry",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Basil",
+      "id": "basil",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Basket-of-Gold",
+      "id": "basket-of-gold",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Beach Rose",
+      "id": "beach-rose",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bee Balm",
+      "id": "bee-balm",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Begonia",
+      "id": "begonia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bells of Ireland",
+      "id": "bells-of-ireland",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bergénia",
+      "id": "bergenia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Big Flax",
+      "id": "big-flax",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bighead Knapweed",
+      "id": "bighead-knapweed",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Billy Button",
+      "id": "billy-button",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bindweed",
+      "id": "bindweed",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bird of Paradise",
+      "id": "bird-of-paradise",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bittersweet",
+      "id": "bittersweet",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Black Bryony",
+      "id": "black-bryony",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Black-eyed Susan",
+      "id": "black-eyed-susan",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bleeding Heart",
+      "id": "bleeding-heart",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Blood Root",
+      "id": "blood-root",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Blood-Red Iris",
+      "id": "blood-red-iris",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bluebell Flower",
+      "id": "bluebell-flower",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Boronia",
+      "id": "boronia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bouvardia",
+      "id": "bouvardia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Brittlebush",
+      "id": "brittlebush",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Broomrape",
+      "id": "broomrape",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Browallia",
+      "id": "browallia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bryony",
+      "id": "bryony",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Buckbean",
+      "id": "buckbean",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Buddleia",
+      "id": "buddleia",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bugleweed",
+      "id": "bugleweed",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bugloss",
+      "id": "bugloss",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bulbophyllum",
+      "id": "bulbophyllum",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Bupleurum",
+      "id": "bupleurum",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Burdock",
+      "id": "burdock",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Butterfly Orchid",
+      "id": "butterfly-orchid",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Japanese Bigleaf Hydrangea",
+      "id": "japanese-bigleaf-hydrangea",
+      "source": "https://www.bioexplorer.net/plants/flowers/b/"
+    },
+    {
+      "name": "Cactus",
+      "id": "cactus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Caladium",
+      "id": "caladium",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Calendula",
+      "id": "calendula",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Calibrachoa",
+      "id": "calibrachoa",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "California Pepper Berry",
+      "id": "california-pepper-berry",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "California Poppy",
+      "id": "california-poppy",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Calla Lily",
+      "id": "calla-lily",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Campanula",
+      "id": "campanula",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Canaigre Dock",
+      "id": "canaigre-dock",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Candytuft",
+      "id": "candytuft",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Canterbury Bells",
+      "id": "canterbury-bells",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cardinal",
+      "id": "cardinal",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Carex",
+      "id": "carex",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Carnation",
+      "id": "carnation",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Carthamus",
+      "id": "carthamus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Casa Blanca",
+      "id": "casa-blanca",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Caspia",
+      "id": "caspia",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Castor Bean",
+      "id": "castor-bean",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Catmint",
+      "id": "catmint",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cattleya",
+      "id": "cattleya",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Celosia",
+      "id": "celosia",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Centaurea cyanus",
+      "id": "centaurea-cyanus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Chamelaucium",
+      "id": "chamelaucium",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Chamomile",
+      "id": "chamomile",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "China Aster",
+      "id": "china-aster",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Chinese Peony",
+      "id": "chinese-peony",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Chives",
+      "id": "chives",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cinquefoil",
+      "id": "cinquefoil",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Clarkia",
+      "id": "clarkia",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Clary sage",
+      "id": "clary-sage",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Clematis",
+      "id": "clematis",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Clianthus",
+      "id": "clianthus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Coltsfoot",
+      "id": "coltsfoot",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Columbine",
+      "id": "columbine",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Comfrey",
+      "id": "comfrey",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Common Peony",
+      "id": "common-peony",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Convallaria",
+      "id": "convallaria",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Copao",
+      "id": "copao",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Coral bells",
+      "id": "coral-bells",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cosmos",
+      "id": "cosmos",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cosmos Flower beggarticks",
+      "id": "cosmos-flower-beggarticks",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cowberry",
+      "id": "cowberry",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Creeping Lettuce",
+      "id": "creeping-lettuce",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Crocus",
+      "id": "crocus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Croton",
+      "id": "croton",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cyclamen",
+      "id": "cyclamen",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cymbidium",
+      "id": "cymbidium",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Cyperus",
+      "id": "cyperus",
+      "source": "https://www.bioexplorer.net/plants/flowers/c/"
+    },
+    {
+      "name": "Daffodil",
+      "id": "daffodil",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dahlia",
+      "id": "dahlia",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Daisy",
+      "id": "daisy",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dame’s Rocket",
+      "id": "dame-s-rocket",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dandelion",
+      "id": "dandelion",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Daylily",
+      "id": "daylily",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dead Nettle",
+      "id": "dead-nettle",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Delphinium",
+      "id": "delphinium",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dendrobium",
+      "id": "dendrobium",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Desert Horse Purselane",
+      "id": "desert-horse-purselane",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Desert Lily Flower",
+      "id": "desert-lily-flower",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Desert Rose",
+      "id": "desert-rose",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Desert Sand Verbena",
+      "id": "desert-sand-verbena",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Desert Snowberry",
+      "id": "desert-snowberry",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dianthus",
+      "id": "dianthus",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Diascia",
+      "id": "diascia",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dittany of Crete",
+      "id": "dittany-of-crete",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dock",
+      "id": "dock",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dodder",
+      "id": "dodder",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dog Rose",
+      "id": "dog-rose",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dogwood",
+      "id": "dogwood",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dragon Root",
+      "id": "dragon-root",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dragon’s Tongue",
+      "id": "dragon-s-tongue",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Drummond’s Phlox",
+      "id": "drummond-s-phlox",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Drumstick",
+      "id": "drumstick",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dusty Miller",
+      "id": "dusty-miller",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Dutchman’s Breeches",
+      "id": "dutchman-s-breeches",
+      "source": "https://www.bioexplorer.net/plants/flowers/d/"
+    },
+    {
+      "name": "Edelweiss",
+      "id": "edelweiss",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Edulis Tulip",
+      "id": "edulis-tulip",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Eglantine",
+      "id": "eglantine",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Elastic Momordica",
+      "id": "elastic-momordica",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Elderflower",
+      "id": "elderflower",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Elephant Trunks",
+      "id": "elephant-trunks",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Enchanter’s Nightshade",
+      "id": "enchanter-s-nightshade",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Epigaea",
+      "id": "epigaea",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Epimedium",
+      "id": "epimedium",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Erica",
+      "id": "erica",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Eucalyptus",
+      "id": "eucalyptus",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "​​Eupatorium",
+      "id": "eupatorium",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Euphorbia",
+      "id": "euphorbia",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Eustoma grandiflorum",
+      "id": "eustoma-grandiflorum",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Everlasting",
+      "id": "everlasting",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "Everlasting Daisy",
+      "id": "everlasting-daisy",
+      "source": "https://www.bioexplorer.net/plants/flowers/e/"
+    },
+    {
+      "name": "False Bird of Paradise",
+      "id": "false-bird-of-paradise",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "False Indigo",
+      "id": "false-indigo",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "False Spirea",
+      "id": "false-spirea",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fan Flower",
+      "id": "fan-flower",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Farewell-To-Spring",
+      "id": "farewell-to-spring",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fennel",
+      "id": "fennel",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fernleaf Yarrow",
+      "id": "fernleaf-yarrow",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Feverfew",
+      "id": "feverfew",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Field Wood-rush",
+      "id": "field-wood-rush",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fig Marigold",
+      "id": "fig-marigold",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Filaree",
+      "id": "filaree",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Flamingo",
+      "id": "flamingo",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Flowering Fern",
+      "id": "flowering-fern",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Flowering Reed",
+      "id": "flowering-reed",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Forget-Me-Not",
+      "id": "forget-me-not",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Forsythia",
+      "id": "forsythia",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fountain Grass",
+      "id": "fountain-grass",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Four O’ Clock",
+      "id": "four-o-clock",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Foxglove",
+      "id": "foxglove",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Foxtail Fern",
+      "id": "foxtail-fern",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    },
+    {
+      "name": "Fuji Mums",
+      "id": "fuji-mums",
+      "source": "https://www.bioexplorer.net/plants/flowers/f/"
+    }
+  ],
+  "duplicate_input_files": [
+    {
+      "sha256": "bcc14d35c290dc8aa564ae68a7e913eaae4e4247be12834b182c282f343c59cf",
+      "same_as_attachment": "a49860ae-c6dd-4b22-b795-6fd9697731eb"
+    }
+  ],
+  "policy": "Match normalized existing names; preserve canonical IDs and existing photos. Never infer a taxonomic identity from a representative photograph. WFO background articles are not individual-flower lists.",
+  "matched_count": 191,
+  "enhanced_count": 191,
+  "new_count": 0
+}

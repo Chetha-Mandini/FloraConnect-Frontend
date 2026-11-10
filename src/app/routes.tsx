@@ -5,6 +5,9 @@ import RouteLayout from "./RouteLayout";
 import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
+import CommunityPage from "../pages/CommunityPage";
+
+import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 
 export const routeObjects: RouteObject[] = [
   {
@@ -18,14 +21,58 @@ export const routeObjects: RouteObject[] = [
         element: <AppLayout />,
         children: [
           {
-            path: "flowers",
+            path: "growers",
             element: (
-              <PlaceholderPage
-                title="Flowers"
-                description="Discover flower varieties and growing inspiration from across Sri Lanka."
-                emptyMessage="The flower directory is being prepared. Explore the sample flowers on the home page in the meantime."
+              <CommunityPage
+                title="Growers"
+                description="Connect with Sri Lanka’s flower growing community."
+                message="No verified grower profiles have been published yet."
               />
             ),
+          },
+          {
+            path: "events",
+            element: (
+              <CommunityPage
+                title="Events"
+                description="Flower exhibitions, grower workshops and community gatherings."
+                message="No upcoming events have been published yet. Verified dates and registration details will appear here when available."
+              />
+            ),
+          },
+          {
+            path: "contact",
+            element: (
+              <CommunityPage
+                title="Contact"
+                description="Get in touch with FloraConnect."
+                message="Verified contact details and social channels have not been published yet."
+              />
+            ),
+          },
+          {
+            path: "privacy",
+            element: (
+              <CommunityPage
+                title="Privacy Policy"
+                description="Your privacy matters to FloraConnect."
+                message="The platform’s privacy policy has not been published yet. Account registration is not currently available."
+              />
+            ),
+          },
+          {
+            path: "terms",
+            element: (
+              <CommunityPage
+                title="Terms of Service"
+                description="Using FloraConnect."
+                message="The platform’s terms of service have not been published yet. Membership and transactions are not currently available."
+              />
+            ),
+          },
+          {
+            path: "flowers",
+            element: <FlowerCatalogueRoute />,
           },
           {
             path: "associations",
