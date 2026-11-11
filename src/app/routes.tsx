@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import AppLayout from "./AppLayout";
 import RouteLayout from "./RouteLayout";
@@ -20,15 +20,17 @@ export const routeObjects: RouteObject[] = [
         element: <HomePage />,
       },
       {
-        path: "super-admin",
-        lazy: async () => {
-          const { default: Dashboard } =
-            await import("../pages/AdminDashboard");
-          return { element: <Dashboard superAdmin /> };
-        },
+        path: "super-admin/*",
+        element: <Navigate to="/admin" replace />,
       },
       {
-        path: "admin",
+        path: "admin/*",
+        lazy: async () => ({
+          Component: (await import("../pages/SuperAdminDashboard")).default,
+        }),
+      },
+      {
+        path: "platform-admin",
         lazy: async () => ({
           Component: (await import("../pages/AdminDashboard")).default,
         }),

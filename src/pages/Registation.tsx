@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { apiEndpoints } from "../config/api";
+import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -18,31 +19,31 @@ import { api } from "../services/api/auth";
 
 const paths = [
   {
-    id: "USER",
+    id: "personal",
     title: "Personal account",
     text: "Browse flowers and join the community.",
     Icon: UserRound,
   },
   {
-    id: "FLORIST",
+    id: "florist",
     title: "Florist",
     text: "Apply to manage your own flower shop.",
     Icon: Flower2,
   },
   {
-    id: "GROWER",
+    id: "grower",
     title: "Grower",
     text: "Apply to sell the flowers you cultivate.",
     Icon: Sprout,
   },
   {
-    id: "ORGANIZATION_REPRESENTATIVE",
+    id: "organization",
     title: "Organization representative",
     text: "Apply on behalf of your institution or society.",
     Icon: Building2,
   },
 ] as const;
-type AccountType = (typeof paths)[number]["id"];
+type RegistrationKind = (typeof paths)[number]["id"];
 const categories = [
   ["GOVERNMENT_BOTANICAL_INSTITUTION", "Government botanical institution"],
   ["HORTICULTURAL_SOCIETY", "Horticultural society"],
@@ -62,8 +63,8 @@ const positions = [
 ];
 export default function RegistrationPage() {
   const [params] = useSearchParams();
-  const [type, setType] = useState<AccountType>(
-    params.get("role") === "grower" ? "GROWER" : "USER",
+  const [type, setType] = useState<RegistrationKind>(
+    params.get("application") === "grower" ? "grower" : "personal",
   );
   const [step, setStep] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -87,36 +88,40 @@ export default function RegistrationPage() {
       setDetails((previous) => ({ ...previous, [key]: event.target.value }));
       setError("");
     };
-  const organization = type === "ORGANIZATION_REPRESENTATIVE";
+  const organization = type === "organization";
   const submit = async () => {
+    if (busy) return;
     setBusy(true);
     setError("");
     try {
-      const response = await api<{ message: string }>("/auth/register", {
-        method: "POST",
-        body: {
-          name: details.name,
-          email: details.email,
-          password: details.password,
-          accountType: type,
-          ...(type !== "USER"
-            ? {
-                application: {
-                  name: details.businessName,
-                  contact: details.contact,
-                  location: details.location,
-                  evidenceUrl: details.evidenceUrl,
-                  ...(organization
-                    ? {
-                        organizationType: details.organizationType,
-                        position: details.position,
-                      }
-                    : {}),
-                },
-              }
-            : {}),
+      const response = await api<{ message: string }>(
+        apiEndpoints.auth.register,
+        {
+          method: "POST",
+          body: {
+            name: details.name,
+            email: details.email,
+            password: details.password,
+            registrationKind: type,
+            ...(type !== "personal"
+              ? {
+                  application: {
+                    name: details.businessName,
+                    contact: details.contact,
+                    location: details.location,
+                    evidenceUrl: details.evidenceUrl,
+                    ...(organization
+                      ? {
+                          organizationType: details.organizationType,
+                          position: details.position,
+                        }
+                      : {}),
+                  },
+                }
+              : {}),
+          },
         },
-      });
+      );
       setDetails((previous) => ({
         ...previous,
         password: "",
@@ -155,7 +160,7 @@ export default function RegistrationPage() {
             {[
               "Account type",
               "Personal details",
-              ...(type === "USER" ? [] : ["Application"]),
+              ...(type === "personal" ? [] : ["Application"]),
             ].map((label, i) => (
               <li
                 key={label}
@@ -163,7 +168,7 @@ export default function RegistrationPage() {
                 className={step === i ? "font-semibold text-[#245c35]" : ""}
               >
                 {i + 1}. {label}
-                {i < (type === "USER" ? 1 : 2) ? " /" : ""}
+                {i < (type === "personal" ? 1 : 2) ? " /" : ""}
               </li>
             ))}
           </ol>
@@ -216,7 +221,7 @@ export default function RegistrationPage() {
                   setError("Your passwords do not match.");
                   return;
                 }
-                if (step === 1 && type !== "USER") {
+                if (step === 1 && type !== "personal") {
                   setStep(2);
                   return;
                 }
@@ -397,9 +402,9 @@ export default function RegistrationPage() {
                   >
                     {busy
                       ? "Submitting…"
-                      : step === 1 && type !== "USER"
+                      : step === 1 && type !== "personal"
                         ? "Continue"
-                        : type === "USER"
+                        : type === "personal"
                           ? "Create account"
                           : "Submit application"}
                     <ArrowRight size={15} />

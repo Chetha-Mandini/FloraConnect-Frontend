@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { apiEndpoints } from "../config/api";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import AuthLayout, {
@@ -26,7 +27,7 @@ export default function LoginPage() {
           setBusy(true);
           setError("");
           try {
-            const session = await api<AuthSession>("/auth/login", {
+            const session = await api<AuthSession>(apiEndpoints.auth.login, {
               method: "POST",
               body: {
                 email: fields.get("email"),

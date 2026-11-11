@@ -254,7 +254,7 @@ export function GrowerSection() {
           <SectionHeading label="FOR OUR GROWERS" title="Showcase Your Farm">
             Reach more buyers and grow your business with FloraConnect.
           </SectionHeading>
-          <Link className="button primary" to="/register?role=grower">
+          <Link className="button primary" to="/register?application=grower">
             Join as a Grower <ArrowRight size={17} />
           </Link>
         </Reveal>

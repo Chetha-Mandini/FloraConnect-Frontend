@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { apiEndpoints } from "../config/api";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AuthLayout, {
   actionClass,
@@ -42,7 +43,7 @@ export default function VerifyEmailPage() {
             setError("");
             try {
               const response = await api<{ message: string }>(
-                "/auth/verify-email",
+                apiEndpoints.auth.verifyEmail,
                 { method: "POST", body: { token } },
               );
               setVerified(true);
@@ -67,7 +68,7 @@ export default function VerifyEmailPage() {
             setError("");
             try {
               const response = await api<{ message: string }>(
-                "/auth/resend-verification",
+                apiEndpoints.auth.resendVerification,
                 { method: "POST", body: { email: fields.get("email") } },
               );
               setMessage(response.message);

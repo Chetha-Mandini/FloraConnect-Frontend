@@ -1,4 +1,5 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+import { apiEndpoints } from "../config/api";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSession } from "../features/auth/useSession";
 import PasswordChangeForm from "../features/auth/PasswordChangeForm";
@@ -83,7 +84,7 @@ export default function AccountPage() {
               setBusy(true);
               setError("");
               try {
-                await api("/auth/profile", {
+                await api(apiEndpoints.auth.profile, {
                   method: "PATCH",
                   body: {
                     name: values.get("name"),

@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+import { apiEndpoints } from "../../config/api";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api/auth";
 import { actionClass, AuthField } from "../../components/auth/AuthLayout";
@@ -25,7 +26,7 @@ export default function PasswordChangeForm({
         }
         setBusy(true);
         try {
-          await api("/auth/password", {
+          await api(apiEndpoints.auth.password, {
             method: "POST",
             body: {
               currentPassword: values.get("currentPassword"),
