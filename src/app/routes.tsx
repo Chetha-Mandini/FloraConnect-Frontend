@@ -6,6 +6,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
 import CommunityPage from "../pages/CommunityPage";
+import LoginPage from "../pages/LoginPage";
 
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 
@@ -96,13 +97,7 @@ export const routeObjects: RouteObject[] = [
           },
           {
             path: "login",
-            element: (
-              <PlaceholderPage
-                title="Login"
-                description="Welcome back to FloraConnect."
-                emptyMessage="Member login is coming soon. This preview does not collect account details."
-              />
-            ),
+            element: <LoginPage />,
           },
           {
             path: "register",
