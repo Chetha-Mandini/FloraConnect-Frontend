@@ -80,12 +80,12 @@ export function HeroSection() {
     >
       <div className="hero-inner container">
         <div className="hero-copy">
-          <Reveal>
+          <div>
             <p className="community-badge">
               <Sprout size={19} /> Sri Lanka&apos;s Flower Community
             </p>
             <h1 id="hero-title">FloraConnect</h1>
-          </Reveal>
+          </div>
           <div
             className="hero-messages"
             aria-live={playing && !reduced ? "off" : "polite"}
@@ -142,17 +142,21 @@ export function HeroSection() {
             ))}
           </div>
         </div>
-        <Reveal className="hero-visual" delay={0.12}>
+        <div className="hero-visual">
           <div className="hero-image-shape">
-            <ShimmerImage
-              src="/images/national-flower-hero.png"
+            <img
+              src="/images/national-flower-hero-1448.webp"
+              srcSet="/images/national-flower-hero-768.webp 768w, /images/national-flower-hero-1448.webp 1448w"
+              sizes="(max-width: 767px) 100vw, 60vw"
+              loading="eager"
+              decoding="async"
               alt="Three blue-violet Nymphaea nouchali water lilies with golden centers, framed by soft sage curves and green botanical leaves"
               width="1448"
               height="1086"
               fetchPriority="high"
             />
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
