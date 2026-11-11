@@ -19,6 +19,10 @@ export default function Navbar() {
   const input = useRef<HTMLInputElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
+  const closePanels = () => {
+    setOpen(false);
+    setSearch(false);
+  };
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 12);
     update();
@@ -67,10 +71,14 @@ export default function Navbar() {
           >
             <Search size={19} />
           </button>
-          <Link className="button outline login-button" to="/login">
+          <Link
+            className="button outline login-button"
+            to="/login"
+            onClick={closePanels}
+          >
             Login
           </Link>
-          <Link className="button primary" to="/register">
+          <Link className="button primary" to="/register" onClick={closePanels}>
             Register
           </Link>
           <button

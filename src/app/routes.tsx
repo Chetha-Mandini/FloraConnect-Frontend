@@ -6,6 +6,8 @@ import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
 import CommunityPage from "../pages/CommunityPage";
+import LoginPage from "../pages/LoginPage";
+import RegistrationPage from "../pages/Registation";
 
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 
@@ -45,15 +47,11 @@ export const routeObjects: RouteObject[] = [
       },
       {
         path: "register",
-        lazy: async () => ({
-          Component: (await import("../pages/Registation")).default,
-        }),
+        element: <RegistrationPage />,
       },
       {
         path: "login",
-        lazy: async () => ({
-          Component: (await import("../pages/LoginPage")).default,
-        }),
+        element: <LoginPage />,
       },
       {
         element: <AppLayout />,
