@@ -64,6 +64,27 @@ describe("Role-aware registration and administration", () => {
       screen.queryByRole("button", { name: /Super Admin|Platform Admin/ }),
     ).not.toBeInTheDocument();
   });
+  it("ignores role selection in registration URLs and submits only a public registration intent", async () => {
+    vi.mocked(api).mockResolvedValue({ message: "Account registered." });
+    render(
+      <MemoryRouter
+        initialEntries={["/register?role=SUPER_ADMIN&application=SUPER_ADMIN"]}
+      >
+        <RegistrationPage />
+      </MemoryRouter>,
+    );
+    expect(
+      screen.getByRole("button", { name: /Personal account/ }),
+    ).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fillPersonal();
+    fireEvent.submit(screen.getByRole("form", { name: "Registration" }));
+    await screen.findByRole("status");
+    const body = vi.mocked(api).mock.calls[0][1]?.body;
+    expect(body).toMatchObject({ registrationKind: "personal" });
+    expect(body).not.toHaveProperty("role");
+    expect(body).not.toHaveProperty("accountType");
+  });
   it("creates a normal account through the API without submitting a privileged role", async () => {
     vi.mocked(api).mockResolvedValue({
       message: "Account registered and awaiting email verification.",
@@ -80,7 +101,7 @@ describe("Role-aware registration and administration", () => {
           name: "Test Person",
           email: "person@example.test",
           password: "test-password-123",
-          accountType: "USER",
+          registrationKind: "personal",
         },
       }),
     );
@@ -158,7 +179,7 @@ describe("Role-aware registration and administration", () => {
       <MemoryRouter initialEntries={["/super-admin"]}>
         <Routes>
           <Route path="/super-admin" element={<AdminDashboard superAdmin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/platform-admin" element={<AdminDashboard />} />
         </Routes>
       </MemoryRouter>,
     );
@@ -167,7 +188,10 @@ describe("Role-aware registration and administration", () => {
       screen.queryByRole("button", { name: "Users & staff access" }),
     ).not.toBeInTheDocument();
     await waitFor(() =>
-      expect(api).toHaveBeenCalledWith("/admin/overview", expect.anything()),
+      expect(api).toHaveBeenCalledWith(
+        "/platform-admin/overview",
+        expect.anything(),
+      ),
     );
     expect(
       vi

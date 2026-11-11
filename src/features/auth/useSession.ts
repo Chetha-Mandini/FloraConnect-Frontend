@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiEndpoints } from "../../config/api";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, ApiError, type AuthUser } from "../../services/api/auth";
 
@@ -10,7 +11,7 @@ export function useSession() {
   const [revision, setRevision] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
-    api<{ user: AuthUser }>("/auth/me", { signal: controller.signal })
+    api<{ user: AuthUser }>(apiEndpoints.auth.me, { signal: controller.signal })
       .then((data) => {
         if (!controller.signal.aborted) {
           setUser(data.user);

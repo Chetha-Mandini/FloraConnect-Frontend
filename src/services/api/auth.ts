@@ -1,4 +1,5 @@
-﻿import { apiBaseUrl } from "../../config/env";
+import { apiEndpoints } from "../../config/api";
+import { apiBaseUrl } from "../../config/env";
 
 export type Role =
   | "SUPER_ADMIN"
@@ -40,9 +41,13 @@ export async function api<T>(
   let response: Response;
   try {
     response = await fetch(`${apiBaseUrl}${path}`, {
+      cache: "no-store",
+      redirect: "error",
+      referrerPolicy: "no-referrer",
       credentials: "include",
       method: options.method ?? "GET",
       headers: {
+        Accept: "application/json",
         ...(options.body ? { "Content-Type": "application/json" } : {}),
         ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
       },
@@ -68,11 +73,11 @@ export async function api<T>(
 }
 export const destinationFor = (role: Role) =>
   role === "SUPER_ADMIN"
-    ? "/super-admin"
+    ? "/admin"
     : role === "PLATFORM_ADMIN"
-      ? "/admin"
+      ? "/platform-admin"
       : "/account";
 export async function logout() {
-  await api("/auth/logout", { method: "POST", body: {} });
+  await api(apiEndpoints.auth.logout, { method: "POST", body: {} });
   csrfToken = "";
 }

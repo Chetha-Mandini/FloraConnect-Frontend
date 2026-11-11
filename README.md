@@ -28,7 +28,7 @@ The production bundle is generated in `dist/`. On Vercel, select Vite, build wit
 
 The homepage follows the approved reference with an organic Nymphaea nouchali water-lily hero, four quick links, featured flowers, a grower community section, an upcoming events empty state and a curved forest-green footer. Entrances and hover effects respect reduced-motion preferences. Fonts use Inter and Playfair Display with system fallbacks.
 
-`/flowers` supports `?q=` search and `?category=` variety filtering over explicitly labeled sample data. Header search and all four category cards use these filters. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?role=grower` for future registration integration. Unknown paths render the existing 404 page.
+`/flowers` supports `?q=` search and `?category=` variety filtering over explicitly labeled sample data. Header search and all four category cards use these filters. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?application=grower` for future registration integration. Unknown paths render the existing 404 page.
 
 ## Implementation files
 
@@ -45,7 +45,7 @@ See [architecture conventions](docs/architecture/README.md) for the full folder 
 
 ## Backend connection
 
-The footer checks `/api/health` with a ten-second timeout and offers Retry on failure. Development defaults to `http://localhost:3001/api`; production retains `https://flora-connect-backend-gules.vercel.app/api`. Set `VITE_API_BASE_URL` in `.env.local` or your hosting environment to override it, including `/api`, then restart or rebuild. Never put secrets in `VITE_` variables. Preview deployment origins must be allowed by the backend.
+The footer checks the configured API health endpoint with a ten-second timeout. Copy `.env.example` to `.env.local` for local development. `VITE_API_BASE_URL` is the public API base; `API_PROXY_TARGET` configures the local Vite proxy. On Vercel keep `VITE_API_BASE_URL=/api` and configure server-only `BACKEND_API_BASE_URL` to the HTTPS backend API base. The included serverless proxy preserves same-origin cookie sessions without a fixed backend hostname. Other hosts need an equivalent same-origin proxy. Set backend `FRONTEND_ORIGINS` to the exact HTTPS frontend origin and `FRONTEND_URL` for verification emails. Only the explicitly allowed public API base is exposed by Vite; credentials belong exclusively in backend environment variables.
 
 ## Assets and remaining integrations
 

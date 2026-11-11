@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+import { apiEndpoints } from "../config/api";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Building2,
@@ -32,10 +33,10 @@ type Overview = {
     businesses: number;
     pending: number;
   };
-  audit: { _id: string; action: string; details: string; createdAt: string }[];
+  audit: { id: string; action: string; details: string; createdAt: string }[];
 };
 type Application = {
-  _id: string;
+  id: string;
   name: string;
   type: string;
   contact: string;
@@ -95,7 +96,7 @@ export default function AdminDashboard({
       try {
         if (tab === "overview")
           setOverview(
-            await api<Overview>("/admin/overview", {
+            await api<Overview>(apiEndpoints.workspace(superAdmin).overview, {
               signal: controller.signal,
             }),
           );
@@ -103,7 +104,10 @@ export default function AdminDashboard({
           const data = await api<{
             applications: Application[];
             total: number;
-          }>(`/admin/applications?page=${page}`, { signal: controller.signal });
+          }>(
+            `${apiEndpoints.workspace(superAdmin).applications}?page=${page}`,
+            { signal: controller.signal },
+          );
           if (!controller.signal.aborted) {
             setApplications(data.applications);
             setTotal(data.total);
@@ -111,7 +115,7 @@ export default function AdminDashboard({
         }
         if (tab === "users") {
           const data = await api<{ users: AuthUser[]; total: number }>(
-            `/admin/users?page=${page}`,
+            `${apiEndpoints.workspace(superAdmin).users}?page=${page}`,
             { signal: controller.signal },
           );
           if (!controller.signal.aborted) {
@@ -127,7 +131,7 @@ export default function AdminDashboard({
     };
     void fetchData();
     return () => controller.abort();
-  }, [allowed, user?.mustChangePassword, tab, page, refresh]);
+  }, [allowed, user?.mustChangePassword, tab, page, refresh, superAdmin]);
   if (session.loading)
     return (
       <main
@@ -162,7 +166,7 @@ export default function AdminDashboard({
     setBusy(true);
     setError("");
     try {
-      await api(`/admin/applications/${selected._id}/review`, {
+      await api(apiEndpoints.workspace(superAdmin).review(selected.id), {
         method: "POST",
         body: { decision, reason },
       });
@@ -339,7 +343,7 @@ export default function AdminDashboard({
                       overview.audit.length ? (
                         <ul className="divide-y divide-[#e5ebe5]">
                           {overview.audit.map((item) => (
-                            <li key={item._id} className="py-3">
+                            <li key={item.id} className="py-3">
                               <p className="text-xs font-semibold capitalize">
                                 {readable(item.action)}
                               </p>
@@ -377,7 +381,7 @@ export default function AdminDashboard({
                     <div className="grid gap-3">
                       {applications.map((item) => (
                         <article
-                          key={item._id}
+                          key={item.id}
                           className="rounded-xl border border-[#e5ebe5] bg-white p-5"
                         >
                           <div className="flex flex-wrap justify-between gap-3">
@@ -566,16 +570,21 @@ export default function AdminDashboard({
                         event.preventDefault();
                         setBusy(true);
                         try {
-                          await api(`/admin/users/${accountStatus.id}/status`, {
-                            method: "POST",
-                            body: {
-                              status:
-                                accountStatus.status === "SUSPENDED"
-                                  ? "ACTIVE"
-                                  : "SUSPENDED",
-                              reason,
+                          await api(
+                            apiEndpoints
+                              .workspace(superAdmin)
+                              .userStatus(accountStatus.id),
+                            {
+                              method: "POST",
+                              body: {
+                                status:
+                                  accountStatus.status === "SUSPENDED"
+                                    ? "ACTIVE"
+                                    : "SUSPENDED",
+                                reason,
+                              },
                             },
-                          });
+                          );
                           setAccountStatus(null);
                           setNotice("Account status updated.");
                           setRefresh((v) => v + 1);
@@ -624,13 +633,21 @@ export default function AdminDashboard({
                         event.preventDefault();
                         setBusy(true);
                         try {
-                          await api(`/admin/users/${staff.id}/platform-admin`, {
-                            method: "POST",
-                            body: {
-                              enabled: staff.role !== "PLATFORM_ADMIN",
-                              reason,
+                          await api(
+                            apiEndpoints
+                              .workspace(superAdmin)
+                              .staffAssignment(staff.id),
+                            {
+                              method: "POST",
+                              body: {
+                                enabled: staff.role !== "PLATFORM_ADMIN",
+                                reason,
+                                currentPassword: new FormData(
+                                  event.currentTarget,
+                                ).get("currentPassword"),
+                              },
                             },
-                          });
+                          );
                           setStaff(null);
                           setNotice("Staff access updated.");
                           setRefresh((v) => v + 1);
@@ -644,6 +661,18 @@ export default function AdminDashboard({
                       <h3 className="text-sm font-semibold">
                         Confirm staff access change for {staff.name}
                       </h3>
+                      <label htmlFor="staff-password" className={labelClass}>
+                        Confirm your current password
+                      </label>
+                      <input
+                        id="staff-password"
+                        name="currentPassword"
+                        type="password"
+                        autoComplete="current-password"
+                        required
+                        maxLength={128}
+                        className={controlClass}
+                      />
                       <label htmlFor="staff-reason" className={labelClass}>
                         Reason
                       </label>

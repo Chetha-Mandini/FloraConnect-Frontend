@@ -1,7 +1,8 @@
+import { apiEndpoints } from "../../config/api";
 import { apiBaseUrl } from "../../config/env";
 
 export async function checkApiHealth(signal: AbortSignal): Promise<void> {
-  const response = await fetch(`${apiBaseUrl}/health`, {
+  const response = await fetch(`${apiBaseUrl}${apiEndpoints.health}`, {
     signal,
     cache: "no-store",
     headers: { Accept: "application/json" },
