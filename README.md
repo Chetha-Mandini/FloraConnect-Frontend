@@ -89,3 +89,9 @@ The starting-letter filter is now a compact dropdown instead of the long A-Z but
 The eight supplied follow-up attachments were audited by `scripts/merge_flower_supplements.py`. Two are identical WFO background articles rather than individual-flower lists. The six A-F BioExplorer guides contain 191 flower entries, all already present in the catalogue. The fuller descriptions are merged by canonical ID from `flower-supplements.json`; no new cards were needed and the catalogue remains at 469 entries. Per-profile source links now point to the corresponding letter guide. Name matching normalizes case, accents, hyphens and straight/curly apostrophes, with the original canonical names, IDs and photos preserved. This is name-level duplicate prevention, not a claim to resolve every taxonomic synonym or merge genus-level and species-level entries.
 
 The complete attachment audit, content hashes, source URLs and matches are in `docs/assets/flower-supplement-audit.json`. The original imported reference excerpts remain preserved separately. Re-run the merge helper with paths to supplied text files as arguments to reproduce the comparison.
+
+## Shared links on Vercel
+
+The root `vercel.json` rewrites application paths to `/index.html` so React Router can resolve direct visits and refreshes, including `/flowers`, `/growers` and `/events`. Existing static assets remain served from the build output. After changing this configuration, deploy the updated branch to Vercel; an older deployment retains its previous routing rules.
+
+Verify the deployment by opening `/flowers` in a new tab and refreshing it, then checking that its JavaScript, stylesheet and flower images load normally. Unknown application routes should display FloraConnect's own not-found page.
