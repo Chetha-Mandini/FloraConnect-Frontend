@@ -6,7 +6,6 @@ import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
 import CommunityPage from "../pages/CommunityPage";
-import LoginPage from "../pages/LoginPage";
 
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 
@@ -17,6 +16,44 @@ export const routeObjects: RouteObject[] = [
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "super-admin",
+        lazy: async () => {
+          const { default: Dashboard } =
+            await import("../pages/AdminDashboard");
+          return { element: <Dashboard superAdmin /> };
+        },
+      },
+      {
+        path: "admin",
+        lazy: async () => ({
+          Component: (await import("../pages/AdminDashboard")).default,
+        }),
+      },
+      {
+        path: "account",
+        lazy: async () => ({
+          Component: (await import("../pages/AccountPage")).default,
+        }),
+      },
+      {
+        path: "verify-email",
+        lazy: async () => ({
+          Component: (await import("../pages/VerifyEmailPage")).default,
+        }),
+      },
+      {
+        path: "register",
+        lazy: async () => ({
+          Component: (await import("../pages/Registation")).default,
+        }),
+      },
+      {
+        path: "login",
+        lazy: async () => ({
+          Component: (await import("../pages/LoginPage")).default,
+        }),
       },
       {
         element: <AppLayout />,
@@ -92,20 +129,6 @@ export const routeObjects: RouteObject[] = [
                 title="Announcements"
                 description="Keep up with community updates and relevant opportunities."
                 emptyMessage="There are no announcements yet. Check back as FloraConnect grows."
-              />
-            ),
-          },
-          {
-            path: "login",
-            element: <LoginPage />,
-          },
-          {
-            path: "register",
-            element: (
-              <PlaceholderPage
-                title="Register"
-                description="Join growers, associations, buyers and flower enthusiasts."
-                emptyMessage="Member registration is coming soon. This preview does not collect account details."
               />
             ),
           },

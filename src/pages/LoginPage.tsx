@@ -1,108 +1,113 @@
-﻿import {
-  ArrowLeft,
-  ArrowRight,
-  LockKeyhole,
-  Mail,
-  ShieldCheck,
-  Sprout,
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import "./LoginPage.css";
+﻿import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import AuthLayout, {
+  actionClass,
+  AuthField,
+} from "../components/auth/AuthLayout";
+import { api, destinationFor, type AuthSession } from "../services/api/auth";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [visible, setVisible] = useState(false);
   return (
-    <main id="main" className="login-page">
-      <div className="login-card">
-        <aside className="login-story" aria-label="The FloraConnect community">
-          <img
-            src="/images/national-flower-hero-768.webp"
-            alt="Blue-violet Nymphaea nouchali water lilies in bloom"
-            width="768"
-            height="576"
+    <AuthLayout
+      title="Login"
+      description="Welcome back. Sign in to your FloraConnect account."
+    >
+      <form
+        aria-label="Member login"
+        className="space-y-4"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const fields = new FormData(event.currentTarget);
+          setBusy(true);
+          setError("");
+          try {
+            const session = await api<AuthSession>("/auth/login", {
+              method: "POST",
+              body: {
+                email: fields.get("email"),
+                password: fields.get("password"),
+              },
+            });
+            navigate(destinationFor(session.user.role), { replace: true });
+          } catch (e) {
+            setError((e as Error).message);
+          } finally {
+            setBusy(false);
+          }
+        }}
+      >
+        <fieldset
+          disabled={busy}
+          className="m-0 min-w-0 space-y-4 border-0 p-0"
+        >
+          <legend className="sr-only">Your account credentials</legend>
+          <AuthField
+            id="login-email"
+            name="email"
+            label="Email address"
+            type="email"
+            autoComplete="username"
+            required
+            placeholder="you@example.com"
           />
-          <div className="login-story-copy">
-            <span className="login-eyebrow">
-              <Sprout size={18} /> ROOTED IN COMMUNITY
-            </span>
-            <h2>
-              A place to connect.
-              <br />A community to grow.
-            </h2>
-            <p>
-              Discover beautiful blooms and connect with Sri Lanka&apos;s flower
-              community.
+          <div className="relative">
+            <AuthField
+              id="login-password"
+              name="password"
+              label="Password"
+              type={visible ? "text" : "password"}
+              autoComplete="current-password"
+              className="pr-12!"
+              required
+              maxLength={128}
+            />
+            <button
+              type="button"
+              className="absolute right-1 bottom-0 flex size-11 items-center justify-center rounded-md text-[#647067] focus-visible:outline-none! focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#245c35]"
+              aria-label={visible ? "Hide password" : "Show password"}
+              aria-pressed={visible}
+              onClick={() => setVisible((v) => !v)}
+            >
+              {visible ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+          {error && (
+            <p
+              role="alert"
+              className="rounded-lg bg-red-50 p-3 text-xs leading-relaxed text-red-800"
+            >
+              {error}
             </p>
-          </div>
-        </aside>
-        <section className="login-panel" aria-labelledby="login-title">
-          <Link className="login-back" to="/">
-            <ArrowLeft size={16} /> Back to home
-          </Link>
-          <div className="login-intro">
-            <span className="login-mark" aria-hidden="true">
-              <Sprout size={27} />
-            </span>
-            <p className="login-eyebrow">WELCOME TO FLORACONNECT</p>
-            <h1 id="login-title">Login</h1>
-            <p>Welcome back to FloraConnect.</p>
-          </div>
-          <div className="login-notice" id="login-availability">
-            <ShieldCheck size={20} aria-hidden="true" />
-            <p>
-              Member sign-in is not available yet. Your account details cannot
-              be entered or submitted.
-            </p>
-          </div>
-          <form
-            aria-label="Member login"
-            aria-describedby="login-availability"
-            onSubmit={(event) => event.preventDefault()}
+          )}
+          <button
+            className={`${actionClass} w-full`}
+            type="submit"
+            aria-busy={busy}
           >
-            <fieldset disabled className="login-fields">
-              <legend className="sr-only">
-                Account credentials — sign-in unavailable
-              </legend>
-              <label htmlFor="login-email">Email address</label>
-              <div className="login-input">
-                <Mail size={18} aria-hidden="true" />
-                <input
-                  id="login-email"
-                  name="email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="you@example.com"
-                />
-              </div>
-              <label htmlFor="login-password">Password</label>
-              <div className="login-input">
-                <LockKeyhole size={18} aria-hidden="true" />
-                <input
-                  id="login-password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="Enter your password"
-                />
-              </div>
-              <button className="button primary login-submit" type="submit">
-                Sign in <ArrowRight size={17} />
-              </button>
-            </fieldset>
-          </form>
-          <p className="login-register">
-            New to FloraConnect?{" "}
-            <Link to="/register">
-              Explore membership <ArrowRight size={14} />
-            </Link>
-          </p>
-          <div className="login-browse">
-            <span>Keep exploring</span>
-            <Link to="/flowers">
-              Discover our flower catalogue <ArrowRight size={16} />
-            </Link>
-          </div>
-        </section>
-      </div>
-    </main>
+            {busy ? "Signing in…" : "Sign in"}
+            <ArrowRight size={16} />
+          </button>
+        </fieldset>
+      </form>
+      <p className="mt-4! text-center text-xs">
+        <Link to="/verify-email" className="text-[#245c35]! hover:underline">
+          Need to verify your email?
+        </Link>
+      </p>
+      <p className="mt-5! text-center text-xs text-[#647067]">
+        New to FloraConnect?{" "}
+        <Link
+          to="/register"
+          className="font-semibold text-[#245c35]! hover:underline"
+        >
+          Explore membership
+        </Link>
+      </p>
+    </AuthLayout>
   );
 }
