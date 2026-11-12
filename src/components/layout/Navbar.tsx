@@ -13,6 +13,9 @@ export default function Navbar({ isAuthenticated = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const closePanels = () => {
+    setSearch(false);
+  };
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 12);
     update();
@@ -43,19 +46,35 @@ export default function Navbar({ isAuthenticated = false }: NavbarProps) {
           </button>
           {isAuthenticated ? (
             <>
-              <Link className="button outline profile-button" to="/profile">
+              <Link
+                className="button outline profile-button"
+                to="/profile"
+                onClick={closePanels}
+              >
                 Profile
               </Link>
-              <Link className="button primary" to="/logout">
+              <Link
+                className="button primary"
+                to="/logout"
+                onClick={closePanels}
+              >
                 Logout
               </Link>
             </>
           ) : (
             <>
-              <Link className="button outline login-button" to="/login">
+              <Link
+                className="button outline login-button"
+                to="/login"
+                onClick={closePanels}
+              >
                 Login
               </Link>
-              <Link className="button primary" to="/register">
+              <Link
+                className="button primary"
+                to="/register"
+                onClick={closePanels}
+              >
                 Register
               </Link>
             </>

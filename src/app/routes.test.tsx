@@ -58,16 +58,26 @@ describe("application routes", () => {
     ).toBeVisible();
   });
 
-  it("navigates to a feature page without leaving the router", async () => {
-    const router = renderAt("/");
-
-    fireEvent.click(screen.getByRole("link", { name: "Register" }));
-
-    expect(
-      await screen.findByRole("heading", { name: "Register" }),
-    ).toBeVisible();
-    expect(router.state.location.pathname).toBe("/register");
-  });
+  it.each([
+    ["/", "Login", "/login"],
+    ["/", "Register", "/register"],
+    ["/events", "Login", "/login"],
+    ["/events", "Register", "/register"],
+  ])(
+    "navigates from %s using the %s header action",
+    async (source, label, destination) => {
+      const router = renderAt(source);
+      fireEvent.click(screen.getByRole("button", { name: "Search catalogue" }));
+      const link = screen.getByRole("link", { name: label });
+      expect(link).toHaveAttribute("href", destination);
+      fireEvent.click(link);
+      expect(await screen.findByRole("heading", { name: label })).toBeVisible();
+      expect(router.state.location.pathname).toBe(destination);
+      expect(screen.queryByRole("banner")).not.toBeInTheDocument();
+      expect(screen.queryByRole("contentinfo")).not.toBeInTheDocument();
+      expect(screen.queryByRole("search")).not.toBeInTheDocument();
+    },
+  );
 
   it("opens and dismisses the mobile navigation with Escape", () => {
     renderAt("/");

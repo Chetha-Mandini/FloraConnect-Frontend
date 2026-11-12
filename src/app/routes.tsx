@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import RouteLayout from "./RouteLayout";
 import PublicLayout from "../components/layout/PublicLayout";
@@ -6,13 +6,50 @@ import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
 import CommunityPage from "../pages/CommunityPage";
-
+import LoginPage from "../pages/LoginPage";
+import RegistrationPage from "../pages/Registation";
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 
 export const routeObjects: RouteObject[] = [
   {
     element: <RouteLayout />,
     children: [
+      {
+        path: "super-admin/*",
+        element: <Navigate to="/admin" replace />,
+      },
+      {
+        path: "admin/*",
+        lazy: async () => ({
+          Component: (await import("../pages/SuperAdminDashboard")).default,
+        }),
+      },
+      {
+        path: "platform-admin",
+        lazy: async () => ({
+          Component: (await import("../pages/AdminDashboard")).default,
+        }),
+      },
+      {
+        path: "account",
+        lazy: async () => ({
+          Component: (await import("../pages/AccountPage")).default,
+        }),
+      },
+      {
+        path: "verify-email",
+        lazy: async () => ({
+          Component: (await import("../pages/VerifyEmailPage")).default,
+        }),
+      },
+      {
+        path: "register",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
       {
         element: <PublicLayout />,
         children: [
@@ -91,26 +128,6 @@ export const routeObjects: RouteObject[] = [
                 title="Announcements"
                 description="Keep up with community updates and relevant opportunities."
                 emptyMessage="There are no announcements yet. Check back as FloraConnect grows."
-              />
-            ),
-          },
-          {
-            path: "login",
-            element: (
-              <PlaceholderPage
-                title="Login"
-                description="Welcome back to FloraConnect."
-                emptyMessage="Member login is coming soon. This preview does not collect account details."
-              />
-            ),
-          },
-          {
-            path: "register",
-            element: (
-              <PlaceholderPage
-                title="Register"
-                description="Join growers, associations, buyers and flower enthusiasts."
-                emptyMessage="Member registration is coming soon. This preview does not collect account details."
               />
             ),
           },
