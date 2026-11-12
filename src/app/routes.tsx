@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
-import AppLayout from "./AppLayout";
 import RouteLayout from "./RouteLayout";
+import PublicLayout from "../components/layout/PublicLayout";
 import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
@@ -14,12 +14,12 @@ export const routeObjects: RouteObject[] = [
     element: <RouteLayout />,
     children: [
       {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        element: <AppLayout />,
+        element: <PublicLayout />,
         children: [
+          {
+            path: "/",
+            element: <HomePage />,
+          },
           {
             path: "growers",
             element: (
@@ -111,6 +111,26 @@ export const routeObjects: RouteObject[] = [
                 title="Register"
                 description="Join growers, associations, buyers and flower enthusiasts."
                 emptyMessage="Member registration is coming soon. This preview does not collect account details."
+              />
+            ),
+          },
+          {
+            path: "profile",
+            element: (
+              <PlaceholderPage
+                title="Profile"
+                description="Your FloraConnect member profile."
+                emptyMessage="Member profiles are not available in this preview. No account data is collected."
+              />
+            ),
+          },
+          {
+            path: "logout",
+            element: (
+              <PlaceholderPage
+                title="Logout"
+                description="Sign out of FloraConnect."
+                emptyMessage="Sign-out is a placeholder in this preview; no authentication session is active."
               />
             ),
           },

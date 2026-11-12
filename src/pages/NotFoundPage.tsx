@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import EmptyState from "../components/ui/EmptyState";
+import PageContainer from "../components/layout/PageContainer";
 
 export default function NotFoundPage() {
   return (
-    <main className="foundation-main" id="main">
+    <PageContainer>
       <p className="foundation-eyebrow">404 · PAGE NOT FOUND</p>
       <h1>We couldn’t find that page</h1>
       <p className="foundation-description">
@@ -16,6 +17,6 @@ export default function NotFoundPage() {
       <Link className="foundation-home-link" to="/">
         Return to home
       </Link>
-    </main>
+    </PageContainer>
   );
 }

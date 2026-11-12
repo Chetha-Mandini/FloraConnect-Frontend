@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { routeObjects } from "./routes";
@@ -9,6 +9,8 @@ const routeCases: [string, RegExp][] = [
   ["/announcements", /^Announcements$/],
   ["/login", /^Login$/],
   ["/register", /^Register$/],
+  ["/profile", /^Profile$/],
+  ["/logout", /^Logout$/],
   ["/growers", /^Growers$/],
   ["/events", /^Events$/],
   ["/contact", /^Contact$/],
@@ -76,6 +78,39 @@ describe("application routes", () => {
     expect(
       screen.getByRole("button", { name: "Open navigation" }),
     ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("closes the mobile navigation after route navigation", async () => {
+    const router = renderAt("/");
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation" }));
+    fireEvent.click(
+      within(
+        screen.getByRole("navigation", { name: "Main navigation" }),
+      ).getByRole("link", { name: "Explore Flowers" }),
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Flowers" }),
+    ).toBeVisible();
+    expect(router.state.location.pathname).toBe("/flowers");
+    expect(
+      screen.getByRole("button", { name: "Open navigation" }),
+    ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("provides one main landmark and a working skip link", async () => {
+    renderAt("/associations");
+
+    expect(
+      await screen.findByRole("heading", { name: "Associations" }),
+    ).toBeVisible();
+    expect(screen.getAllByRole("main")).toHaveLength(1);
+    expect(
+      screen.getByRole("link", { name: "Skip to main content" }),
+    ).toHaveAttribute("href", "#main");
+    expect(
+      screen.getByRole("link", { name: "Associations", current: "page" }),
+    ).toBeVisible();
   });
 
   it("searches the catalogue from the header", async () => {
