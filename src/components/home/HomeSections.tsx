@@ -207,11 +207,14 @@ export function FeaturedFlowers() {
             >
               <div className="flower-image">
                 <ShimmerImage
-                  src={`/images/${flower.image}`}
-                  alt={flower.name}
-                  width="360"
-                  height="420"
+                  src={`/images/${flower.image}-720.webp`}
+                  srcSet={`/images/${flower.image}-360.webp 360w, /images/${flower.image}-720.webp 720w, /images/${flower.image}-1080.webp 1080w`}
+                  sizes="(max-width: 767px) 45vw, (max-width: 1023px) 23vw, 20vw"
+                  alt={flower.alt}
+                  width="720"
+                  height="900"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <span className="flower-card-info">
