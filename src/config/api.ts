@@ -28,6 +28,9 @@ export const apiEndpoints = {
     summary: "/admin/console/summary",
     analytics: "/admin/console/analytics",
     roles: "/admin/console/roles",
+    accessPolicy: "/admin/console/access-policy",
+    createUser: "/admin/console/users",
+    userAccess: (id: string) => `/admin/console/users/${resourceId(id)}/access`,
     records: (resource: string) => {
       if (
         ![

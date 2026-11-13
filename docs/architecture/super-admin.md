@@ -1,5 +1,9 @@
 # Super Admin implementation map
 
+User creation, controlled role assignment and server-enforced per-user permission
+grants are now implemented. See [User access management](user-access-management.md)
+for the current contract and safeguards; it supersedes the original limitations below.
+
 ## Existing architecture
 
 React/TypeScript, React Router, Tailwind and scoped CSS on the frontend; Express,
@@ -20,13 +24,13 @@ and transactional application approvals are reused.
 - Overview: six actual database counts, pending approvals, recent audit activity,
   and registration charts. Analytics support 7/30/90 days and custom date ranges.
 - Users: server pagination, search, status and sorting; details; name/phone/address
-  edits; suspension/reactivation; controlled Platform Admin assignment. Mutations
+  edits; suspension/reactivation; user creation and controlled role/permission assignment. Mutations
   require reasons and confirmations. Account and staff changes revoke sessions.
 - Organizations and businesses: paginated searchable directories and details.
 - Verification: paginated application search, type/status filters, evidence links,
   and existing transactional approval/rejection with reasons.
 - Roles: seven exact backend identifiers and actual assigned-user counts. Existing
-  code-enforced boundaries are described; no configurable permissions are implied.
+  role ceilings and configurable per-user permissions come from the backend policy.
 - Audit logs: paginated browsing of existing action, reason and timestamp records.
 - Profile: existing authenticated profile API and verified password-change component.
 
@@ -71,10 +75,10 @@ not exposed as functioning controls until the above policies exist. Audit detail
 currently omit actor/target identity rather than disclose internal IDs or invent
 historical fields. Orders and listing metrics cannot be computed from the reference
 flower catalogue. There is no notifications API. MFA, global permission editing,
-elevated SUPER_ADMIN grants, payments, refunds, tracking and retention-based removal
-are not implemented by this change. The dashboard cannot suspend, demote, or remove
-any Super Admin, protecting the last active Super Admin without adding an unsafe
-elevation workflow.
+payments, refunds, tracking and retention-based removal are not implemented.
+Controlled Super Admin grants require current-password verification and explicit
+acknowledgement. Self-access changes and removal of the last active Super Admin
+are blocked. Super Admin suspension remains blocked.
 
 ## Validation
 

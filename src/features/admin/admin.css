@@ -157,13 +157,56 @@
   margin-left: auto;
   position: relative;
 }
-.fc-admin-profile-menu summary {
+.fc-admin-profile-menu > button {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   font-size: 12px;
   list-style: none;
+}
+.fc-admin-access-fields {
+  display: grid;
+  gap: 16px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.fc-admin-permissions {
+  display: grid;
+  gap: 12px;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--fc-admin-border);
+  border-radius: 7px;
+  padding: 14px;
+}
+.fc-admin-permissions legend {
+  padding: 0 5px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.fc-admin-root .fc-admin-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.fc-admin-root .fc-admin-checkbox input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  padding: 0;
+  accent-color: #245c43;
+}
+.fc-admin-checkbox small {
+  display: block;
+  margin-top: 3px;
+  font-weight: 400;
+}
+.fc-admin-root .fc-admin-error {
+  color: #913b3b;
 }
 .fc-admin-profile-menu > div {
   position: absolute;
@@ -177,8 +220,7 @@
   box-shadow: 0 8px 24px #20272012;
   z-index: 10;
 }
-.fc-admin-profile-menu a,
-.fc-admin-profile-menu button {
+.fc-admin-profile-menu [role="menuitem"] {
   display: block;
   padding: 10px;
   width: 100%;
@@ -648,7 +690,7 @@
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .fc-admin-profile-menu summary > span:last-child {
+  .fc-admin-profile-menu > button > span:last-child {
     display: none;
   }
   .fc-admin-heading h1 {
@@ -680,5 +722,67 @@
   .fc-admin-root * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+.fc-admin-profile-menu > button {
+  border: 0;
+  width: auto;
+  background: transparent;
+  padding: 4px;
+}
+.fc-admin-root .fc-admin-primary:disabled {
+  opacity: 1;
+  cursor: wait;
+}
+.fc-admin-heading > .fc-admin-actions {
+  margin-top: 0;
+}
+.fc-admin-section-heading {
+  flex-wrap: wrap;
+}
+.fc-admin-section-heading > div {
+  flex: 1;
+  min-width: 240px;
+}
+.fc-admin-policy {
+  list-style: disc;
+}
+.fc-admin-policy li + li {
+  margin-top: 8px;
+}
+.fc-admin-role-table {
+  min-width: 900px;
+  table-layout: fixed;
+}
+.fc-admin-table-hint {
+  display: none;
+}
+.fc-admin-dialog .modal-heading {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;
+  padding-bottom: 12px;
+}
+.fc-admin-dialog .modal-heading::before {
+  content: "";
+  position: absolute;
+  inset: -30px -30px 0;
+  background: white;
+  z-index: -1;
+  pointer-events: none;
+}
+.fc-admin-dialog .modal-heading h2 {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1.3;
+}
+@media (max-width: 1000px) {
+  .fc-admin-root .fc-admin-table-hint {
+    display: block;
+    font-size: 11px;
+    color: #66736b;
+    margin: 12px 0;
   }
 }

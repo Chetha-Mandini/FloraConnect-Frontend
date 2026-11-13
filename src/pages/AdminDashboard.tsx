@@ -78,6 +78,24 @@ export default function AdminDashboard({
   const [staff, setStaff] = useState<AuthUser | null>(null);
   const [accountStatus, setAccountStatus] = useState<AuthUser | null>(null);
   const [reason, setReason] = useState("");
+  const canReview =
+    !user?.permissions || user.permissions.includes("applications.review");
+  const canOverview =
+    !user?.permissions || user.permissions.includes("overview.read");
+  const canReadApplications =
+    !user?.permissions || user.permissions.includes("applications.read");
+  const activeTab =
+    tab === "users" && superAdmin
+      ? "users"
+      : tab === "applications" && canReadApplications
+        ? "applications"
+        : tab === "overview" && canOverview
+          ? "overview"
+          : canOverview
+            ? "overview"
+            : canReadApplications
+              ? "applications"
+              : "none";
   const allowed =
     user &&
     (superAdmin
@@ -88,19 +106,19 @@ export default function AdminDashboard({
       navigate(destinationFor(user.role), { replace: true });
   }, [user, allowed, superAdmin, navigate]);
   useEffect(() => {
-    if (!allowed || user?.mustChangePassword) return;
+    if (!allowed || user?.mustChangePassword || activeTab === "none") return;
     const controller = new AbortController();
     const fetchData = async () => {
       setLoading(true);
       setError("");
       try {
-        if (tab === "overview")
+        if (activeTab === "overview")
           setOverview(
             await api<Overview>(apiEndpoints.workspace(superAdmin).overview, {
               signal: controller.signal,
             }),
           );
-        if (tab === "applications") {
+        if (activeTab === "applications") {
           const data = await api<{
             applications: Application[];
             total: number;
@@ -113,7 +131,7 @@ export default function AdminDashboard({
             setTotal(data.total);
           }
         }
-        if (tab === "users") {
+        if (activeTab === "users") {
           const data = await api<{ users: AuthUser[]; total: number }>(
             `${apiEndpoints.workspace(superAdmin).users}?page=${page}`,
             { signal: controller.signal },
@@ -131,7 +149,7 @@ export default function AdminDashboard({
     };
     void fetchData();
     return () => controller.abort();
-  }, [allowed, user?.mustChangePassword, tab, page, refresh, superAdmin]);
+  }, [allowed, user?.mustChangePassword, activeTab, page, refresh, superAdmin]);
   if (session.loading)
     return (
       <main
@@ -152,6 +170,17 @@ export default function AdminDashboard({
       </main>
     );
   if (!user || !allowed) return null;
+  if (!user.mustChangePassword && activeTab === "none")
+    return (
+      <main className="p-8">
+        <h1>Administration access is disabled</h1>
+        <p>
+          Your Super Admin has not granted access to administrative pages. Your
+          account and password controls remain available.
+        </p>
+        <Link to="/account">My account</Link>
+      </main>
+    );
   const changeTab = (next: string) => {
     setTab(next);
     setPage(1);
@@ -234,10 +263,14 @@ export default function AdminDashboard({
             ].map(({ id, label, Icon }) => (
               <button
                 key={id}
-                disabled={user.mustChangePassword}
-                aria-current={tab === id ? "page" : undefined}
+                disabled={
+                  user.mustChangePassword ||
+                  (id === "overview" && !canOverview) ||
+                  (id === "applications" && !canReadApplications)
+                }
+                aria-current={activeTab === id ? "page" : undefined}
                 onClick={() => changeTab(id)}
-                className={`inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-left! text-xs font-medium disabled:opacity-50 ${tab === id ? "bg-[#eaf2e8] text-[#245c35]" : "text-[#647067] hover:bg-white"}`}
+                className={`inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-left! text-xs font-medium disabled:opacity-50 ${activeTab === id ? "bg-[#eaf2e8] text-[#245c35]" : "text-[#647067] hover:bg-white"}`}
               >
                 <Icon size={17} />
                 {label}
@@ -296,7 +329,7 @@ export default function AdminDashboard({
                   <Skeleton className="h-24 w-full" />
                   <Skeleton className="mt-5 h-60 w-full" />
                 </div>
-              ) : tab === "overview" && overview ? (
+              ) : activeTab === "overview" && overview ? (
                 <>
                   <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                     {[
@@ -374,7 +407,7 @@ export default function AdminDashboard({
                     )}
                   </section>
                 </>
-              ) : tab === "applications" ? (
+              ) : activeTab === "applications" ? (
                 <>
                   <h2 className="mb-4! text-xl!">Verification requests</h2>
                   {applications.length ? (
@@ -483,12 +516,22 @@ export default function AdminDashboard({
                           complete.
                         </p>
                       )}
+                      {!canReview && (
+                        <p
+                          role="status"
+                          className="mt-2! text-xs text-[#647067]"
+                        >
+                          Application review permission has been disabled for
+                          your account.
+                        </p>
+                      )}
                       <div className="mt-4 flex flex-wrap gap-3">
                         <button
                           disabled={
                             busy ||
                             !reason.trim() ||
-                            !selected.userId?.emailVerified
+                            !selected.userId?.emailVerified ||
+                            !canReview
                           }
                           className={actionClass}
                           onClick={() => void review("APPROVED")}
@@ -496,7 +539,7 @@ export default function AdminDashboard({
                           Approve
                         </button>
                         <button
-                          disabled={busy || !reason.trim()}
+                          disabled={busy || !reason.trim() || !canReview}
                           className="min-h-11 rounded-lg border! border-red-200! px-4 text-sm text-red-800 disabled:opacity-50"
                           onClick={() => void review("REJECTED")}
                         >
@@ -512,7 +555,7 @@ export default function AdminDashboard({
                     </section>
                   )}
                 </>
-              ) : tab === "users" && superAdmin ? (
+              ) : activeTab === "users" && superAdmin ? (
                 <>
                   <h2 className="mb-4! text-xl!">Users and staff access</h2>
                   <div className="space-y-3">
@@ -700,7 +743,7 @@ export default function AdminDashboard({
                   )}
                 </>
               ) : null}
-              {tab !== "overview" && !loading && total > 20 && (
+              {activeTab !== "overview" && !loading && total > 20 && (
                 <div className="mt-5 flex items-center gap-4 text-xs">
                   <button
                     disabled={page === 1}
