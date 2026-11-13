@@ -1,5 +1,6 @@
 import { apiEndpoints } from "../../config/api";
 import { apiBaseUrl } from "../../config/env";
+import { clearLoginSession } from "../../features/auth/login-session";
 
 export type Role =
   | "SUPER_ADMIN"
@@ -52,7 +53,9 @@ export async function api<T>(
         ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
       },
       body: options.body ? JSON.stringify(options.body) : undefined,
-      signal: options.signal ?? AbortSignal.timeout(15000),
+      signal: options.signal
+        ? AbortSignal.any([options.signal, AbortSignal.timeout(15000)])
+        : AbortSignal.timeout(15000),
     });
   } catch (error) {
     if (options.signal?.aborted) throw error;
@@ -63,11 +66,15 @@ export async function api<T>(
   }
   const data =
     response.status === 204 ? null : await response.json().catch(() => null);
-  if (!response.ok)
+  if (!response.ok) {
+    if (response.status === 401) clearLoginSession();
     throw new ApiError(
       data?.message ?? "The request could not be completed. Please try again.",
       response.status,
     );
+  }
+  if (path === apiEndpoints.auth.password || path === apiEndpoints.auth.logout)
+    clearLoginSession();
   if (data?.csrfToken) csrfToken = data.csrfToken;
   return data as T;
 }
@@ -79,5 +86,6 @@ export const destinationFor = (role: Role) =>
       : "/account";
 export async function logout() {
   await api(apiEndpoints.auth.logout, { method: "POST", body: {} });
+  clearLoginSession();
   csrfToken = "";
 }

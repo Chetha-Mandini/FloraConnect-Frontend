@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import RegistrationPage from "../../pages/Registation";
 import LoginPage from "../../pages/LoginPage";
 import AdminDashboard from "../../pages/AdminDashboard";
+import SuperAdminDashboard from "../../pages/SuperAdminDashboard";
 import { api } from "../../services/api/auth";
 
 vi.mock("../../services/api/auth", async (importOriginal) => ({
@@ -50,6 +51,52 @@ function fillPersonal() {
   });
 }
 describe("Role-aware registration and administration", () => {
+  it("opens the dashboard after server login while follow-up verification and charts are still pending", async () => {
+    vi.mocked(api).mockImplementation(async (path) => {
+      if (path === "/auth/login")
+        return { user, csrfToken: "test-csrf" } as never;
+      if (path === "/admin/console/summary")
+        return {
+          counts: {
+            users: 1,
+            active: 1,
+            organizations: 0,
+            florists: 0,
+            growers: 0,
+            unverified: 0,
+            pendingOrganizations: 0,
+            pendingFlorists: 0,
+            pendingGrowers: 0,
+          },
+          audit: [],
+        } as never;
+      return new Promise(() => {});
+    });
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<SuperAdminDashboard />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    fireEvent.change(screen.getByLabelText("Email address"), {
+      target: { value: "test@example.test" },
+    });
+    fireEvent.change(screen.getByLabelText("Password", { exact: true }), {
+      target: { value: "fixture-password" },
+    });
+    fireEvent.submit(screen.getByRole("form", { name: "Member login" }));
+    expect(
+      await screen.findByRole(
+        "heading",
+        { name: "Overview" },
+        { timeout: 1000 },
+      ),
+    ).toBeVisible();
+    expect(await screen.findByText("Registered users")).toBeVisible();
+    expect(api).toHaveBeenCalledWith("/auth/me", expect.anything());
+  });
   it("offers only public registration paths and never staff roles", () => {
     registration();
     expect(

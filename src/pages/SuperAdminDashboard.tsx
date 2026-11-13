@@ -184,10 +184,36 @@ export default function SuperAdminDashboard() {
           if (!controller.signal.aborted) setData(result);
         }
         if (section === "") {
-          const result = await adminApi.summary(controller.signal);
-          if (!controller.signal.aborted) setSummary(result);
+          // First useful overview never waits for the slower aggregation charts.
+          const results = await Promise.allSettled([
+            adminApi.summary(controller.signal).then((result) => {
+              if (!controller.signal.aborted) {
+                setSummary(result);
+                setLoading(false);
+              }
+            }),
+            ...(days !== "custom" || (from && to)
+              ? [
+                  adminApi
+                    .analytics(
+                      new URLSearchParams(
+                        days === "custom" ? { from, to } : { days },
+                      ),
+                      controller.signal,
+                    )
+                    .then((result) => {
+                      if (!controller.signal.aborted) setAnalytics(result);
+                    }),
+                ]
+              : []),
+          ]);
+          const failure = results.find(
+            (result) => result.status === "rejected",
+          );
+          if (failure?.status === "rejected" && !controller.signal.aborted)
+            setError((failure.reason as Error).message);
         }
-        if (section === "" || section === "analytics") {
+        if (section === "analytics") {
           const range = new URLSearchParams(
             days === "custom" ? { from, to } : { days },
           );
@@ -318,7 +344,7 @@ export default function SuperAdminDashboard() {
         <button onClick={session.retry}>Retry authentication</button>
       </main>
     );
-  if (!user) return null;
+  if (!user) return <Navigate to="/login" replace />;
   if (user.role !== "SUPER_ADMIN")
     return <Navigate to={destinationFor(user.role)} replace />;
   if (user.mustChangePassword)
