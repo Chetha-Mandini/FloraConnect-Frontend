@@ -1,3 +1,6 @@
+import UserAccessForm from "../features/admin/UserAccessForm";
+import RoleAccessGuide from "../features/admin/RoleAccessGuide";
+import AdminProfileMenu from "../features/admin/AdminProfileMenu";
 import { apiEndpoints } from "../config/api";
 import { dateLabel, readable } from "../features/admin/format";
 import { useEffect, useState } from "react";
@@ -142,6 +145,8 @@ export default function SuperAdminDashboard() {
   const [notice, setNotice] = useState("");
   const [selected, setSelected] = useState<AdminRecord | null>(null);
   const [action, setAction] = useState("");
+  const [creatingUser, setCreatingUser] = useState(false);
+  const [accessTarget, setAccessTarget] = useState<AdminRecord | null>(null);
   const [busy, setBusy] = useState(false);
   const user = session.user;
   const allowed = user?.role === "SUPER_ADMIN" && !user.mustChangePassword;
@@ -300,15 +305,6 @@ export default function SuperAdminDashboard() {
           body: {
             status: selected.status === "SUSPENDED" ? "ACTIVE" : "SUSPENDED",
             reason,
-          },
-        });
-      else if (action === "staff")
-        await api(apiEndpoints.admin.staffAssignment(selected.id), {
-          method: "POST",
-          body: {
-            enabled: selected.role !== "PLATFORM_ADMIN",
-            reason,
-            currentPassword: form.get("currentPassword"),
           },
         });
       else if (action === "edit")
@@ -505,23 +501,12 @@ export default function SuperAdminDashboard() {
           <div className="fc-admin-breadcrumb">
             Administration <span>/</span> {title}
           </div>
-          <details className="fc-admin-profile-menu">
-            <summary aria-label="Administrator menu">
-              <span className="fc-admin-avatar">{user.name.slice(0, 1)}</span>
-              <span>{user.name}</span>
-            </summary>
-            <div>
-              <Link to="/admin/profile" onClick={changePage}>
-                My profile
-              </Link>
-              <Link to="/admin/settings" onClick={changePage}>
-                System settings
-              </Link>
-              <button disabled={busy} onClick={() => void signOut()}>
-                Logout
-              </button>
-            </div>
-          </details>
+          <AdminProfileMenu
+            key={location.pathname}
+            name={user.name}
+            busy={busy}
+            onLogout={() => void signOut()}
+          />
         </header>
         <main id="admin-main" className="fc-admin-main">
           <div className="fc-admin-heading">
@@ -533,12 +518,22 @@ export default function SuperAdminDashboard() {
                   "Platform operations and administration."}
               </p>
             </div>
-            <button
-              onClick={() => setRevision((v) => v + 1)}
-              disabled={loading}
-            >
-              Refresh
-            </button>
+            <div className="fc-admin-actions">
+              {section === "users" && (
+                <button
+                  className="fc-admin-primary"
+                  onClick={() => setCreatingUser(true)}
+                >
+                  Add user
+                </button>
+              )}
+              <button
+                onClick={() => setRevision((v) => v + 1)}
+                disabled={loading}
+              >
+                Refresh
+              </button>
+            </div>
           </div>
           {error && (
             <div className="fc-admin-error" role="alert">
@@ -770,55 +765,7 @@ export default function SuperAdminDashboard() {
                     </section>
                   )}
                   {section === "roles" && data && (
-                    <>
-                      <section className="fc-admin-panel">
-                        <DataTable
-                          records={data.records}
-                          columns={[
-                            {
-                              label: "System role",
-                              render: (r) => readable(r.name),
-                            },
-                            { label: "Assigned users", render: (r) => r.count },
-                            { label: "Type", render: (r) => r.type },
-                          ]}
-                        />
-                        <p className="fc-admin-muted">
-                          Permissions are enforced in server code. Configurable
-                          permission grants are not supported.
-                        </p>
-                      </section>
-                      <section className="fc-admin-panel">
-                        <h2>Access boundaries</h2>
-                        <ul className="fc-admin-policy">
-                          <li>
-                            Super Admin: platform administration, user status,
-                            staff assignments, and audit records.
-                          </li>
-                          <li>
-                            Platform Admin: application review through a
-                            separate restricted workspace.
-                          </li>
-                          <li>
-                            Organization roles: organization positions do not
-                            grant platform permissions.
-                          </li>
-                          <li>
-                            Florist and Grower: approval grants the
-                            corresponding business role.
-                          </li>
-                          <li>
-                            User: authenticated account access. No
-                            administrative access.
-                          </li>
-                        </ul>
-                        <p className="fc-admin-muted">
-                          Assign or revoke Platform Admin from Users. Super
-                          Admin grants require controlled administration; this
-                          dashboard cannot revoke or suspend a Super Admin.
-                        </p>
-                      </section>
-                    </>
+                    <RoleAccessGuide records={data.records} />
                   )}
                 </>
               )}
@@ -826,6 +773,21 @@ export default function SuperAdminDashboard() {
           )}
         </main>
       </div>
+      {(creatingUser || accessTarget) && (
+        <UserAccessForm
+          target={accessTarget ?? undefined}
+          onClose={() => {
+            setCreatingUser(false);
+            setAccessTarget(null);
+          }}
+          onSaved={(message) => {
+            setCreatingUser(false);
+            setAccessTarget(null);
+            setNotice(message);
+            setRevision((value) => value + 1);
+          }}
+        />
+      )}
       {selected && (
         <Modal
           title={selected.name ?? readable(selected.action)}
@@ -845,7 +807,7 @@ export default function SuperAdminDashboard() {
               {Object.entries(selected)
                 .filter(
                   ([key, value]) =>
-                    !["userId", "evidenceUrl"].includes(key) &&
+                    !["userId", "evidenceUrl", "permissions"].includes(key) &&
                     value !== undefined &&
                     value !== null,
                 )
@@ -896,6 +858,17 @@ export default function SuperAdminDashboard() {
                       </button>
                     </>
                   )}
+                {resource === "users" && selected.id !== user.id && (
+                  <button
+                    onClick={() => {
+                      setAccessTarget(selected);
+                      setSelected(null);
+                      setAction("");
+                    }}
+                  >
+                    Manage role &amp; permissions
+                  </button>
+                )}
                 {resource === "users" && selected.role !== "SUPER_ADMIN" && (
                   <>
                     <button onClick={() => setAction("edit")}>
@@ -910,15 +883,6 @@ export default function SuperAdminDashboard() {
                           : "Suspend account"}
                       </button>
                     )}
-                    {["USER", "PLATFORM_ADMIN"].includes(selected.role ?? "") &&
-                      selected.emailVerified &&
-                      selected.status === "ACTIVE" && (
-                        <button onClick={() => setAction("staff")}>
-                          {selected.role === "PLATFORM_ADMIN"
-                            ? "Revoke staff access"
-                            : "Assign Platform Admin"}
-                        </button>
-                      )}
                   </>
                 )}
               </div>
@@ -931,7 +895,7 @@ export default function SuperAdminDashboard() {
                 <h3>Confirm {readable(action)}</h3>
                 <p>
                   This change will be validated and logged by the server.
-                  {["staff", "status"].includes(action) &&
+                  {action === "status" &&
                     " Existing account sessions will be revoked."}
                 </p>
                 {action === "edit" && (
@@ -968,18 +932,7 @@ export default function SuperAdminDashboard() {
                   Reason
                   <textarea name="reason" required maxLength={1000} />
                 </label>
-                {action === "staff" && (
-                  <label>
-                    Confirm your current password
-                    <input
-                      name="currentPassword"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      maxLength={128}
-                    />
-                  </label>
-                )}
+
                 {error && <p role="alert">{error}</p>}
                 <div className="fc-admin-actions">
                   <button className="fc-admin-primary" disabled={busy}>

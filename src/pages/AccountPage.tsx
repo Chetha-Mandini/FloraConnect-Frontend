@@ -76,60 +76,67 @@ export default function AccountPage() {
               Open administration →
             </Link>
           )}
-          <form
-            className="max-w-md space-y-3"
-            onSubmit={async (event) => {
-              event.preventDefault();
-              const values = new FormData(event.currentTarget);
-              setBusy(true);
-              setError("");
-              try {
-                await api(apiEndpoints.auth.profile, {
-                  method: "PATCH",
-                  body: {
-                    name: values.get("name"),
-                    phone: values.get("phone"),
-                    address: values.get("address"),
-                  },
-                });
-                setMessage("Profile updated.");
-                session.retry();
-              } catch (e) {
-                setError((e as Error).message);
-              } finally {
-                setBusy(false);
-              }
-            }}
-          >
-            <AuthField
-              id="profile-name"
-              label="Full name"
-              name="name"
-              defaultValue={user.name}
-              maxLength={100}
-              required
-            />
-            <AuthField
-              id="profile-phone"
-              label="Phone number"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              defaultValue={user.phone ?? ""}
-              maxLength={30}
-            />
-            <AuthField
-              id="profile-address"
-              label="Address"
-              name="address"
-              autoComplete="street-address"
-              defaultValue={user.address ?? ""}
-              maxLength={300}
-            />
-            <button disabled={busy} className={actionClass}>
-              Save profile
-            </button>
-          </form>
+          {!user.permissions || user.permissions.includes("profile.update") ? (
+            <form
+              className="max-w-md space-y-3"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                const values = new FormData(event.currentTarget);
+                setBusy(true);
+                setError("");
+                try {
+                  await api(apiEndpoints.auth.profile, {
+                    method: "PATCH",
+                    body: {
+                      name: values.get("name"),
+                      phone: values.get("phone"),
+                      address: values.get("address"),
+                    },
+                  });
+                  setMessage("Profile updated.");
+                  session.retry();
+                } catch (e) {
+                  setError((e as Error).message);
+                } finally {
+                  setBusy(false);
+                }
+              }}
+            >
+              <AuthField
+                id="profile-name"
+                label="Full name"
+                name="name"
+                defaultValue={user.name}
+                maxLength={100}
+                required
+              />
+              <AuthField
+                id="profile-phone"
+                label="Phone number"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                defaultValue={user.phone ?? ""}
+                maxLength={30}
+              />
+              <AuthField
+                id="profile-address"
+                label="Address"
+                name="address"
+                autoComplete="street-address"
+                defaultValue={user.address ?? ""}
+                maxLength={300}
+              />
+              <button disabled={busy} className={actionClass}>
+                Save profile
+              </button>
+            </form>
+          ) : (
+            <p className="text-sm text-[#647067]">
+              Profile editing is disabled by your administrator. You can still
+              change your password below.
+            </p>
+          )}
         </section>
         {!["USER", "SUPER_ADMIN", "PLATFORM_ADMIN"].includes(
           user.accountType,
