@@ -262,7 +262,7 @@ export default function RegistrationPage() {
                         type="password"
                         autoComplete="new-password"
                         required
-                        minLength={12}
+                        minLength={8}
                         maxLength={128}
                         value={details.password}
                         onChange={set("password")}
@@ -273,14 +273,14 @@ export default function RegistrationPage() {
                         type="password"
                         autoComplete="new-password"
                         required
-                        minLength={12}
+                        minLength={8}
                         maxLength={128}
                         value={details.confirmation}
                         onChange={set("confirmation")}
                       />
                     </div>
                     <p className="text-[11px] text-[#647067]">
-                      Use 12–128 characters. Email verification is required to
+                      Use 8–128 characters. Email verification is required to
                       activate your account.
                     </p>
                   </>

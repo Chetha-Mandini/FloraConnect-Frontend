@@ -48,7 +48,7 @@ export default function PasswordChangeForm({
         {temporary
           ? "Replace your temporary password before accessing administration. "
           : ""}
-        Use 12–128 characters. Changing it signs out all sessions; sign in again
+        Use 8–128 characters. Changing it signs out all sessions; sign in again
         afterward.
       </p>
       <fieldset disabled={busy} className="space-y-3 border-0 p-0">
@@ -69,7 +69,7 @@ export default function PasswordChangeForm({
           label="New password"
           autoComplete="new-password"
           required
-          minLength={12}
+          minLength={8}
           maxLength={128}
         />
         <AuthField
@@ -79,7 +79,7 @@ export default function PasswordChangeForm({
           label="Confirm new password"
           autoComplete="new-password"
           required
-          minLength={12}
+          minLength={8}
           maxLength={128}
         />
         {error && (
