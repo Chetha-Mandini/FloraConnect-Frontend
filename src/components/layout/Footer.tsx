@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import Brand from "./Brand";
 import ApiStatus from "../../features/health/ApiStatus";
 import BotanicalBranch from "../ui/BotanicalBranch";
+import { footerLinks, legalLinks } from "./navigation";
 
 const socialChannels = [
   "Facebook",
@@ -70,10 +71,11 @@ export default function Footer() {
         <div className="footer-links">
           <h2>Quick Links</h2>
           <nav aria-label="Footer navigation">
-            <Link to="/">Home</Link>
-            <Link to="/flowers">Catalogue</Link>
-            <Link to="/events">Events</Link>
-            <Link to="/contact">Contact</Link>
+            {footerLinks.map(({ label, to }) => (
+              <Link key={to} to={to}>
+                {label}
+              </Link>
+            ))}
           </nav>
         </div>
         <div className="footer-contact">
@@ -110,9 +112,13 @@ export default function Footer() {
       <div className="footer-bottom container">
         <p>© {new Date().getFullYear()} FloraConnect. All rights reserved.</p>
         <div>
-          <Link to="/privacy">Privacy Policy</Link>
-          <span aria-hidden="true">|</span>
-          <Link to="/terms">Terms of Service</Link>
+          {legalLinks.map(({ label, to }, index) => (
+            <span key={to}>
+              {index > 0 && <span aria-hidden="true">|</span>}
+              {index > 0 && " "}
+              <Link to={to}>{label}</Link>
+            </span>
+          ))}
         </div>
       </div>
       <div className="footer-utility container">

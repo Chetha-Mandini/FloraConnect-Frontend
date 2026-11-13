@@ -8,13 +8,12 @@ src/
   app/
     App.tsx                Router bootstrap
     routes.tsx             Client-side route definitions
-    AppLayout.tsx          Shared shell for feature placeholders
     RouteLayout.tsx        Scroll reset for route changes
     routes.test.tsx        Route and client-side navigation tests
   pages/home/              Homepage and its presentation data
   pages/                   Feature placeholders and not-found page
   components/
-    layout/Brand.tsx       Reusable branding
+    layout/                 PublicLayout, PageContainer, navigation and branding
     ui/                    Shared Icon, Modal, and loading/error/empty states
   features/
     flowers/data/          Typed sample flower catalogue

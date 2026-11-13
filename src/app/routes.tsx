@@ -1,14 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
-import AppLayout from "./AppLayout";
 import RouteLayout from "./RouteLayout";
+import PublicLayout from "../components/layout/PublicLayout";
 import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
 import CommunityPage from "../pages/CommunityPage";
 import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/Registation";
-
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 import {
   loadSuperAdmin,
@@ -23,10 +22,6 @@ export const routeObjects: RouteObject[] = [
     HydrateFallback: RoutePending,
     errorElement: <RouteFailure />,
     children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
       {
         path: "super-admin/*",
         element: <Navigate to="/admin" replace />,
@@ -64,8 +59,12 @@ export const routeObjects: RouteObject[] = [
         element: <LoginPage />,
       },
       {
-        element: <AppLayout />,
+        element: <PublicLayout />,
         children: [
+          {
+            path: "/",
+            element: <HomePage />,
+          },
           {
             path: "growers",
             element: (
@@ -137,6 +136,26 @@ export const routeObjects: RouteObject[] = [
                 title="Announcements"
                 description="Keep up with community updates and relevant opportunities."
                 emptyMessage="There are no announcements yet. Check back as FloraConnect grows."
+              />
+            ),
+          },
+          {
+            path: "profile",
+            element: (
+              <PlaceholderPage
+                title="Profile"
+                description="Your FloraConnect member profile."
+                emptyMessage="Member profiles are not available in this preview. No account data is collected."
+              />
+            ),
+          },
+          {
+            path: "logout",
+            element: (
+              <PlaceholderPage
+                title="Logout"
+                description="Sign out of FloraConnect."
+                emptyMessage="Sign-out is a placeholder in this preview; no authentication session is active."
               />
             ),
           },

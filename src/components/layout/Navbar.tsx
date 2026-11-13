@@ -1,26 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Menu, Search, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search } from "lucide-react";
 import Brand from "./Brand";
+import MobileMenu from "./MobileMenu";
 
-const navigation = [
-  ["Home", "/"],
-  ["Catalogue", "/flowers"],
-  ["Growers", "/growers"],
-  ["Associations", "/associations"],
-  ["Events", "/events"],
-  ["Announcements", "/announcements"],
-];
+type NavbarProps = {
+  isAuthenticated?: boolean;
+};
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false);
+export default function Navbar({ isAuthenticated = false }: NavbarProps) {
   const [search, setSearch] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const input = useRef<HTMLInputElement>(null);
-  const toggle = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
   const closePanels = () => {
-    setOpen(false);
     setSearch(false);
   };
   useEffect(() => {
@@ -35,63 +28,59 @@ export default function Navbar() {
   return (
     <header
       className={`site-header${scrolled ? " scrolled" : ""}`}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") {
-          setOpen(false);
-          setSearch(false);
-          toggle.current?.focus();
-        }
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setSearch(false);
       }}
     >
       <div className="header-inner container">
         <Brand />
-        <nav
-          id="main-navigation"
-          className={`main-nav${open ? " is-open" : ""}`}
-          aria-label="Main navigation"
-        >
-          {navigation.map(([label, to]) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === "/"}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </NavLink>
-          ))}
-        </nav>
         <div className="header-actions">
           <button
-            className="icon-button"
+            className="icon-button search-toggle"
             aria-label="Search catalogue"
             aria-expanded={search}
             aria-controls="site-search"
-            onClick={() => setSearch(!search)}
+            onClick={() => setSearch((current) => !current)}
           >
             <Search size={19} />
           </button>
-          <Link
-            className="button outline login-button"
-            to="/login"
-            onClick={closePanels}
-          >
-            Login
-          </Link>
-          <Link className="button primary" to="/register" onClick={closePanels}>
-            Register
-          </Link>
-          <button
-            ref={toggle}
-            className="icon-button mobile-toggle"
-            aria-label={open ? "Close navigation" : "Open navigation"}
-            aria-expanded={open}
-            aria-controls="main-navigation"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X /> : <Menu />}
-          </button>
+          {isAuthenticated ? (
+            <>
+              <Link
+                className="button outline profile-button"
+                to="/profile"
+                onClick={closePanels}
+              >
+                Profile
+              </Link>
+              <Link
+                className="button primary"
+                to="/logout"
+                onClick={closePanels}
+              >
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                className="button outline login-button"
+                to="/login"
+                onClick={closePanels}
+              >
+                Login
+              </Link>
+              <Link
+                className="button primary"
+                to="/register"
+                onClick={closePanels}
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
+        <MobileMenu />
       </div>
       {search && (
         <form
@@ -105,7 +94,6 @@ export default function Navbar() {
               `/flowers${query ? `?q=${encodeURIComponent(query)}` : ""}`,
             );
             setSearch(false);
-            setOpen(false);
           }}
         >
           <label htmlFor="flower-search">Find a flower</label>

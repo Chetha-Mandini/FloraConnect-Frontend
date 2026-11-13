@@ -16,6 +16,7 @@ import { normalizeFlowerText } from "../features/flowers/normalizeFlowerText";
 import FlowerCatalogueCard from "../features/flowers/FlowerCatalogueCard";
 import FlowerDetailDialog from "../features/flowers/FlowerDetailDialog";
 import EmptyState from "../components/ui/EmptyState";
+import PageContainer from "../components/layout/PageContainer";
 
 const PAGE_SIZE = 40;
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -64,7 +65,7 @@ export default function FlowerCataloguePage() {
   }
 
   return (
-    <main id="main" className="foundation-main catalogue-page">
+    <PageContainer className="catalogue-page">
       <header className="catalogue-intro">
         <div>
           <p className="foundation-eyebrow">DISCOVER FLORACONNECT</p>
@@ -237,6 +238,6 @@ export default function FlowerCataloguePage() {
           onClose={() => setSelected(null)}
         />
       )}
-    </main>
+    </PageContainer>
   );
 }

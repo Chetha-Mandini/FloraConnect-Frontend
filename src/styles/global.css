@@ -282,6 +282,7 @@ h2 {
   display: none;
 }
 .main-nav {
+  order: 2;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -308,6 +309,7 @@ h2 {
   background: var(--green);
 }
 .header-actions {
+  order: 3;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -318,6 +320,7 @@ h2 {
   font-size: 12px;
 }
 .mobile-toggle {
+  order: 4;
   display: none;
 }
 .site-search {
@@ -1599,6 +1602,9 @@ h2 {
     width: 88%;
   }
   .header-inner {
+    width: 94%;
+  }
+  .header-inner {
     gap: 8px;
   }
   .site-header .brand svg {
@@ -1623,7 +1629,7 @@ h2 {
     display: none;
   }
   .icon-button {
-    width: 40px;
+    width: 44px;
     height: 44px;
   }
   .site-search {
@@ -1820,6 +1826,10 @@ h2 {
   }
 }
 @media (max-width: 374px) {
+  .header-inner {
+    width: 96%;
+    gap: 4px;
+  }
   .site-header .brand svg {
     width: 25px;
   }
@@ -1833,10 +1843,13 @@ h2 {
     gap: 4px;
   }
   .header-actions .button {
-    padding-inline: 11px;
+    padding-inline: 8px;
   }
   .header-actions .icon-button {
-    width: 34px;
+    width: 44px;
+  }
+  .header-actions .search-toggle {
+    display: none;
   }
   .hero-actions {
     flex-direction: column;
