@@ -102,7 +102,7 @@ const unavailable: Record<string, string> = {
 };
 const idColumn = {
   label: "Identifier",
-  render: (r: AdminRecord) => <code className="ad-id">{r.id}</code>,
+  render: (r: AdminRecord) => <code className="fc-admin-id">{r.id}</code>,
 };
 const statusColumn = {
   label: "Status",
@@ -333,13 +333,13 @@ export default function SuperAdminDashboard() {
   }
   if (session.loading)
     return (
-      <main className="ad-root ad-auth">
+      <main className="fc-admin-root fc-admin-auth">
         <LoadingSkeleton />
       </main>
     );
   if (session.error)
     return (
-      <main className="ad-root ad-auth">
+      <main className="fc-admin-root fc-admin-auth">
         <p role="alert">{session.error}</p>
         <button onClick={session.retry}>Retry authentication</button>
       </main>
@@ -349,7 +349,7 @@ export default function SuperAdminDashboard() {
     return <Navigate to={destinationFor(user.role)} replace />;
   if (user.mustChangePassword)
     return (
-      <main className="ad-root ad-auth">
+      <main className="fc-admin-root fc-admin-auth">
         <PasswordChangeForm temporary />
       </main>
     );
@@ -398,7 +398,7 @@ export default function SuperAdminDashboard() {
             dateColumn,
           ];
   const rangeFilter = (
-    <div className="ad-range">
+    <div className="fc-admin-range">
       <label>
         Period
         <select value={days} onChange={(e) => setDays(e.target.value)}>
@@ -433,29 +433,29 @@ export default function SuperAdminDashboard() {
   );
 
   return (
-    <div className={`ad-root ${collapsed ? "ad-collapsed" : ""}`}>
-      <a className="ad-skip" href="#admin-main">
+    <div className={`fc-admin-root ${collapsed ? "fc-admin-collapsed" : ""}`}>
+      <a className="fc-admin-skip" href="#admin-main">
         Skip to content
       </a>
       {drawer && (
         <button
-          className="ad-backdrop"
+          className="fc-admin-backdrop"
           aria-label="Close navigation"
           onClick={() => setDrawer(false)}
         />
       )}
       <aside
-        className={`ad-sidebar ${drawer ? "ad-open" : ""}`}
+        className={`fc-admin-sidebar ${drawer ? "fc-admin-open" : ""}`}
         aria-label="Administrative navigation"
       >
-        <Link to="/admin" className="ad-brand" onClick={changePage}>
+        <Link to="/admin" className="fc-admin-brand" onClick={changePage}>
           <Flower2 size={26} />{" "}
           <span>
             FloraConnect<small>SUPER ADMIN</small>
           </span>
         </Link>
         <button
-          className="ad-mobile-close"
+          className="fc-admin-mobile-close"
           aria-label="Close navigation"
           onClick={() => setDrawer(false)}
         >
@@ -463,7 +463,7 @@ export default function SuperAdminDashboard() {
         </button>
         <nav>
           {navigation.map((group) => (
-            <div className="ad-nav-group" key={group.group}>
+            <div className="fc-admin-nav-group" key={group.group}>
               <p>{group.group}</p>
               {group.items.map(([path, label, Icon]) => (
                 <NavLink
@@ -481,7 +481,7 @@ export default function SuperAdminDashboard() {
           ))}
         </nav>
         <button
-          className="ad-logout"
+          className="fc-admin-logout"
           disabled={busy}
           onClick={() => void signOut()}
         >
@@ -489,8 +489,8 @@ export default function SuperAdminDashboard() {
           <span>Logout</span>
         </button>
       </aside>
-      <div className="ad-workspace">
-        <header className="ad-topbar">
+      <div className="fc-admin-workspace">
+        <header className="fc-admin-topbar">
           <button
             aria-label="Toggle navigation"
             aria-expanded={drawer || !collapsed}
@@ -502,12 +502,12 @@ export default function SuperAdminDashboard() {
           >
             <Menu size={21} />
           </button>
-          <div className="ad-breadcrumb">
+          <div className="fc-admin-breadcrumb">
             Administration <span>/</span> {title}
           </div>
-          <details className="ad-profile-menu">
+          <details className="fc-admin-profile-menu">
             <summary aria-label="Administrator menu">
-              <span className="ad-avatar">{user.name.slice(0, 1)}</span>
+              <span className="fc-admin-avatar">{user.name.slice(0, 1)}</span>
               <span>{user.name}</span>
             </summary>
             <div>
@@ -523,10 +523,10 @@ export default function SuperAdminDashboard() {
             </div>
           </details>
         </header>
-        <main id="admin-main" className="ad-main">
-          <div className="ad-heading">
+        <main id="admin-main" className="fc-admin-main">
+          <div className="fc-admin-heading">
             <div>
-              <p className="ad-eyebrow">FLORACONNECT ADMINISTRATION</p>
+              <p className="fc-admin-eyebrow">FLORACONNECT ADMINISTRATION</p>
               <h1>{title}</h1>
               <p>
                 {descriptions[section] ??
@@ -541,18 +541,18 @@ export default function SuperAdminDashboard() {
             </button>
           </div>
           {error && (
-            <div className="ad-error" role="alert">
+            <div className="fc-admin-error" role="alert">
               {error}
               <button onClick={() => setRevision((v) => v + 1)}>Retry</button>
             </div>
           )}
           {notice && (
-            <p className="ad-notice" role="status">
+            <p className="fc-admin-notice" role="status">
               {notice}
             </p>
           )}
           {unavailable[section] ? (
-            <section className="ad-panel">
+            <section className="fc-admin-panel">
               <EmptyState title="Backend capability required">
                 {unavailable[section]}
               </EmptyState>
@@ -562,8 +562,8 @@ export default function SuperAdminDashboard() {
           ) : (
             <>
               {isTable && (
-                <section className="ad-panel ad-tools">
-                  <label className="ad-search">
+                <section className="fc-admin-panel fc-admin-tools">
+                  <label className="fc-admin-search">
                     <Search size={17} aria-hidden="true" />
                     <input
                       aria-label={`Search ${title}`}
@@ -649,7 +649,7 @@ export default function SuperAdminDashboard() {
                 <>
                   {section === "" && summary && (
                     <>
-                      <div className="ad-metrics">
+                      <div className="fc-admin-metrics">
                         {[
                           ["Registered users", "users", "users"],
                           ["Active accounts", "active", "users"],
@@ -672,9 +672,9 @@ export default function SuperAdminDashboard() {
                           />
                         ))}
                       </div>
-                      <section className="ad-panel">
+                      <section className="fc-admin-panel">
                         <h2>Pending actions</h2>
-                        <div className="ad-pending">
+                        <div className="fc-admin-pending">
                           {[
                             [
                               "Organization applications",
@@ -690,7 +690,7 @@ export default function SuperAdminDashboard() {
                             </Link>
                           ))}
                         </div>
-                        <p className="ad-muted">
+                        <p className="fc-admin-muted">
                           {summary.counts.unverified} accounts awaiting email
                           verification
                         </p>
@@ -699,7 +699,7 @@ export default function SuperAdminDashboard() {
                   )}
                   {(section === "" || section === "analytics") && analytics && (
                     <>
-                      <div className="ad-charts">
+                      <div className="fc-admin-charts">
                         <TrendChart
                           title="User registrations"
                           points={analytics.users}
@@ -714,9 +714,9 @@ export default function SuperAdminDashboard() {
                         />
                       </div>
                       {section === "analytics" && (
-                        <section className="ad-panel">
+                        <section className="fc-admin-panel">
                           <h2>Users by system role</h2>
-                          <ul className="ad-distribution">
+                          <ul className="fc-admin-distribution">
                             {analytics.byRole.map((r) => (
                               <li key={r._id}>
                                 <span>{readable(r._id)}</span>
@@ -724,7 +724,7 @@ export default function SuperAdminDashboard() {
                               </li>
                             ))}
                           </ul>
-                          <p className="ad-muted">
+                          <p className="fc-admin-muted">
                             Account distribution includes all dates. Order and
                             listing analytics require their backend domains.
                           </p>
@@ -733,8 +733,8 @@ export default function SuperAdminDashboard() {
                     </>
                   )}
                   {section === "" && summary && (
-                    <section className="ad-panel">
-                      <div className="ad-section-heading">
+                    <section className="fc-admin-panel">
+                      <div className="fc-admin-section-heading">
                         <h2>Recent administrative activity</h2>
                         <Link to="/admin/audit-logs">View audit log →</Link>
                       </div>
@@ -753,7 +753,7 @@ export default function SuperAdminDashboard() {
                     </section>
                   )}
                   {isTable && data && (
-                    <section className="ad-panel">
+                    <section className="fc-admin-panel">
                       <DataTable
                         records={data.records}
                         columns={columns}
@@ -771,7 +771,7 @@ export default function SuperAdminDashboard() {
                   )}
                   {section === "roles" && data && (
                     <>
-                      <section className="ad-panel">
+                      <section className="fc-admin-panel">
                         <DataTable
                           records={data.records}
                           columns={[
@@ -783,14 +783,14 @@ export default function SuperAdminDashboard() {
                             { label: "Type", render: (r) => r.type },
                           ]}
                         />
-                        <p className="ad-muted">
+                        <p className="fc-admin-muted">
                           Permissions are enforced in server code. Configurable
                           permission grants are not supported.
                         </p>
                       </section>
-                      <section className="ad-panel">
+                      <section className="fc-admin-panel">
                         <h2>Access boundaries</h2>
-                        <ul className="ad-policy">
+                        <ul className="fc-admin-policy">
                           <li>
                             Super Admin: platform administration, user status,
                             staff assignments, and audit records.
@@ -812,7 +812,7 @@ export default function SuperAdminDashboard() {
                             administrative access.
                           </li>
                         </ul>
-                        <p className="ad-muted">
+                        <p className="fc-admin-muted">
                           Assign or revoke Platform Admin from Users. Super
                           Admin grants require controlled administration; this
                           dashboard cannot revoke or suspend a Super Admin.
@@ -838,9 +838,9 @@ export default function SuperAdminDashboard() {
               setAction("");
             }
           }}
-          className="ad-dialog"
+          className="fc-admin-dialog"
         >
-          <div className="ad-root ad-detail">
+          <div className="fc-admin-root fc-admin-detail">
             <dl>
               {Object.entries(selected)
                 .filter(
@@ -878,7 +878,7 @@ export default function SuperAdminDashboard() {
                 </a>
               )}
             {!action && (
-              <div className="ad-actions">
+              <div className="fc-admin-actions">
                 {resource === "applications" &&
                   selected.status === "PENDING" && (
                     <>
@@ -889,7 +889,7 @@ export default function SuperAdminDashboard() {
                         Approve application
                       </button>
                       <button
-                        className="ad-danger"
+                        className="fc-admin-danger"
                         onClick={() => setAction("REJECTED")}
                       >
                         Reject application
@@ -924,7 +924,10 @@ export default function SuperAdminDashboard() {
               </div>
             )}
             {action && (
-              <form className="ad-form" onSubmit={(e) => void submitAction(e)}>
+              <form
+                className="fc-admin-form"
+                onSubmit={(e) => void submitAction(e)}
+              >
                 <h3>Confirm {readable(action)}</h3>
                 <p>
                   This change will be validated and logged by the server.
@@ -978,8 +981,8 @@ export default function SuperAdminDashboard() {
                   </label>
                 )}
                 {error && <p role="alert">{error}</p>}
-                <div className="ad-actions">
-                  <button className="ad-primary" disabled={busy}>
+                <div className="fc-admin-actions">
+                  <button className="fc-admin-primary" disabled={busy}>
                     Confirm change
                   </button>
                   <button
@@ -1026,13 +1029,13 @@ function Profile({
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty]);
   return (
-    <div className="ad-profile">
-      <section className="ad-panel">
+    <div className="fc-admin-profile">
+      <section className="fc-admin-panel">
         <h2>Personal details</h2>
         <p>{user.email} · Super Admin</p>
-        <code className="ad-id">{user.id}</code>
+        <code className="fc-admin-id">{user.id}</code>
         <form
-          className="ad-form"
+          className="fc-admin-form"
           onChange={() => setDirty(true)}
           onSubmit={async (e) => {
             e.preventDefault();
@@ -1084,13 +1087,13 @@ function Profile({
               defaultValue={user.address}
             />
           </label>
-          <button className="ad-primary" disabled={busy}>
+          <button className="fc-admin-primary" disabled={busy}>
             Save profile
           </button>
           <p role="status">{message}</p>
         </form>
       </section>
-      <section className="ad-panel">
+      <section className="fc-admin-panel">
         <PasswordChangeForm />
       </section>
     </div>

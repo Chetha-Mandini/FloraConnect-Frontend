@@ -36,6 +36,26 @@ function open(path: string) {
   );
 }
 describe("Super Admin workspace", () => {
+  it("remains visible under the matching generic EasyList cosmetic rules", async () => {
+    const filter = document.createElement("style");
+    // Exact generic class selectors from EasyList's easylist_general_hide.txt.
+    filter.textContent =
+      ".ad-detail,.ad-heading,.ad-main,.ad-notice,.ad-panel,.ad-primary,.ad-root,.ad-sidebar{display:none!important}";
+    document.head.append(filter);
+    try {
+      rememberLoginSession(user as AuthUser);
+      vi.mocked(api).mockImplementation(async () => new Promise(() => {}));
+      open("/admin");
+      expect(screen.getByRole("heading", { name: "Overview" })).toBeVisible();
+      expect(
+        screen.getByRole("complementary", {
+          name: "Administrative navigation",
+        }),
+      ).toBeVisible();
+    } finally {
+      filter.remove();
+    }
+  });
   it("renders the authenticated workspace without waiting for session revalidation or charts", async () => {
     rememberLoginSession(user as AuthUser);
     vi.mocked(api).mockImplementation(async (path) => {
