@@ -6,7 +6,7 @@ export const controlClass =
   "block h-11! w-full min-w-0 rounded-lg border! border-solid! border-[#dce5da]! bg-white px-3! py-0! text-sm text-[#17251c] outline-none! outline-offset-0! focus-visible:outline-none! transition-colors focus:border-[#245c35]! focus:ring-2 focus:ring-[#245c35]/15 disabled:cursor-wait disabled:bg-[#f7f9f5]";
 export const labelClass = "mb-1.5 block text-xs font-semibold text-[#334a3b]";
 export const actionClass =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#245c35] px-5 py-2.5 text-sm font-semibold text-white! transition-colors hover:bg-[#153d28] disabled:cursor-wait disabled:opacity-60";
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#245c35]! px-5 py-2.5 text-sm font-semibold text-white! transition-colors hover:bg-[#153d28]! disabled:cursor-wait disabled:opacity-100!";
 export function AuthField({
   label,
   id,
