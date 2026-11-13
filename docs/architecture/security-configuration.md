@@ -9,6 +9,7 @@ identifiers and do not grant access.
 
 - Frontend `VITE_API_BASE_URL`: public API base, normally `/api` to preserve same-origin cookie sessions. Direct HTTPS API bases are allowed for deployments whose cookie policy supports them.
 - Frontend server `BACKEND_API_BASE_URL`: private HTTPS upstream API base used by the Vercel proxy. It is never bundled into browser code. The proxy forwards only supported API path shapes and authentication headers, limits body size, rejects redirects, and returns generic transport errors. Backend RBAC and CSRF checks still apply.
+- Existing `VITE_API_URL`: accepted by the server proxy when `BACKEND_API_BASE_URL` is absent or blank. It must contain the HTTPS backend origin or API base; an origin-only value gets `/api` appended. This compatibility setting is not exposed by Vite and does not change the browser's same-origin `/api` base. Prefer `BACKEND_API_BASE_URL` for new deployments. An invalid preferred value fails closed rather than silently selecting the fallback.
 - Local `API_PROXY_TARGET`: backend origin for Vite development/preview forwarding.
   Copy `.env.example` to `.env.local` and set this for a local backend. It is not a
   browser environment variable.

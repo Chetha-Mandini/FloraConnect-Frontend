@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
 // Hosting adapter only: authentication and authorization remain in the backend.
-// BACKEND_API_BASE_URL is server-only and is never defined in browser code.
+// Prefer BACKEND_API_BASE_URL. Legacy VITE_API_URL is read only by this server
+// adapter; it must not change the browser's same-origin /api base.
 export default async function proxy(
   req: IncomingMessage & {
     body?: unknown;
@@ -18,9 +19,16 @@ export default async function proxy(
     res.end(JSON.stringify({ message }));
   };
   try {
-    const configured = process.env.BACKEND_API_BASE_URL?.trim();
+    const configured =
+      process.env.BACKEND_API_BASE_URL?.trim() ||
+      process.env.VITE_API_URL?.trim();
     if (!configured) return fail(503, "API service is not configured.");
-    const base = new URL(configured);
+    let base: URL;
+    try {
+      base = new URL(configured);
+    } catch {
+      return fail(503, "API service is not configured.");
+    }
     if (
       base.protocol !== "https:" ||
       base.username ||
@@ -29,6 +37,8 @@ export default async function proxy(
       base.hash
     )
       return fail(503, "API service is not configured.");
+    // Existing deployments may configure either the backend origin or its API base.
+    if (base.pathname === "/") base.pathname = "/api";
     const incoming = new URL(req.url ?? "/", "https://proxy.invalid");
     const paths = incoming.searchParams.getAll("path");
     const routePath = req.query?.path;
