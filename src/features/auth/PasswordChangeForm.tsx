@@ -18,6 +18,7 @@ export default function PasswordChangeForm({
       aria-label="Change password"
       onSubmit={async (event) => {
         event.preventDefault();
+        if (busy) return;
         const values = new FormData(event.currentTarget);
         setError("");
         if (values.get("newPassword") !== values.get("confirmation")) {
@@ -87,7 +88,12 @@ export default function PasswordChangeForm({
             {error}
           </p>
         )}
-        <button className={actionClass} type="submit" disabled={busy}>
+        <button
+          className={actionClass}
+          type="submit"
+          disabled={busy}
+          aria-busy={busy}
+        >
           {busy ? "Updating…" : "Update password"}
         </button>
       </fieldset>
