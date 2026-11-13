@@ -10,7 +10,7 @@
       "destination": "/api/proxy?path=:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api(?:/|$)|assets(?:/|$)|startup\\.js$|images(?:/|$)|fonts(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],
