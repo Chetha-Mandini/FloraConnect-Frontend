@@ -9,10 +9,30 @@ export const features = [
 
 // Editorial categories, separate from live grower listings.
 export const featuredCategories = [
-  { name: "Roses", image: "rose.jpg", category: "Rose" },
-  { name: "Orchids", image: "orchid.jpg", category: "Orchid" },
-  { name: "Anthuriums", image: "anthurium.jpg", category: "Anthurium" },
-  { name: "Sunflowers", image: "sunflower.jpg", category: "Sunflower" },
+  {
+    name: "Roses",
+    image: "featured-rose",
+    alt: "Coral pink garden rose with layered petals and fresh green leaves",
+    category: "Rose",
+  },
+  {
+    name: "Orchids",
+    image: "featured-orchid",
+    alt: "White and pale lilac orchids on a gently curved flowering stem",
+    category: "Orchid",
+  },
+  {
+    name: "Anthuriums",
+    image: "featured-anthurium",
+    alt: "Glossy coral and red anthuriums among heart-shaped green leaves",
+    category: "Anthurium",
+  },
+  {
+    name: "Sunflowers",
+    image: "featured-sunflower",
+    alt: "Golden yellow sunflower with a detailed seed center in a green garden",
+    category: "Sunflower",
+  },
 ];
 
 // Category inspiration only: no event dates, venues, or attendance are claimed.
