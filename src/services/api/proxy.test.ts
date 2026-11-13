@@ -8,6 +8,7 @@ beforeEach(() => {
   fetchMock.mockReset();
   vi.stubGlobal("fetch", fetchMock);
   vi.stubEnv("BACKEND_API_BASE_URL", "https://private-api.example.test/api");
+  vi.stubEnv("VITE_API_URL", "");
 });
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -92,6 +93,48 @@ describe("Environment configured same-origin API proxy", () => {
   });
   it("fails closed without backend configuration", async () => {
     vi.stubEnv("BACKEND_API_BASE_URL", "");
+    expect((await call()).statusCode).toBe(503);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+  it.each([
+    "https://legacy-api.example.test",
+    "https://legacy-api.example.test/api",
+    "https://legacy-api.example.test/api/",
+  ])("supports the existing VITE_API_URL setting: %s", async (configured) => {
+    vi.stubEnv("BACKEND_API_BASE_URL", "");
+    vi.stubEnv("VITE_API_URL", configured);
+    fetchMock.mockResolvedValue(new Response("{}"));
+    expect((await call()).statusCode).toBe(200);
+    expect(fetchMock.mock.calls[0][0].toString()).toBe(
+      "https://legacy-api.example.test/api/auth/me",
+    );
+  });
+  it("prefers the private upstream setting over the legacy setting", async () => {
+    vi.stubEnv("VITE_API_URL", "https://legacy-api.example.test/api");
+    fetchMock.mockResolvedValue(new Response("{}"));
+    await call();
+    expect(fetchMock.mock.calls[0][0].toString()).toBe(
+      "https://private-api.example.test/api/auth/me",
+    );
+  });
+  it.each([
+    "/api",
+    "http://legacy-api.example.test/api",
+    "https://user:secret@legacy-api.example.test/api",
+    "https://legacy-api.example.test/api?token=secret",
+    "https://legacy-api.example.test/api#secret",
+  ])(
+    "does not bypass upstream validation for legacy configuration %s",
+    async (configured) => {
+      vi.stubEnv("BACKEND_API_BASE_URL", "");
+      vi.stubEnv("VITE_API_URL", configured);
+      expect((await call()).statusCode).toBe(503);
+      expect(fetchMock).not.toHaveBeenCalled();
+    },
+  );
+  it("does not mask an invalid preferred setting with the legacy fallback", async () => {
+    vi.stubEnv("BACKEND_API_BASE_URL", "http://insecure.example.test/api");
+    vi.stubEnv("VITE_API_URL", "https://legacy-api.example.test/api");
     expect((await call()).statusCode).toBe(503);
     expect(fetchMock).not.toHaveBeenCalled();
   });
