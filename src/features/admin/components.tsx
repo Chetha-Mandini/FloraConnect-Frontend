@@ -7,7 +7,7 @@ import { readable } from "./format";
 export function StatusBadge({ value }: { value?: string }) {
   return (
     <span
-      className={`ad-badge ${["SUSPENDED", "REJECTED", "REMOVED"].includes(value ?? "") ? "ad-badge-danger" : ""}`}
+      className={`fc-admin-badge ${["SUSPENDED", "REJECTED", "REMOVED"].includes(value ?? "") ? "fc-admin-badge-danger" : ""}`}
     >
       {readable(value)}
     </span>
@@ -21,7 +21,7 @@ export function EmptyState({
   children?: ReactNode;
 }) {
   return (
-    <div className="ad-empty">
+    <div className="fc-admin-empty">
       <Inbox size={28} aria-hidden="true" />
       <h3>{title}</h3>
       <p>{children ?? "Try another search or adjust your filters."}</p>
@@ -38,7 +38,7 @@ export function MetricCard({
   to: string;
 }) {
   return (
-    <Link className="ad-metric" to={to}>
+    <Link className="fc-admin-metric" to={to}>
       <span>
         {title}
         <ArrowUpRight size={16} aria-hidden="true" />
@@ -51,7 +51,7 @@ export function MetricCard({
 export function LoadingSkeleton() {
   return (
     <div
-      className="ad-loading"
+      className="fc-admin-loading"
       role="status"
       aria-label="Loading administrative records"
     >
@@ -72,7 +72,7 @@ export function DataTable({
 }) {
   if (!records.length) return <EmptyState />;
   return (
-    <div className="ad-table-wrap">
+    <div className="fc-admin-table-wrap">
       <table>
         <thead>
           <tr>
@@ -117,7 +117,7 @@ export function Pagination({
   onChange: (page: number) => void;
 }) {
   return (
-    <nav className="ad-pagination" aria-label="Table pagination">
+    <nav className="fc-admin-pagination" aria-label="Table pagination">
       <span>
         {total.toLocaleString()} records · Page {page} of{" "}
         {Math.max(1, Math.ceil(total / 20))}
@@ -145,12 +145,12 @@ export function TrendChart({
 }) {
   const max = Math.max(1, ...points.map((p) => p.count));
   return (
-    <section className="ad-panel">
+    <section className="fc-admin-panel">
       <h2>{title}</h2>
       {points.length ? (
         <>
           <div
-            className="ad-chart"
+            className="fc-admin-chart"
             role="img"
             aria-label={`${title}: ${points.map((p) => `${p._id}: ${p.count}`).join(", ")}`}
           >
@@ -163,7 +163,7 @@ export function TrendChart({
               </div>
             ))}
           </div>
-          <p className="ad-muted">
+          <p className="fc-admin-muted">
             Daily counts · Asia/Colombo · Dates with records shown
           </p>
         </>

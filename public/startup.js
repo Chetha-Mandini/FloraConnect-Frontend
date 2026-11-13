@@ -60,15 +60,27 @@
     },
     true,
   );
-  window.setInterval(function () {
+  function checkContent() {
     const root = document.getElementById("root");
-    if (
-      root &&
-      (!root.childElementCount || root.querySelector("[data-app-startup]"))
-    ) {
+    if (root && !root.childElementCount) {
+      showRecovery("APP_RENDER_EMPTY");
+    } else if (root && root.querySelector("[data-app-startup]")) {
       showRecovery("APP_STARTUP_INCOMPLETE");
     }
-  }, 8000);
+    const main = root && root.querySelector("main");
+    if (
+      main &&
+      (window.getComputedStyle(main).visibility === "hidden" ||
+        main.getBoundingClientRect().height === 0)
+    ) {
+      showRecovery("APP_CONTENT_HIDDEN");
+    } else if (main) {
+      const panel = document.getElementById("app-startup-recovery");
+      if (panel && panel.dataset.diagnostic === "APP_CONTENT_HIDDEN")
+        panel.remove();
+    }
+  }
+  window.setInterval(checkContent, 2000);
   const root = document.getElementById("root");
   if (root)
     new MutationObserver(function () {
@@ -79,11 +91,17 @@
       const panel = document.getElementById("app-startup-recovery");
       if (
         panel &&
-        ["APP_STARTUP_INCOMPLETE", "APP_RENDER_EMPTY"].includes(
-          panel.dataset.diagnostic,
-        ) &&
+        [
+          "APP_STARTUP_INCOMPLETE",
+          "APP_RENDER_EMPTY",
+          "APP_CONTENT_HIDDEN",
+        ].includes(panel.dataset.diagnostic) &&
         root.childElementCount &&
-        !root.querySelector("[data-app-startup]")
+        !root.querySelector("[data-app-startup]") &&
+        (!root.querySelector("main") ||
+          (root.querySelector("main").getBoundingClientRect().height > 0 &&
+            window.getComputedStyle(root.querySelector("main")).visibility !==
+              "hidden"))
       )
         panel.remove();
     }).observe(root, { childList: true, subtree: true });
