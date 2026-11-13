@@ -2,7 +2,8 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import SuperAdminDashboard from "../../pages/SuperAdminDashboard";
-import { api } from "../../services/api/auth";
+import { api, ApiError, type AuthUser } from "../../services/api/auth";
+import { rememberLoginSession } from "../auth/login-session";
 
 vi.mock("../../services/api/auth", async (original) => ({
   ...(await original<typeof import("../../services/api/auth")>()),
@@ -35,6 +36,46 @@ function open(path: string) {
   );
 }
 describe("Super Admin workspace", () => {
+  it("renders the authenticated workspace without waiting for session revalidation or charts", async () => {
+    rememberLoginSession(user as AuthUser);
+    vi.mocked(api).mockImplementation(async (path) => {
+      if (path === "/auth/me" || path.includes("/analytics"))
+        return new Promise(() => {});
+      return {
+        counts: {
+          users: 7,
+          active: 6,
+          organizations: 0,
+          florists: 0,
+          growers: 0,
+          unverified: 1,
+          pendingOrganizations: 0,
+          pendingFlorists: 0,
+          pendingGrowers: 0,
+        },
+        audit: [],
+      } as never;
+    });
+    open("/admin");
+    expect(screen.getByRole("heading", { name: "Overview" })).toBeVisible();
+    await screen.findByText("Registered users");
+    expect(screen.getByText("7")).toBeVisible();
+  });
+  it("rechecks the server and stops rendering administration when a cached session is revoked", async () => {
+    rememberLoginSession(user as AuthUser);
+    vi.mocked(api).mockImplementation(async (path) => {
+      if (path === "/auth/me")
+        throw new ApiError("This account is not active.", 403);
+      return new Promise(() => {});
+    });
+    open("/admin");
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "This account is not active.",
+    );
+    expect(
+      screen.queryByRole("heading", { name: "Overview" }),
+    ).not.toBeInTheDocument();
+  });
   it.each(["PLATFORM_ADMIN", "USER", "FLORIST"])(
     "redirects %s without requesting administrative data",
     async (role) => {

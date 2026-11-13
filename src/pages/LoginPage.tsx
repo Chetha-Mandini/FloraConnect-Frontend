@@ -7,6 +7,8 @@ import AuthLayout, {
   AuthField,
 } from "../components/auth/AuthLayout";
 import { api, destinationFor, type AuthSession } from "../services/api/auth";
+import { rememberLoginSession } from "../features/auth/login-session";
+import { preloadAccountRoute } from "../app/account-routes";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,6 +25,10 @@ export default function LoginPage() {
         className="space-y-4"
         onSubmit={async (event) => {
           event.preventDefault();
+          if (busy) return;
+          void preloadAccountRoute().catch(() => {
+            /* The route renders a retryable error if loading fails. */
+          });
           const fields = new FormData(event.currentTarget);
           setBusy(true);
           setError("");
@@ -34,6 +40,8 @@ export default function LoginPage() {
                 password: fields.get("password"),
               },
             });
+            rememberLoginSession(session.user);
+            void preloadAccountRoute(session.user.role).catch(() => {});
             navigate(destinationFor(session.user.role), { replace: true });
           } catch (e) {
             setError((e as Error).message);

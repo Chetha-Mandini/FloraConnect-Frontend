@@ -10,10 +10,18 @@ import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/Registation";
 
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
+import {
+  loadSuperAdmin,
+  loadPlatformAdmin,
+  loadAccount,
+} from "./account-routes";
+import { RouteFailure, RoutePending } from "./RouteState";
 
 export const routeObjects: RouteObject[] = [
   {
     element: <RouteLayout />,
+    HydrateFallback: RoutePending,
+    errorElement: <RouteFailure />,
     children: [
       {
         path: "/",
@@ -26,19 +34,19 @@ export const routeObjects: RouteObject[] = [
       {
         path: "admin/*",
         lazy: async () => ({
-          Component: (await import("../pages/SuperAdminDashboard")).default,
+          Component: (await loadSuperAdmin()).default,
         }),
       },
       {
         path: "platform-admin",
         lazy: async () => ({
-          Component: (await import("../pages/AdminDashboard")).default,
+          Component: (await loadPlatformAdmin()).default,
         }),
       },
       {
         path: "account",
         lazy: async () => ({
-          Component: (await import("../pages/AccountPage")).default,
+          Component: (await loadAccount()).default,
         }),
       },
       {
