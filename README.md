@@ -1,8 +1,11 @@
 # FloraConnect Frontend
 
+```sh
 develop branch deployed link 
-FE - https://flora-connect-frontend-qemd.vercel.app/
+FE - https://flora-connect-frontend-qemd.vercel.app/ 
 BE - https://flora-connect-backend-infr.vercel.app/api/health
+```
+
 A responsive community homepage built with React, TypeScript, Vite, Tailwind CSS, React Router, Motion for React and Lucide.
 
 ## Run locally
