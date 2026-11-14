@@ -50,6 +50,41 @@ describe("application routes", () => {
     expect(await screen.findByRole("heading", { level: 1 })).toBeVisible();
   });
 
+  it("keeps unavailable details and API retry controls out of the footer", async () => {
+    renderAt("/");
+
+    await screen.findByRole("heading", { level: 1 });
+    const footer = screen.getByRole("contentinfo");
+
+    expect(
+      within(footer).getByRole("link", { name: "Contact FloraConnect" }),
+    ).toHaveAttribute("href", "/contact");
+    expect(
+      within(footer).queryByText("Verified details coming soon"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByText("Official social links coming soon"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByRole("link", { name: "Image credits" }),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByText("Connection temporarily unavailable"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByRole("button", { name: "Retry" }),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).getByText("Together for a greener, blooming Sri Lanka"),
+    ).toBeVisible();
+    expect(
+      within(footer).queryByText("Sri Lanka's Flower Community"),
+    ).not.toBeInTheDocument();
+    expect(
+      footer.querySelector(".footer-tagline svg"),
+    ).not.toBeInTheDocument();
+  });
+
   it("labels featured flowers as examples and links the hero join action to registration", async () => {
     const router = renderAt("/");
 

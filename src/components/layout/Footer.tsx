@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
 import Brand from "./Brand";
-import ApiStatus from "../../features/health/ApiStatus";
 import BotanicalBranch from "../ui/BotanicalBranch";
 import { footerLinks, legalLinks } from "./navigation";
 
@@ -66,7 +65,9 @@ export default function Footer() {
       <div className="footer-main container">
         <div className="footer-brand">
           <Brand />
-          <p>Sri Lanka&apos;s Flower Community</p>
+          <p className="footer-tagline">
+            Together for a greener, blooming Sri Lanka
+          </p>
         </div>
         <div className="footer-links">
           <h2>Quick Links</h2>
@@ -84,7 +85,6 @@ export default function Footer() {
             <Mail size={15} aria-hidden="true" />
             Contact FloraConnect
           </Link>
-          <p>Verified details coming soon</p>
         </div>
         <div className="footer-social">
           <div className="footer-social-icons" aria-hidden="true">
@@ -94,36 +94,17 @@ export default function Footer() {
               </span>
             ))}
           </div>
-          <p>Official social links coming soon</p>
         </div>
-        <p className="footer-tagline">
-          Together for a<br />
-          Greener, Blooming Sri Lanka
-          <svg viewBox="0 0 170 30" aria-hidden="true">
-            <path
-              d="M3 28C60 22 104 0 167 7"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-            />
-          </svg>
-        </p>
       </div>
       <div className="footer-bottom container">
         <p>© {new Date().getFullYear()} FloraConnect. All rights reserved.</p>
         <div>
-          {legalLinks.map(({ label, to }, index) => (
-            <span key={to}>
-              {index > 0 && <span aria-hidden="true">|</span>}
-              {index > 0 && " "}
-              <Link to={to}>{label}</Link>
-            </span>
+          {legalLinks.map(({ label, to }) => (
+            <Link key={to} to={to}>
+              {label}
+            </Link>
           ))}
         </div>
-      </div>
-      <div className="footer-utility container">
-        <a href="/credits/images.html">Image credits</a>
-        <ApiStatus />
       </div>
     </footer>
   );
