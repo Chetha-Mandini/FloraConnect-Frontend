@@ -139,6 +139,32 @@ describe("application routes", () => {
     expect(router.state.location.search).toBe("?q=orchid");
   });
 
+  it("separates grower availability from worldwide reference varieties", async () => {
+    renderAt("/flowers");
+    expect(
+      await screen.findByRole("heading", {
+        name: "No grower flowers listed yet",
+      }),
+    ).toBeVisible();
+    const tabs = screen.getByRole("navigation", { name: "Flower collections" });
+    expect(within(tabs).getAllByRole("link")).toHaveLength(2);
+    expect(screen.queryByRole("article")).not.toBeInTheDocument();
+    fireEvent.click(
+      within(tabs).getByRole("link", { name: "World Flower Varieties" }),
+    );
+    expect(
+      await screen.findByRole("heading", { name: "Acacia" }),
+    ).toBeVisible();
+    expect(screen.getAllByRole("article")).toHaveLength(40);
+    fireEvent.click(within(tabs).getByRole("link", { name: "Grower Flowers" }));
+    expect(
+      await screen.findByRole("heading", {
+        name: "No grower flowers listed yet",
+      }),
+    ).toBeVisible();
+    expect(screen.queryByRole("article")).not.toBeInTheDocument();
+  });
+
   it("clears filters after an empty catalogue search", async () => {
     const router = renderAt("/flowers?q=unavailable-flower");
     expect(
@@ -148,15 +174,15 @@ describe("application routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Acacia" }),
     ).toBeVisible();
-    expect(router.state.location.search).toBe("");
+    expect(router.state.location.search).toBe("?tab=varieties");
   });
 
   it("paginates the complete catalogue and resets the page when searching", async () => {
-    const router = renderAt("/flowers");
+    const router = renderAt("/flowers?tab=varieties");
     await screen.findByRole("heading", { name: "Flowers" });
     expect(screen.getAllByRole("article")).toHaveLength(40);
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
-    expect(router.state.location.search).toBe("?page=2");
+    expect(router.state.location.search).toBe("?tab=varieties&page=2");
     expect(screen.getByText(/Page 2 of/)).toBeVisible();
     fireEvent.change(
       screen.getByRole("searchbox", { name: "Search flowers" }),
