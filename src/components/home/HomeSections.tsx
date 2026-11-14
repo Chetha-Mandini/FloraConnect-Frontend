@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import {
   features,
   featuredCategories,
+  associationPreviews,
+  announcementPreviews,
+  howItWorksSteps,
   eventPreviews,
   heroMessages,
 } from "../../pages/home/home.data";
@@ -39,10 +42,12 @@ export function SectionHeading({
   label,
   title,
   children,
+  id,
 }: {
   label: string;
   title: string;
   children: ReactNode;
+  id?: string;
 }) {
   return (
     <>
@@ -50,9 +55,154 @@ export function SectionHeading({
         {label}
         <span />
       </p>
-      <h2>{title}</h2>
+      <h2 id={id}>{title}</h2>
       <p className="section-description">{children}</p>
     </>
+  );
+}
+
+export function ExploreAssociations() {
+  return (
+    <section
+      className="home-preview-section associations-section"
+      aria-labelledby="associations-title"
+    >
+      <div className="container">
+        <div className="home-preview-heading">
+          <div>
+            <SectionHeading
+              id="associations-title"
+              label="EXPLORE ASSOCIATIONS"
+              title="Find Your Flower Community"
+            >
+              Discover the kinds of groups and local connections the directory
+              is designed to help you explore.
+            </SectionHeading>
+          </div>
+          <Link className="text-link" to="/associations">
+            Explore associations <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+        <div className="association-preview-grid">
+          {associationPreviews.map(({ title, description, label, Icon }) => (
+            <article className="association-preview-card" key={title}>
+              <div className="home-preview-card-top">
+                <span className="home-preview-icon">
+                  <Icon size={22} aria-hidden="true" />
+                </span>
+                <span className="home-preview-tag">{label}</span>
+              </div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <Link
+                className="home-preview-link"
+                to="/associations"
+                aria-label={`Explore associations: ${title}`}
+              >
+                Explore directory <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <p className="home-preview-note">
+          Illustrative categories only. No specific association or endorsement
+          is represented.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function LatestAnnouncements() {
+  return (
+    <section
+      className="home-preview-section announcements-section"
+      aria-labelledby="announcements-title"
+    >
+      <div className="container">
+        <div className="home-preview-heading">
+          <div>
+            <SectionHeading
+              id="announcements-title"
+              label="LATEST ANNOUNCEMENTS"
+              title="News From FloraConnect"
+            >
+              A preview of the updates and information that will be shared with
+              the community.
+            </SectionHeading>
+          </div>
+          <Link className="text-link" to="/announcements">
+            View announcements <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+        <div className="announcement-preview-grid">
+          {announcementPreviews.map(({ title, description, label, Icon }) => (
+            <article className="announcement-preview-card" key={title}>
+              <div className="home-preview-card-top">
+                <span className="home-preview-icon">
+                  <Icon size={21} aria-hidden="true" />
+                </span>
+                <span className="home-preview-tag">{label}</span>
+              </div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <Link
+                className="home-preview-link"
+                to="/announcements"
+                aria-label={`View announcements: ${title}`}
+              >
+                Read announcements <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <p className="home-preview-note">
+          Sample preview content only. No official notices or association
+          announcements are represented.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function HowItWorks() {
+  return (
+    <section
+      className="home-preview-section how-it-works-section"
+      aria-labelledby="how-it-works-title"
+    >
+      <div className="container">
+        <div className="home-preview-heading">
+          <div>
+            <SectionHeading
+              id="how-it-works-title"
+              label="HOW FLORACONNECT WORKS"
+              title="A Simple Way to Get Started"
+            >
+              Start with discovery, connect with the community, then join in the
+              way that suits you.
+            </SectionHeading>
+          </div>
+        </div>
+        <div className="how-it-works-grid">
+          {howItWorksSteps.map(
+            ({ title, description, to, linkLabel, Icon }, index) => (
+              <article className="how-it-works-card" key={title}>
+                <div className="how-it-works-step">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon size={21} aria-hidden="true" />
+                </div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <Link className="home-preview-link" to={to}>
+                  {linkLabel} <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              </article>
+            ),
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -192,7 +342,8 @@ export function FeaturedFlowers() {
           label="FEATURED FLOWERS"
           title="Explore Sri Lanka’s Beautiful Blooms"
         >
-          Discover a wide variety of flowers from local growers.
+          Browse example flower categories. These are illustrative examples,
+          not current listings from growers.
         </SectionHeading>
         <Link className="button primary" to="/flowers">
           View Catalogue <ArrowRight size={16} />
