@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { routeObjects } from "./routes";
 
 const routeCases: [string, RegExp][] = [
-  ["/flowers", /^Flowers$/],
+  ["/flowers", /^Flowers & Plants$/],
   ["/associations", /^Associations$/],
   ["/announcements", /^Announcements$/],
   ["/login", /^Login$/],
@@ -80,16 +80,16 @@ describe("application routes", () => {
     expect(
       within(footer).queryByText("Sri Lanka's Flower Community"),
     ).not.toBeInTheDocument();
-    expect(
-      footer.querySelector(".footer-tagline svg"),
-    ).not.toBeInTheDocument();
+    expect(footer.querySelector(".footer-tagline svg")).not.toBeInTheDocument();
   });
 
   it("labels featured flowers as examples and links the hero join action to registration", async () => {
     const router = renderAt("/");
 
     expect(
-      await screen.findByText(/illustrative examples, not current listings from growers/i),
+      await screen.findByText(
+        /illustrative examples, not current listings from growers/i,
+      ),
     ).toBeVisible();
 
     fireEvent.click(screen.getByRole("link", { name: "Join Our Community" }));
@@ -189,7 +189,7 @@ describe("application routes", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Flowers" }),
+      await screen.findByRole("heading", { name: "Flowers & Plants" }),
     ).toBeVisible();
     expect(router.state.location.pathname).toBe("/flowers");
     expect(
@@ -232,13 +232,36 @@ describe("application routes", () => {
     renderAt("/flowers");
     expect(
       await screen.findByRole("heading", {
-        name: "No grower flowers listed yet",
+        name: "No grower flower listings yet",
       }),
     ).toBeVisible();
     const tabs = screen.getByRole("navigation", { name: "Main navigation" });
     expect(
       within(tabs).getByRole("link", { name: "Flowers & Plants" }),
     ).toHaveAttribute("aria-current", "page");
+    expect(
+      screen.getByText(
+        "Browse flower plants offered by registered growers and nurseries across Sri Lanka.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByLabelText("Published listing count unavailable"),
+    ).toHaveTextContent("—");
+    expect(
+      screen.getByRole("searchbox", { name: "Search flower or plant name" }),
+    ).toBeVisible();
+    expect(screen.getByRole("combobox", { name: "Plant type" })).toBeVisible();
+    expect(screen.getByRole("combobox", { name: "Location" })).toBeVisible();
+    expect(
+      screen.getByRole("combobox", { name: "Grower or nursery" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Explore World Flower Varieties" }),
+    ).toHaveAttribute("href", "/flowers?tab=varieties");
+    expect(screen.getByRole("link", { name: "View Growers" })).toHaveAttribute(
+      "href",
+      "/growers",
+    );
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
     fireEvent.click(
       within(tabs).getByRole("link", { name: "World Flower Varieties" }),
@@ -258,10 +281,32 @@ describe("application routes", () => {
     );
     expect(
       await screen.findByRole("heading", {
-        name: "No grower flowers listed yet",
+        name: "No grower flower listings yet",
       }),
     ).toBeVisible();
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
+  });
+
+  it("shows a no-match state and resets grower filters", async () => {
+    renderAt("/flowers");
+    fireEvent.change(
+      screen.getByRole("searchbox", { name: "Search flower or plant name" }),
+      { target: { value: "orchid" } },
+    );
+
+    expect(await screen.findByText("No matching plants found")).toBeVisible();
+    fireEvent.click(
+      within(
+        screen.getByText("No matching plants found").parentElement!,
+      ).getByRole("button", {
+        name: "Reset Filters",
+      }),
+    );
+    expect(
+      await screen.findByRole("heading", {
+        name: "No grower flower listings yet",
+      }),
+    ).toBeVisible();
   });
 
   it("clears filters after an empty catalogue search", async () => {

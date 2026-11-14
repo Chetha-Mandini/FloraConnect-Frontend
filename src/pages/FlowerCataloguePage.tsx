@@ -17,6 +17,7 @@ import FlowerCatalogueCard from "../features/flowers/FlowerCatalogueCard";
 import FlowerDetailDialog from "../features/flowers/FlowerDetailDialog";
 import EmptyState from "../components/ui/EmptyState";
 import PageContainer from "../components/layout/PageContainer";
+import GrowerFlowerCatalogue from "../features/flowers/GrowerFlowerCatalogue";
 
 const PAGE_SIZE = 40;
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -79,13 +80,23 @@ export default function FlowerCataloguePage() {
       <header className="catalogue-intro">
         <div>
           <p className="foundation-eyebrow">DISCOVER FLORACONNECT</p>
-          <h1>Flowers</h1>
+          <h1>{catalogueTab === "growers" ? "Flowers & Plants" : "Flowers"}</h1>
           <p className="foundation-description">
-            Explore growers' flowers or discover flower varieties from around
-            the world.
+            {catalogueTab === "growers"
+              ? "Browse flower plants offered by registered growers and nurseries across Sri Lanka."
+              : "Explore flower varieties from around the world."}
           </p>
         </div>
-        {catalogueTab === "varieties" && (
+        {catalogueTab === "growers" ? (
+          <div className="catalogue-total">
+            <strong aria-label="Published listing count unavailable">—</strong>
+            <span>
+              published plant
+              <br />
+              listings
+            </span>
+          </div>
+        ) : (
           <div className="catalogue-total">
             <strong>{flowers.length.toLocaleString("en-LK")}</strong>
             <span>
@@ -97,12 +108,7 @@ export default function FlowerCataloguePage() {
         )}
       </header>
       {catalogueTab === "growers" ? (
-        <section aria-label="Grower Flowers">
-          <EmptyState
-            title="No grower flowers listed yet"
-            message="Flowers offered by growers will appear here. Browse World Flower Varieties for botanical information and inspiration."
-          />
-        </section>
+        <GrowerFlowerCatalogue />
       ) : (
         <section aria-label="World Flower Varieties">
           <p className="catalogue-note">

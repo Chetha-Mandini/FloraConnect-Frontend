@@ -1133,6 +1133,75 @@ h2 {
   border-radius: 14px;
   margin-block: 25px 18px;
 }
+.grower-catalogue-toolbar .catalogue-search-field {
+  flex: 1.5;
+}
+.grower-filter-reset {
+  min-height: 44px;
+  white-space: nowrap;
+}
+.grower-filter-reset:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.grower-listing-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+.grower-listing-main:focus-visible,
+.grower-listing-meta a:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: -3px;
+}
+.grower-listing-card .catalogue-card-body {
+  padding-bottom: 12px;
+}
+.grower-listing-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 17px 17px;
+  font-size: 12px;
+}
+.grower-listing-meta a {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: none;
+}
+.grower-listing-meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.grower-listing-meta span {
+  color: var(--muted);
+}
+.grower-empty-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0 38px;
+}
+.grower-no-matches {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin: 28px 0 40px;
+  padding: 30px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #f7f9f5;
+  color: var(--muted);
+  text-align: center;
+}
+.grower-no-matches p {
+  margin: 0;
+}
 .catalogue-search-field,
 .catalogue-select-field {
   display: flex;
@@ -1389,6 +1458,9 @@ h2 {
   .catalogue-search-field {
     flex-basis: 100%;
   }
+  .grower-catalogue-toolbar .catalogue-search-field {
+    flex-basis: 100%;
+  }
   .catalogue-select-field {
     flex: 1;
     min-width: 120px;
@@ -1404,6 +1476,9 @@ h2 {
   }
   .catalogue-card-body {
     padding: 15px;
+  }
+  .grower-listing-meta {
+    padding-inline: 15px;
   }
   .catalogue-pagination {
     gap: 12px;
