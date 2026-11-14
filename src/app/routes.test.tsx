@@ -50,6 +50,60 @@ describe("application routes", () => {
     expect(await screen.findByRole("heading", { level: 1 })).toBeVisible();
   });
 
+  it("labels featured flowers as examples and links the hero join action to registration", async () => {
+    const router = renderAt("/");
+
+    expect(
+      await screen.findByText(/illustrative examples, not current listings from growers/i),
+    ).toBeVisible();
+
+    fireEvent.click(screen.getByRole("link", { name: "Join Our Community" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Register" }),
+    ).toBeVisible();
+    expect(router.state.location.pathname).toBe("/register");
+  });
+
+  it("shows the community, announcements and getting-started homepage previews", async () => {
+    renderAt("/");
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Find Your Flower Community",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "News From FloraConnect" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "A Simple Way to Get Started" }),
+    ).toBeVisible();
+    expect(screen.getAllByText("Sample preview")).toHaveLength(3);
+    expect(
+      screen.getByText(/No specific association or endorsement is represented/),
+    ).toBeVisible();
+    const associationSection = screen.getByRole("region", {
+      name: "Find Your Flower Community",
+    });
+    const announcementSection = screen.getByRole("region", {
+      name: "News From FloraConnect",
+    });
+    expect(
+      within(associationSection)
+        .getAllByRole("link")
+        .find((link) => link.classList.contains("text-link")),
+    ).toHaveAttribute("href", "/associations");
+    expect(
+      within(announcementSection)
+        .getAllByRole("link")
+        .find((link) => link.classList.contains("text-link")),
+    ).toHaveAttribute("href", "/announcements");
+    expect(
+      screen.getByRole("link", { name: "Create an account" }),
+    ).toHaveAttribute("href", "/register");
+  });
+
   it.each(routeCases)("renders %s", async (path, heading) => {
     renderAt(path);
 
