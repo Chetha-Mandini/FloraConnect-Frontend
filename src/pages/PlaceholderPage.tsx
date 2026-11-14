@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import EmptyState from "../components/ui/EmptyState";
+import PageContainer from "../components/layout/PageContainer";
 
 export default function PlaceholderPage({
   title,
@@ -11,7 +12,7 @@ export default function PlaceholderPage({
   emptyMessage: string;
 }) {
   return (
-    <main className="foundation-main" id="main">
+    <PageContainer>
       <p className="foundation-eyebrow">FLORACONNECT</p>
       <h1>{title}</h1>
       <p className="foundation-description">{description}</p>
@@ -19,6 +20,6 @@ export default function PlaceholderPage({
       <Link className="foundation-home-link" to="/">
         Return to home
       </Link>
-    </main>
+    </PageContainer>
   );
 }

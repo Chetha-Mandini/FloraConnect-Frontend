@@ -1,0 +1,8 @@
+# Reference-matched lotus hero
+
+Asset: `public/images/lotus-hero-reference.png`
+Generation method: built-in image_gen tool, using the user-provided hero screenshot as a visual reference. The artwork is illustrative. Text, buttons, navigation, and feature cards are implemented as live React components.
+
+## Final generation prompt
+
+Create a website hero botanical photographic asset, using the attached screenshot as the PRIMARY visual reference. Generate ONLY the right-hand lotus artwork, no webpage, NO text, no logo, no buttons, no cards. Match the reference artwork extremely closely: two large elegant luminous pink lotus blossoms on stems in a lush sunlit green lotus pond, one bloom lower left foreground, one upper center/right, a third smaller softly blurred pink lotus in the right background. Natural pale green foliage and warm green bokeh, not a black background. Photorealistic petals. Composition in wide landscape 4:3. The photographic pond is contained within a flowing organic silhouette: high rounded arch at top center, dips/slopes toward upper right edge, inward curving left side with a narrow waist then broad lower left lobe, bottom edge nearly flat, sweeps upward at bottom right. Surrounding negative space pure white #FFFFFF, with very subtle pale sage #F1F5EE organic contour shapes echoing silhouette. A realistic detailed watercolor green leaf sprig peeks from top right on white, and a single small pointed green leaf floats at middle left on white. Thin sage contour at lower left. This should reproduce the right-side visual of the reference, premium clean and understated. Crop to just the botanical visual, edge to edge horizontally. Do not include any text or UI.

@@ -1,3 +1,4 @@
+import Skeleton from "./Skeleton";
 export default function LoadingState({
   message = "Loading…",
 }: {
@@ -5,7 +6,11 @@ export default function LoadingState({
 }) {
   return (
     <div className="state-panel" role="status" aria-live="polite">
-      <span className="loading-indicator" aria-hidden="true" />
+      <div className="loading-skeleton-lines" aria-hidden="true">
+        <Skeleton className="skeleton-title" />
+        <Skeleton />
+        <Skeleton className="skeleton-short" />
+      </div>
       <p>{message}</p>
     </div>
   );

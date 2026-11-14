@@ -1,5 +1,6 @@
-export const apiBaseUrl = (
-  import.meta.env.VITE_API_BASE_URL?.trim() ||
-  (import.meta.env.DEV ? 'http://localhost:3001/api' : 'https://flora-connect-backend-gules.vercel.app/api')
-).replace(/\/+$/, '');
-
+import { validateApiBaseUrl } from "./api-base";
+// This value is public. Database credentials and delivery tokens belong only in the backend.
+export const apiBaseUrl = validateApiBaseUrl(
+  import.meta.env.VITE_API_BASE_URL ?? "",
+  import.meta.env.PROD,
+);

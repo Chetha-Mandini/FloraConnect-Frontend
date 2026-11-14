@@ -1,53 +1,44 @@
-import { Link } from "react-router-dom";
-
+﻿import { Link } from "react-router-dom";
 export default function Brand() {
   return (
     <Link className="brand" to="/" aria-label="FloraConnect home">
-      <svg viewBox="0 0 52 57" aria-hidden="true">
+      <svg viewBox="0 0 56 56" fill="none" aria-hidden="true">
         <path
-          fill="#184a29"
-          d="M25 55C9 49 8 35 8 35c15 0 18 13 17 20ZM27 55c-1-23 22-30 22-30s1 26-22 30Z"
+          d="M28 48C10 44 7 32 6 18c16 1 24 12 22 30Z"
+          fill="#8eac77"
+          stroke="#245c35"
+          strokeWidth="1.2"
         />
-        <path d="M26 52 25 23M27 52l13-18" stroke="#f9f8ef" strokeWidth="1.4" />
-        <ellipse
-          cx="25"
-          cy="13"
-          rx="4.5"
-          ry="11"
-          fill="#e55478"
-          transform="rotate(-8 25 13)"
+        <path
+          d="M29 42C18 25 26 11 40 3c4 17 1 30-11 39Z"
+          fill="#769b61"
+          stroke="#245c35"
+          strokeWidth="1.2"
         />
-        <ellipse
-          cx="15"
-          cy="18"
-          rx="4.5"
-          ry="10"
-          fill="#cb2f67"
-          transform="rotate(-48 15 18)"
+        <path
+          d="M30 49c2-14 12-19 23-18-4 13-12 19-23 18Z"
+          fill="#a6be8e"
+          stroke="#245c35"
+          strokeWidth="1.2"
         />
-        <ellipse
-          cx="35"
-          cy="16"
-          rx="4.5"
-          ry="10"
-          fill="#ef956e"
-          transform="rotate(32 35 16)"
+        <path
+          d="m15 26 14 24M37 10l-8 40m17-14L29 50v4"
+          stroke="#245c35"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
-        <ellipse
-          cx="11"
-          cy="28"
-          rx="4"
-          ry="9"
-          fill="#dc4778"
-          transform="rotate(-76 11 28)"
+        <path
+          d="m11 21 8 20M33 13l-7 17"
+          stroke="#d8e4cb"
+          strokeWidth="1.4"
+          strokeLinecap="round"
         />
-        <path d="m17 29 9 8 9-13" fill="#347a40" />
       </svg>
       <span>
         <span className="brand-name">
           <b>Flora</b>Connect
         </span>
-        <span className="brand-tagline">SRI LANKA’S FLOWER COMMUNITY</span>
+        <span className="brand-tagline">SRI LANKA'S FLOWER COMMUNITY</span>
       </span>
     </Link>
   );

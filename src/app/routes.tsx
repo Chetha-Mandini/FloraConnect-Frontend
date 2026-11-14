@@ -1,31 +1,123 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
-import AppLayout from "./AppLayout";
 import RouteLayout from "./RouteLayout";
+import PublicLayout from "../components/layout/PublicLayout";
 import NotFoundPage from "../pages/NotFoundPage";
 import PlaceholderPage from "../pages/PlaceholderPage";
 import HomePage from "../pages/home/HomePage";
+import CommunityPage from "../pages/CommunityPage";
+import LoginPage from "../pages/LoginPage";
+import RegistrationPage from "../pages/Registation";
+import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
+import {
+  loadSuperAdmin,
+  loadPlatformAdmin,
+  loadAccount,
+} from "./account-routes";
+import { RouteFailure, RoutePending } from "./RouteState";
 
 export const routeObjects: RouteObject[] = [
   {
     element: <RouteLayout />,
+    HydrateFallback: RoutePending,
+    errorElement: <RouteFailure />,
     children: [
       {
-        path: "/",
-        element: <HomePage />,
+        path: "super-admin/*",
+        element: <Navigate to="/admin" replace />,
       },
       {
-        element: <AppLayout />,
+        path: "admin/*",
+        lazy: async () => ({
+          Component: (await loadSuperAdmin()).default,
+        }),
+      },
+      {
+        path: "platform-admin",
+        lazy: async () => ({
+          Component: (await loadPlatformAdmin()).default,
+        }),
+      },
+      {
+        path: "account",
+        lazy: async () => ({
+          Component: (await loadAccount()).default,
+        }),
+      },
+      {
+        path: "verify-email",
+        lazy: async () => ({
+          Component: (await import("../pages/VerifyEmailPage")).default,
+        }),
+      },
+      {
+        path: "register",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        element: <PublicLayout />,
         children: [
           {
-            path: "flowers",
+            path: "/",
+            element: <HomePage />,
+          },
+          {
+            path: "growers",
             element: (
-              <PlaceholderPage
-                title="Flowers"
-                description="Discover flower varieties and growing inspiration from across Sri Lanka."
-                emptyMessage="The flower directory is being prepared. Explore the sample flowers on the home page in the meantime."
+              <CommunityPage
+                title="Growers"
+                description="Connect with Sri Lanka’s flower growing community."
+                message="No verified grower profiles have been published yet."
               />
             ),
+          },
+          {
+            path: "events",
+            element: (
+              <CommunityPage
+                title="Events"
+                description="Flower exhibitions, grower workshops and community gatherings."
+                message="No upcoming events have been published yet. Verified dates and registration details will appear here when available."
+              />
+            ),
+          },
+          {
+            path: "contact",
+            element: (
+              <CommunityPage
+                title="Contact"
+                description="Get in touch with FloraConnect."
+                message="Verified contact details and social channels have not been published yet."
+              />
+            ),
+          },
+          {
+            path: "privacy",
+            element: (
+              <CommunityPage
+                title="Privacy Policy"
+                description="Your privacy matters to FloraConnect."
+                message="The platform’s privacy policy has not been published yet. Account registration is not currently available."
+              />
+            ),
+          },
+          {
+            path: "terms",
+            element: (
+              <CommunityPage
+                title="Terms of Service"
+                description="Using FloraConnect."
+                message="The platform’s terms of service have not been published yet. Membership and transactions are not currently available."
+              />
+            ),
+          },
+          {
+            path: "flowers",
+            element: <FlowerCatalogueRoute />,
           },
           {
             path: "associations",
@@ -48,22 +140,22 @@ export const routeObjects: RouteObject[] = [
             ),
           },
           {
-            path: "login",
+            path: "profile",
             element: (
               <PlaceholderPage
-                title="Login"
-                description="Welcome back to FloraConnect."
-                emptyMessage="Member login is coming soon. This preview does not collect account details."
+                title="Profile"
+                description="Your FloraConnect member profile."
+                emptyMessage="Member profiles are not available in this preview. No account data is collected."
               />
             ),
           },
           {
-            path: "register",
+            path: "logout",
             element: (
               <PlaceholderPage
-                title="Register"
-                description="Join growers, associations, buyers and flower enthusiasts."
-                emptyMessage="Member registration is coming soon. This preview does not collect account details."
+                title="Logout"
+                description="Sign out of FloraConnect."
+                emptyMessage="Sign-out is a placeholder in this preview; no authentication session is active."
               />
             ),
           },
