@@ -40,6 +40,8 @@ On 2026-11-14 the frontend HTML returned 200, but its `/api/health` returned 500
 and the backend `/api/health` returned Vercel `FUNCTION_INVOCATION_FAILED`.
 This is an observed hosted runtime failure, not proof of a specific missing
 variable. Inspect backend function logs for the first startup exception. Check the
-deployed commit and environment values; malformed `FRONTEND_ORIGINS` can throw
-during module initialization. Do not disable origin checks to mask this failure.
+deployed commit and environment values. The companion backend fix removes an
+import-time crash from malformed `FRONTEND_ORIGINS`; liveness remains available
+and protected requests return `503 ORIGIN_NOT_CONFIGURED` until configuration is
+corrected. Do not disable origin checks to mask this failure.
 Local environment files do not update Vercel settings.
