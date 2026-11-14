@@ -96,20 +96,6 @@ export default function FlowerCataloguePage() {
           </div>
         )}
       </header>
-      <nav className="catalogue-tabs" aria-label="Flower collections">
-        <Link
-          to="/flowers?tab=growers"
-          aria-current={catalogueTab === "growers" ? "page" : undefined}
-        >
-          Grower Flowers
-        </Link>
-        <Link
-          to="/flowers?tab=varieties"
-          aria-current={catalogueTab === "varieties" ? "page" : undefined}
-        >
-          World Flower Varieties
-        </Link>
-      </nav>
       {catalogueTab === "growers" ? (
         <section aria-label="Grower Flowers">
           <EmptyState

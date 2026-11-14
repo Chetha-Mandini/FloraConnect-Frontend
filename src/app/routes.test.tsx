@@ -146,8 +146,10 @@ describe("application routes", () => {
         name: "No grower flowers listed yet",
       }),
     ).toBeVisible();
-    const tabs = screen.getByRole("navigation", { name: "Flower collections" });
-    expect(within(tabs).getAllByRole("link")).toHaveLength(2);
+    const tabs = screen.getByRole("navigation", { name: "Main navigation" });
+    expect(
+      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+    ).toHaveAttribute("aria-current", "page");
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
     fireEvent.click(
       within(tabs).getByRole("link", { name: "World Flower Varieties" }),
@@ -156,7 +158,15 @@ describe("application routes", () => {
       await screen.findByRole("heading", { name: "Acacia" }),
     ).toBeVisible();
     expect(screen.getAllByRole("article")).toHaveLength(40);
-    fireEvent.click(within(tabs).getByRole("link", { name: "Grower Flowers" }));
+    expect(
+      within(tabs).getByRole("link", { name: "World Flower Varieties" }),
+    ).toHaveAttribute("aria-current", "page");
+    expect(
+      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+    ).not.toHaveAttribute("aria-current");
+    fireEvent.click(
+      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+    );
     expect(
       await screen.findByRole("heading", {
         name: "No grower flowers listed yet",

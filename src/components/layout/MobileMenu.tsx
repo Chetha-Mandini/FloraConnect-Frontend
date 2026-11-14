@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { navigationLinks } from "./navigation";
 
 export default function MobileMenu() {
   const [openAt, setOpenAt] = useState<string | null>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const worldVarieties =
+    params.get("tab") !== "growers" &&
+    (params.get("tab") === "varieties" ||
+      ["q", "category", "letter", "collection", "sort", "page"].some((key) =>
+        params.has(key),
+      ));
   const open = openAt === location.key;
 
   useEffect(() => {
@@ -30,16 +37,26 @@ export default function MobileMenu() {
         className={`main-nav${open ? " is-open" : ""}`}
         aria-label="Main navigation"
       >
-        {navigationLinks.map(({ label, to }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === "/"}
-            onClick={() => setOpenAt(null)}
-          >
-            {label}
-          </NavLink>
-        ))}
+        {navigationLinks.map(({ label, to }) => {
+          const active = to.startsWith("/flowers")
+            ? location.pathname === "/flowers" &&
+              to.includes("tab=varieties") === worldVarieties
+            : to === "/"
+              ? location.pathname === "/"
+              : location.pathname === to ||
+                location.pathname.startsWith(to + "/");
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={active ? "active" : undefined}
+              aria-current={active ? "page" : undefined}
+              onClick={() => setOpenAt(null)}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </nav>
       <button
         ref={toggle}
