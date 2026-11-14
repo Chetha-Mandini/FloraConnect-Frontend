@@ -10,11 +10,28 @@
       "destination": "/api/proxy?path=:path*"
     },
     {
-      "source": "/((?!api(?:/|$)|assets(?:/|$)|startup\\.js$|images(?:/|$)|fonts(?:/|$)).*)",
+      "source": "/((?!api(?:/|$)|assets(?:/|$)|startup\\.js$|build-info\\.json$|images(?:/|$)|fonts(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
+    {
+      "source": "/build-info.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "CDN-Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
+      "source": "/((?!api(?:/|$)|assets(?:/|$)|startup\\.js$|build-info\\.json$|images(?:/|$)|fonts(?:/|$)).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, max-age=0, must-revalidate"
+        },
+        { "key": "CDN-Cache-Control", "value": "no-store" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

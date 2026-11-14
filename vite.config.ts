@@ -3,6 +3,18 @@ import { defineConfig } from "vitest/config";
 import { loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import { execFileSync } from "node:child_process";
+
+function gitValue(args: string[]) {
+  try {
+    return execFileSync("git", args, {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    return null;
+  }
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), [
@@ -32,7 +44,29 @@ export default defineConfig(({ mode }) => {
     define: {
       "import.meta.env.VITE_API_BASE_URL": JSON.stringify(publicBase),
     },
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: "deployment-build-info",
+        apply: "build",
+        generateBundle() {
+          this.emitFile({
+            type: "asset",
+            fileName: "build-info.json",
+            source: JSON.stringify({
+              commit:
+                process.env.VERCEL_GIT_COMMIT_SHA ||
+                gitValue(["rev-parse", "HEAD"]),
+              branch:
+                process.env.VERCEL_GIT_COMMIT_REF ||
+                gitValue(["branch", "--show-current"]),
+              builtAt: new Date().toISOString(),
+            }),
+          });
+        },
+      },
+    ],
     server: {
       proxy,
     },

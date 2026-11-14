@@ -148,7 +148,7 @@ describe("application routes", () => {
     ).toBeVisible();
     const tabs = screen.getByRole("navigation", { name: "Main navigation" });
     expect(
-      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
     ).toHaveAttribute("aria-current", "page");
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
     fireEvent.click(
@@ -162,10 +162,10 @@ describe("application routes", () => {
       within(tabs).getByRole("link", { name: "World Flower Varieties" }),
     ).toHaveAttribute("aria-current", "page");
     expect(
-      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
     ).not.toHaveAttribute("aria-current");
     fireEvent.click(
-      within(tabs).getByRole("link", { name: "Explore Flowers" }),
+      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
     );
     expect(
       await screen.findByRole("heading", {
