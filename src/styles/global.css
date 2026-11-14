@@ -1786,10 +1786,10 @@ h2 {
     min-height: auto;
   }
   .hero-copy {
-    padding-block: 45px 30px;
+    padding-block: 36px 22px;
   }
   .hero h1 {
-    font-size: clamp(44px, 10.5vw, 76px);
+    font-size: clamp(42px, 10vw, 72px);
   }
   .hero-subtitle {
     font-size: clamp(23px, 5.2vw, 34px);
@@ -1800,26 +1800,27 @@ h2 {
   .hero-description {
     font-size: 15px;
     max-width: 470px;
-    margin-top: 20px;
+    margin-top: 16px;
   }
   .hero-actions {
     flex-direction: row;
     gap: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
   }
   .hero-actions .button {
     font-size: 11px;
     padding-inline: 16px;
   }
   .hero-flourish {
-    margin-top: 14px;
+    margin-top: 10px;
   }
   .hero-visual {
     position: relative;
     top: auto;
     left: auto;
-    width: calc(100% + 9vw);
-    margin: -8px -6vw 8px -3vw;
+    width: 100%;
+    max-width: 340px;
+    margin: -4px auto 8px;
   }
   .hero-image-shape {
     height: auto;
@@ -1894,12 +1895,6 @@ h2 {
   }
   .home-preview-heading .text-link {
     margin-top: 4px;
-  }
-  .association-preview-grid,
-  .announcement-preview-grid,
-  .how-it-works-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
   }
   .association-preview-card,
   .announcement-preview-card,
@@ -1989,6 +1984,46 @@ h2 {
     .catalogue-grid {
       grid-template-columns: 1fr;
     }
+  }
+}
+@media (max-width: 539px) {
+  .hero-copy {
+    padding-block: 30px 18px;
+  }
+  .hero-description {
+    margin-top: 14px;
+  }
+  .hero-actions {
+    margin-top: 18px;
+  }
+  .association-preview-grid,
+  .announcement-preview-grid,
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .association-preview-card,
+  .announcement-preview-card,
+  .how-it-works-card {
+    padding: 18px;
+  }
+  .home-preview-section {
+    padding-block: 42px;
+  }
+  .home-preview-heading {
+    margin-bottom: 18px;
+  }
+  .home-preview-card-top {
+    margin-bottom: 16px;
+  }
+  .how-it-works-step {
+    margin-bottom: 16px;
+  }
+  .home-preview-link {
+    margin-top: 12px;
+  }
+  .home-preview-note {
+    margin-top: 14px;
   }
 }
 @media (max-width: 374px) {
