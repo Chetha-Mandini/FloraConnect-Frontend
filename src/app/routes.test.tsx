@@ -12,6 +12,8 @@ const routeCases: [string, RegExp][] = [
   ["/profile", /^Profile$/],
   ["/logout", /^Logout$/],
   ["/growers", /^Growers$/],
+  ["/growers/sample-grower-id", /^Grower Profile$/],
+  ["/flowers/sample-listing-id", /^Flower Listing$/],
   ["/events", /^Events$/],
   ["/contact", /^Contact$/],
   ["/privacy", /^Privacy Policy$/],
@@ -211,6 +213,35 @@ describe("application routes", () => {
       screen.getByRole("link", { name: "Associations", current: "page" }),
     ).toBeVisible();
   });
+
+  it.each([
+    [
+      "/flowers/sample-listing-id",
+      "Flower Listing",
+      "Flower listing details will appear here when the grower listings service is connected.",
+      "Back to Flowers & Plants",
+      "/flowers",
+    ],
+    [
+      "/growers/sample-grower-id",
+      "Grower Profile",
+      "Public grower profile details will appear here when the grower profiles service is connected.",
+      "Back to Growers",
+      "/growers",
+    ],
+  ])(
+    "renders the %s detail placeholder without implying a record was fetched",
+    async (path, title, message, backLink, href) => {
+      renderAt(path);
+
+      expect(await screen.findByRole("heading", { name: title })).toBeVisible();
+      expect(screen.getByText(message)).toBeVisible();
+      expect(screen.getByRole("link", { name: backLink })).toHaveAttribute(
+        "href",
+        href,
+      );
+    },
+  );
 
   it("searches the catalogue from the header", async () => {
     const router = renderAt("/");
