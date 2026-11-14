@@ -1,6 +1,6 @@
 export const navigationLinks = [
   { label: "Home", to: "/" },
-  { label: "Explore Flowers", to: "/flowers" },
+  { label: "Flowers & Plants", to: "/flowers" },
   { label: "Growers", to: "/growers" },
   { label: "Associations", to: "/associations" },
   { label: "Events", to: "/events" },
