@@ -3,6 +3,9 @@ import {
   HeroSection,
   QuickFeatures,
   FeaturedFlowers,
+  ExploreAssociations,
+  LatestAnnouncements,
+  HowItWorks,
   GrowerSection,
   UpcomingEvents,
 } from "../../components/home/HomeSections";
@@ -14,6 +17,9 @@ export default function HomePage() {
         <HeroSection />
         <QuickFeatures />
         <FeaturedFlowers />
+        <ExploreAssociations />
+        <LatestAnnouncements />
+        <HowItWorks />
         <GrowerSection />
         <UpcomingEvents />
       </main>

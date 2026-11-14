@@ -50,6 +50,95 @@ describe("application routes", () => {
     expect(await screen.findByRole("heading", { level: 1 })).toBeVisible();
   });
 
+  it("keeps unavailable details and API retry controls out of the footer", async () => {
+    renderAt("/");
+
+    await screen.findByRole("heading", { level: 1 });
+    const footer = screen.getByRole("contentinfo");
+
+    expect(
+      within(footer).getByRole("link", { name: "Contact FloraConnect" }),
+    ).toHaveAttribute("href", "/contact");
+    expect(
+      within(footer).queryByText("Verified details coming soon"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByText("Official social links coming soon"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByRole("link", { name: "Image credits" }),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByText("Connection temporarily unavailable"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).queryByRole("button", { name: "Retry" }),
+    ).not.toBeInTheDocument();
+    expect(
+      within(footer).getByText("Together for a greener, blooming Sri Lanka"),
+    ).toBeVisible();
+    expect(
+      within(footer).queryByText("Sri Lanka's Flower Community"),
+    ).not.toBeInTheDocument();
+    expect(
+      footer.querySelector(".footer-tagline svg"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("labels featured flowers as examples and links the hero join action to registration", async () => {
+    const router = renderAt("/");
+
+    expect(
+      await screen.findByText(/illustrative examples, not current listings from growers/i),
+    ).toBeVisible();
+
+    fireEvent.click(screen.getByRole("link", { name: "Join Our Community" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Register" }),
+    ).toBeVisible();
+    expect(router.state.location.pathname).toBe("/register");
+  });
+
+  it("shows the community, announcements and getting-started homepage previews", async () => {
+    renderAt("/");
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Find Your Flower Community",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "News From FloraConnect" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "A Simple Way to Get Started" }),
+    ).toBeVisible();
+    expect(screen.getAllByText("Sample preview")).toHaveLength(3);
+    expect(
+      screen.getByText(/No specific association or endorsement is represented/),
+    ).toBeVisible();
+    const associationSection = screen.getByRole("region", {
+      name: "Find Your Flower Community",
+    });
+    const announcementSection = screen.getByRole("region", {
+      name: "News From FloraConnect",
+    });
+    expect(
+      within(associationSection)
+        .getAllByRole("link")
+        .find((link) => link.classList.contains("text-link")),
+    ).toHaveAttribute("href", "/associations");
+    expect(
+      within(announcementSection)
+        .getAllByRole("link")
+        .find((link) => link.classList.contains("text-link")),
+    ).toHaveAttribute("href", "/announcements");
+    expect(
+      screen.getByRole("link", { name: "Create an account" }),
+    ).toHaveAttribute("href", "/register");
+  });
+
   it.each(routeCases)("renders %s", async (path, heading) => {
     renderAt(path);
 
