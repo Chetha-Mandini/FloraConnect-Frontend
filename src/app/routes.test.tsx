@@ -96,7 +96,7 @@ describe("application routes", () => {
     fireEvent.click(
       within(
         screen.getByRole("navigation", { name: "Main navigation" }),
-      ).getByRole("link", { name: "Explore Flowers" }),
+      ).getByRole("link", { name: "Flowers & Plants" }),
     );
 
     expect(
