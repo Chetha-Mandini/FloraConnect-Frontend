@@ -35,14 +35,15 @@ The production bundle is generated in `dist/`. On Vercel, select Vite, build wit
 
 The homepage follows the approved reference with an organic Nymphaea nouchali water-lily hero, four quick links, featured flowers, a grower community section, an upcoming events empty state and a curved forest-green footer. Entrances and hover effects respect reduced-motion preferences. Fonts use Inter and Playfair Display with system fallbacks.
 
-`/flowers` supports `?q=` search and `?category=` variety filtering over explicitly labeled sample data. Header search and all four category cards use these filters. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?application=grower` for future registration integration. Unknown paths render the existing 404 page.
+`/flowers` opens the grower and nursery listing catalogue; `/flowers?tab=varieties` opens the separate World Flower Varieties reference. The grower catalogue supports combined name, plant type, location and grower filters, with 12 listings per page. The backend currently has no grower-listings API, so no grower listing data or live count is shown until that API is available. The reference catalogue retains its `?q=` search, `?category=` filtering and 40-card pagination. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?application=grower` for future registration integration. Unknown paths render the existing 404 page.
 
 ## Implementation files
 
 - `src/pages/home/HomePage.tsx`: homepage composition.
 - `src/components/home/HomeSections.tsx`: reusable sections, section headings and motion reveals.
 - `src/components/layout/Navbar.tsx`, `Footer.tsx`, `Brand.tsx`: shared responsive application shell.
-- `src/pages/FlowerCataloguePage.tsx`: searchable sample catalogue.
+- `src/pages/FlowerCataloguePage.tsx`: grower and World Flower Varieties catalogue routes.
+- `src/features/flowers/GrowerFlowerCatalogue.tsx`: grower listing filters, cards and pagination.
 - `src/pages/CommunityPage.tsx`: empty states for unpublished directories and platform information.
 - `src/styles/global.css`: design tokens, responsive layouts and reduced-motion styling.
 - `src/app/routes.tsx`: application routes.
@@ -72,9 +73,11 @@ The pre-footer section uses two image cards for event categories, with unknown-d
 
 ## Expanded flower catalogue
 
-`/flowers` includes all 464 named entries from the user-supplied BioExplorer excerpt, plus existing catalogue varieties not already named in the list (469 unique named entries in total). Common-name aliases remain separate where they appear separately in the supplied list; this is not a count of distinct biological species. Descriptions are supplied reference excerpts, not live product listings or verified Sri Lankan cultivation/medical advice.
+`/flowers` is the customer-facing grower catalogue and does not use World Flower Varieties as grower inventory. The listing data contract is in `src/features/flowers/growerFlowerListings.ts`; it remains empty because the backend has no grower-listings API. Connect this contract only after the backend supplies a published-listings endpoint and public grower fields.
 
-The catalogue uses five columns at 1400px and wider, four on laptops, three on tablets and one or two on phones. Search, collection filters, A-Z browsing, sorting, URL-backed pagination (40 cards per page) and full-description dialogs work together. Existing homepage category links and header search remain supported.
+The World Flower Varieties catalogue includes all 464 named entries from the user-supplied BioExplorer excerpt, plus existing catalogue varieties not already named in the list (469 unique named entries in total). Common-name aliases remain separate where they appear separately in the supplied list; this is not a count of distinct biological species. Descriptions are supplied reference excerpts, not live product listings or verified Sri Lankan cultivation/medical advice.
+
+The World Flower Varieties catalogue uses five columns at 1400px and wider, four on laptops, three on tablets and one or two on phones. Search, collection filters, A-Z browsing, sorting, URL-backed pagination (40 cards per page) and full-description dialogs work together. Existing homepage category links and header search remain supported.
 
 Data lives in `src/features/flowers/data/flower-reference.json`; the typed catalogue merges it with existing entries in `flowers.ts`. Representative botanical photos are downloaded into `public/images/catalogue`. Per-image author/license metadata is stored in `flower-images.json`, displayed in the detail dialog and published at `/credits/catalogue-images.html`. An explicit botanical fallback is used where no suitable licensed image is available, and image-load failures use the same fallback.
 
