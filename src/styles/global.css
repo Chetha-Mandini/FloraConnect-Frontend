@@ -1213,6 +1213,21 @@ h2 {
   padding-inline: 13px;
   color: var(--green);
 }
+.grower-catalogue-toolbar .catalogue-select-field {
+  position: relative;
+}
+.grower-catalogue-toolbar .catalogue-select-field select {
+  appearance: none;
+  padding-right: 22px;
+  text-overflow: ellipsis;
+}
+.grower-select-chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
 .catalogue-search-field {
   flex: 1;
   min-width: 180px;

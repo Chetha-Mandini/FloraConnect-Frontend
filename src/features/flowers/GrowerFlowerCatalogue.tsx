@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Flower2, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronDown,
+  Flower2,
+  Search,
+} from "lucide-react";
 import EmptyState from "../../components/ui/EmptyState";
 import {
   growerFlowerListings,
@@ -91,6 +97,11 @@ export default function GrowerFlowerCatalogue({
               </option>
             ))}
           </select>
+          <ChevronDown
+            className="grower-select-chevron"
+            size={15}
+            aria-hidden="true"
+          />
         </label>
         <label className="catalogue-select-field">
           <span className="sr-only">Location</span>
@@ -105,6 +116,11 @@ export default function GrowerFlowerCatalogue({
               </option>
             ))}
           </select>
+          <ChevronDown
+            className="grower-select-chevron"
+            size={15}
+            aria-hidden="true"
+          />
         </label>
         <label className="catalogue-select-field">
           <span className="sr-only">Grower or nursery</span>
@@ -112,13 +128,18 @@ export default function GrowerFlowerCatalogue({
             value={growerId}
             onChange={(event) => updateFilter(setGrowerId, event.target.value)}
           >
-            <option value="">All growers and nurseries</option>
+            <option value="">Grower / Nursery</option>
             {growers.map(([id, name]) => (
               <option key={id} value={id}>
                 {name}
               </option>
             ))}
           </select>
+          <ChevronDown
+            className="grower-select-chevron"
+            size={15}
+            aria-hidden="true"
+          />
         </label>
         <button
           type="button"
