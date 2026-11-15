@@ -291,6 +291,7 @@ h2 {
 .main-nav a {
   position: relative;
   padding-block: 17px;
+  white-space: nowrap;
 }
 .main-nav a:hover {
   color: var(--green);
@@ -2470,7 +2471,7 @@ h2 {
     gap: 28px;
   }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   :root {
     --header-height: 68px;
   }

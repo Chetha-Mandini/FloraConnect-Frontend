@@ -187,7 +187,7 @@ describe("application routes", () => {
     fireEvent.click(
       within(
         screen.getByRole("navigation", { name: "Main navigation" }),
-      ).getByRole("link", { name: "Flowers & Plants" }),
+      ).getByRole("link", { name: "Flowers" }),
     );
 
     expect(
@@ -268,9 +268,10 @@ describe("application routes", () => {
       }),
     ).toBeVisible();
     const tabs = screen.getByRole("navigation", { name: "Main navigation" });
-    expect(
-      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
-    ).toHaveAttribute("aria-current", "page");
+    expect(within(tabs).getByRole("link", { name: "Flowers" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
     expect(
       screen.getByText(
         "Browse flower plants offered by registered growers and nurseries across Sri Lanka.",
@@ -296,21 +297,19 @@ describe("application routes", () => {
     );
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
     fireEvent.click(
-      within(tabs).getByRole("link", { name: "World Flower Varieties" }),
+      within(tabs).getByRole("link", { name: "Flower Varieties" }),
     );
     expect(
       await screen.findByRole("heading", { name: "Acacia" }),
     ).toBeVisible();
     expect(screen.getAllByRole("article")).toHaveLength(40);
     expect(
-      within(tabs).getByRole("link", { name: "World Flower Varieties" }),
+      within(tabs).getByRole("link", { name: "Flower Varieties" }),
     ).toHaveAttribute("aria-current", "page");
     expect(
-      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
+      within(tabs).getByRole("link", { name: "Flowers" }),
     ).not.toHaveAttribute("aria-current");
-    fireEvent.click(
-      within(tabs).getByRole("link", { name: "Flowers & Plants" }),
-    );
+    fireEvent.click(within(tabs).getByRole("link", { name: "Flowers" }));
     expect(
       await screen.findByRole("heading", {
         name: "No grower flower listings yet",
