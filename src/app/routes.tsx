@@ -10,6 +10,8 @@ import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/Registation";
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 import GrowerDirectoryDetailPlaceholder from "../pages/GrowerDirectoryDetailPlaceholder";
+import GrowerProfilePage from "../features/growers/GrowerProfilePage";
+import GrowersDirectoryPage from "../features/growers/GrowersDirectoryPage";
 import {
   loadSuperAdmin,
   loadPlatformAdmin,
@@ -68,17 +70,11 @@ export const routeObjects: RouteObject[] = [
           },
           {
             path: "growers",
-            element: (
-              <CommunityPage
-                title="Growers"
-                description="Connect with Sri Lanka’s flower growing community."
-                message="No verified grower profiles have been published yet."
-              />
-            ),
+            element: <GrowersDirectoryPage />,
           },
           {
             path: "growers/:id",
-            element: <GrowerDirectoryDetailPlaceholder type="grower" />,
+            element: <GrowerProfilePage />,
           },
           {
             path: "events",

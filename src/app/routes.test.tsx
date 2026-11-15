@@ -12,7 +12,7 @@ const routeCases: [string, RegExp][] = [
   ["/profile", /^Profile$/],
   ["/logout", /^Logout$/],
   ["/growers", /^Growers$/],
-  ["/growers/sample-grower-id", /^Grower Profile$/],
+  ["/growers/sample-grower-id", /^Grower profile is not available yet$/],
   ["/flowers/sample-listing-id", /^Flower Listing$/],
   ["/events", /^Events$/],
   ["/contact", /^Contact$/],
@@ -214,34 +214,34 @@ describe("application routes", () => {
     ).toBeVisible();
   });
 
-  it.each([
-    [
-      "/flowers/sample-listing-id",
-      "Flower Listing",
-      "Flower listing details will appear here when the grower listings service is connected.",
-      "Back to Flowers & Plants",
-      "/flowers",
-    ],
-    [
-      "/growers/sample-grower-id",
-      "Grower Profile",
-      "Public grower profile details will appear here when the grower profiles service is connected.",
-      "Back to Growers",
-      "/growers",
-    ],
-  ])(
-    "renders the %s detail placeholder without implying a record was fetched",
-    async (path, title, message, backLink, href) => {
-      renderAt(path);
+  it("does not imply a grower profile was fetched before the profile API is connected", async () => {
+    renderAt("/growers/sample-grower-id");
 
-      expect(await screen.findByRole("heading", { name: title })).toBeVisible();
-      expect(screen.getByText(message)).toBeVisible();
-      expect(screen.getByRole("link", { name: backLink })).toHaveAttribute(
-        "href",
-        href,
-      );
-    },
-  );
+    expect(
+      await screen.findByRole("heading", {
+        name: "Grower profile is not available yet",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Back to Growers" }),
+    ).toHaveAttribute("href", "/growers");
+  });
+
+  it("keeps unavailable flower listing details explicit", async () => {
+    renderAt("/flowers/sample-listing-id");
+
+    expect(
+      await screen.findByRole("heading", { name: "Flower Listing" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Flower listing details will appear here when the grower listings service is connected.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Back to Flowers & Plants" }),
+    ).toHaveAttribute("href", "/flowers");
+  });
 
   it("searches the catalogue from the header", async () => {
     const router = renderAt("/");
