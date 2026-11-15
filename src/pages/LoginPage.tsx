@@ -1,6 +1,6 @@
 import { apiEndpoints } from "../config/api";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import AuthLayout, {
   actionClass,
@@ -10,8 +10,28 @@ import { api, destinationFor, type AuthSession } from "../services/api/auth";
 import { rememberLoginSession } from "../features/auth/login-session";
 import { preloadAccountRoute } from "../app/account-routes";
 
+function getReturnTo(state: unknown): string | null {
+  if (
+    typeof state !== "object" ||
+    state === null ||
+    !("returnTo" in state) ||
+    typeof state.returnTo !== "string"
+  )
+    return null;
+  const returnTo = state.returnTo;
+  if (
+    !returnTo.startsWith("/") ||
+    returnTo.startsWith("//") ||
+    returnTo.includes("\\")
+  )
+    return null;
+  return returnTo;
+}
+
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnTo = getReturnTo(location.state);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
@@ -42,7 +62,9 @@ export default function LoginPage() {
             });
             rememberLoginSession(session.user);
             void preloadAccountRoute(session.user.role).catch(() => {});
-            navigate(destinationFor(session.user.role), { replace: true });
+            navigate(returnTo ?? destinationFor(session.user.role), {
+              replace: true,
+            });
           } catch (e) {
             setError((e as Error).message);
           } finally {
