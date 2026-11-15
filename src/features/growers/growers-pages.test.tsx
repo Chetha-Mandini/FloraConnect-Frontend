@@ -124,22 +124,24 @@ describe("growers directory UI", () => {
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
   });
 
-  it("distinguishes unavailable data from an empty directory", () => {
+  it("shows a clearly labeled design preview when directory data is unavailable", () => {
     renderDirectory({ status: "unavailable", growers: [] });
 
     expect(
-      screen.getByRole("heading", {
-        name: "Grower directory is not available yet",
-      }),
+      screen.getByText(/Design preview — illustrative content only/i),
+    ).toBeVisible();
+    expect(screen.getAllByRole("article")).toHaveLength(4);
+    expect(
+      screen.getByRole("heading", { name: "Sample Grower 01" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("searchbox", { name: "Search growers by name" }),
+      screen.getByRole("searchbox", {
+        name: "Search by grower name (preview only)",
+      }),
     ).toBeDisabled();
     expect(
-      screen.queryByRole("heading", {
-        name: "No grower profiles available yet",
-      }),
-    ).not.toBeInTheDocument();
+      screen.getByRole("button", { name: "Reset Filters" }),
+    ).toBeDisabled();
   });
 
   it("shows loading skeletons and provides an explicit retry after errors", () => {
@@ -257,10 +259,12 @@ describe("grower profile UI", () => {
       </MemoryRouter>,
     );
     expect(
-      screen.getByRole("heading", {
-        name: "Grower profile is not available yet",
-      }),
+      screen.getByRole("heading", { name: "Sample Orchid Grower" }),
     ).toBeVisible();
+    expect(
+      screen.getByText(/Design preview — illustrative content only/i),
+    ).toBeVisible();
+    expect(screen.getByRole("button", { name: "Send Inquiry" })).toBeDisabled();
   });
 });
 

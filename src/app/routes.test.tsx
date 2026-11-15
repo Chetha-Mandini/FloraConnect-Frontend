@@ -12,7 +12,7 @@ const routeCases: [string, RegExp][] = [
   ["/profile", /^Profile$/],
   ["/logout", /^Logout$/],
   ["/growers", /^Growers$/],
-  ["/growers/sample-grower-id", /^Grower profile is not available yet$/],
+  ["/growers/sample-grower-id", /^Sample Orchid Grower$/],
   ["/flowers/sample-listing-id", /^Flower Listing$/],
   ["/events", /^Events$/],
   ["/contact", /^Contact$/],
@@ -214,13 +214,14 @@ describe("application routes", () => {
     ).toBeVisible();
   });
 
-  it("does not imply a grower profile was fetched before the profile API is connected", async () => {
+  it("shows a clearly labeled profile preview until the profile API is connected", async () => {
     renderAt("/growers/sample-grower-id");
 
     expect(
-      await screen.findByRole("heading", {
-        name: "Grower profile is not available yet",
-      }),
+      await screen.findByRole("heading", { name: "Sample Orchid Grower" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/Design preview — illustrative content only/i),
     ).toBeVisible();
     expect(
       screen.getByRole("link", { name: "Back to Growers" }),
