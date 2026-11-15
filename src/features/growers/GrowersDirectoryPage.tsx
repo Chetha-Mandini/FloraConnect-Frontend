@@ -7,6 +7,7 @@ import GrowerCard from "./GrowerCard";
 import GrowerDirectoryFilters, {
   type GrowerFilters,
 } from "./GrowerDirectoryFilters";
+import { GrowersDirectoryDesignPreview } from "./GrowerDesignPreview";
 import type { GrowerPageStatus, PublicGrower } from "./growerTypes";
 
 const PAGE_SIZE = 12;
@@ -71,6 +72,14 @@ export default function GrowersDirectoryPage({
     setPage(1);
   }
 
+  if (status === "unavailable") {
+    return (
+      <PageContainer className="catalogue-page grower-directory-page grower-page-enter">
+        <GrowersDirectoryDesignPreview />
+      </PageContainer>
+    );
+  }
+
   return (
     <PageContainer className="catalogue-page grower-directory-page grower-page-enter">
       <header className="catalogue-intro grower-directory-intro">
@@ -126,12 +135,6 @@ export default function GrowersDirectoryPage({
                   ? "Grower profiles unavailable"
                   : "Grower directory unavailable"}
           </p>
-          {status === "unavailable" && (
-            <p className="grower-directory-unavailable-note">
-              Filters will be available when public grower profiles are
-              connected.
-            </p>
-          )}
         </div>
 
         {status === "loading" && (
@@ -171,16 +174,6 @@ export default function GrowersDirectoryPage({
                 Retry
               </button>
             )}
-          </section>
-        )}
-
-        {status === "unavailable" && (
-          <section className="grower-directory-state" role="status">
-            <h2>Grower directory is not available yet</h2>
-            <p>
-              Public grower profiles will appear here once the directory service
-              is connected.
-            </p>
           </section>
         )}
 

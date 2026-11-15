@@ -4,6 +4,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import PageContainer from "../../components/layout/PageContainer";
 import Skeleton from "../../components/ui/Skeleton";
 import GrowerAvatar from "./GrowerAvatar";
+import { GrowerProfileDesignPreview } from "./GrowerDesignPreview";
 import type { GrowerPageStatus, PublicGrower } from "./growerTypes";
 
 export default function GrowerProfilePage({
@@ -18,6 +19,14 @@ export default function GrowerProfilePage({
   const { id = "" } = useParams();
   const canShowProfile = status === "ready" && Boolean(grower);
   const returnTo = `/growers/${encodeURIComponent(grower?.id ?? id)}`;
+
+  if (status === "unavailable") {
+    return (
+      <PageContainer className="catalogue-page grower-profile-page grower-page-enter">
+        <GrowerProfileDesignPreview />
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer className="catalogue-page grower-profile-page grower-page-enter">
@@ -53,16 +62,6 @@ export default function GrowerProfilePage({
               Retry
             </button>
           )}
-        </section>
-      )}
-
-      {status === "unavailable" && (
-        <section className="grower-directory-state" role="status">
-          <h1>Grower profile is not available yet</h1>
-          <p>
-            Public grower profiles will be available when the profile service is
-            connected.
-          </p>
         </section>
       )}
 

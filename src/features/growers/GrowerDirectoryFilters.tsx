@@ -1,4 +1,4 @@
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown, Leaf, MapPin, RotateCcw, Search } from "lucide-react";
 
 export type GrowerFilters = {
   search: string;
@@ -45,6 +45,11 @@ export default function GrowerDirectoryFilters({
         />
       </label>
       <label className="catalogue-select-field grower-directory-select">
+        <MapPin
+          className="grower-directory-select-icon"
+          size={17}
+          aria-hidden="true"
+        />
         <span className="sr-only">District</span>
         <select
           aria-label="District"
@@ -61,9 +66,18 @@ export default function GrowerDirectoryFilters({
             </option>
           ))}
         </select>
-        <ChevronDown size={15} aria-hidden="true" />
+        <ChevronDown
+          className="grower-select-chevron"
+          size={15}
+          aria-hidden="true"
+        />
       </label>
       <label className="catalogue-select-field grower-directory-select">
+        <Leaf
+          className="grower-directory-select-icon"
+          size={17}
+          aria-hidden="true"
+        />
         <span className="sr-only">Specialization</span>
         <select
           aria-label="Specialization"
@@ -80,7 +94,11 @@ export default function GrowerDirectoryFilters({
             </option>
           ))}
         </select>
-        <ChevronDown size={15} aria-hidden="true" />
+        <ChevronDown
+          className="grower-select-chevron"
+          size={15}
+          aria-hidden="true"
+        />
       </label>
       <button
         className="button outline grower-filter-reset"
@@ -88,6 +106,7 @@ export default function GrowerDirectoryFilters({
         onClick={onReset}
         disabled={disabled || !hasFilters}
       >
+        <RotateCcw size={15} aria-hidden="true" />
         Reset Filters
       </button>
     </form>

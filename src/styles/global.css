@@ -1553,15 +1553,28 @@ h2 {
 }
 .grower-directory-select select {
   appearance: none;
-  padding-right: 25px;
+  padding: 11px 25px 11px 25px;
   text-overflow: ellipsis;
 }
-.grower-directory-select svg {
+.grower-directory-select .grower-select-chevron {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+.grower-directory-select .grower-directory-select-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.grower-directory-toolbar .grower-filter-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
 }
 .grower-directory-toolbar input:disabled,
 .grower-directory-toolbar select:disabled {
@@ -1877,6 +1890,282 @@ h2 {
 .grower-profile-loading-copy {
   height: 92px;
 }
+.grower-design-preview {
+  position: relative;
+}
+.grower-preview-intro {
+  position: relative;
+  isolation: isolate;
+  min-height: 122px;
+}
+.grower-preview-total {
+  position: relative;
+  z-index: 1;
+  min-width: 190px;
+}
+.grower-preview-total strong {
+  font:
+    600 20px/1.2 Inter,
+    "Segoe UI",
+    sans-serif;
+}
+.grower-preview-branch {
+  position: absolute;
+  z-index: -1;
+  top: -18px;
+  right: 24%;
+  width: 130px;
+  height: 145px;
+  color: #dce8d9;
+  opacity: 0.62;
+  transform: rotate(20deg);
+  pointer-events: none;
+}
+.grower-preview-notice {
+  width: fit-content;
+  margin-top: 5px;
+  color: #637366;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.grower-preview-toolbar {
+  margin-block: 14px 0;
+  padding: 9px 11px;
+  grid-template-columns:
+    minmax(230px, 1.7fr) minmax(140px, 1fr) minmax(180px, 1.2fr)
+    auto;
+  border-color: #edf0ea;
+  border-radius: 12px;
+}
+.grower-preview-toolbar .grower-filter-reset:disabled {
+  opacity: 0.92;
+}
+.grower-preview-toolbar input:disabled,
+.grower-preview-toolbar select:disabled {
+  cursor: default;
+  color: #263c2c;
+  opacity: 1;
+}
+.grower-preview-search-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+.grower-preview-results {
+  min-height: 53px;
+  padding-top: 12px;
+}
+.grower-preview-results label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #36443a;
+  white-space: nowrap;
+}
+.grower-preview-results select {
+  border: 0;
+  padding: 5px 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  appearance: none;
+}
+.grower-preview-results select:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.grower-preview-grid {
+  gap: 18px;
+  margin-block: 8px 18px;
+}
+.grower-preview-grid .grower-card-photo {
+  width: 100%;
+  aspect-ratio: 1.82 / 1;
+  object-position: center 45%;
+}
+.grower-preview-grid .grower-card-content {
+  padding: 10px 12px 12px;
+}
+.grower-preview-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.grower-preview-card-heading > div {
+  min-width: 0;
+}
+.grower-preview-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #eaf3e3;
+  color: var(--green);
+}
+.grower-preview-grid .grower-card-content h2 {
+  font:
+    650 14px/1.35 Inter,
+    "Segoe UI",
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.grower-preview-grid .grower-card-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  font-size: 11px;
+}
+.grower-preview-grid .grower-card-location svg {
+  color: var(--green);
+}
+.grower-preview-grid .grower-specialization-tag {
+  min-height: 24px;
+  margin: 8px 0 0 48px;
+  padding: 3px 9px;
+  font-size: 10px;
+}
+.grower-preview-grid .grower-card-link {
+  min-height: 31px;
+  margin-top: 10px;
+  padding-block: 6px;
+  font-size: 10px;
+}
+.grower-preview-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-block: 16px 27px;
+}
+.grower-preview-pagination button {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #e1e9e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #263c2c;
+  font-size: 12px;
+}
+.grower-preview-pagination button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.grower-preview-pagination button.is-current {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+.grower-preview-pagination > span {
+  padding-inline: 3px;
+  color: var(--muted);
+}
+.grower-profile-design-preview .grower-back-link {
+  margin-bottom: 12px;
+}
+.grower-profile-design-preview .grower-preview-notice {
+  margin: 0 0 9px;
+}
+.grower-preview-profile-intro {
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(30px, 3vw, 44px);
+  padding-block: 0 25px;
+}
+.grower-preview-profile-intro .grower-profile-photo {
+  width: 100%;
+  aspect-ratio: 1.3 / 1;
+  max-height: 300px;
+  border-radius: 12px;
+}
+.grower-preview-profile-intro .grower-profile-copy h1 {
+  margin-block: 5px 9px;
+  font-size: clamp(34px, 4vw, 48px);
+}
+.grower-preview-profile-intro .grower-profile-biography {
+  margin-top: 12px;
+  line-height: 1.65;
+}
+.grower-preview-profile-intro .grower-specialization-tag {
+  margin-top: 10px;
+}
+.grower-preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.grower-preview-actions .button {
+  min-width: 150px;
+  min-height: 40px;
+  margin-top: 16px;
+}
+.grower-preview-actions .button:disabled,
+.grower-preview-plants-section button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.grower-preview-plants-section {
+  padding-block: 17px 30px;
+}
+.grower-preview-plants-section .grower-plants-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+.grower-preview-plants-section .grower-plants-heading h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 30px);
+}
+.grower-preview-plants-section .grower-plants-heading button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  padding: 6px 0;
+  background: transparent;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.grower-preview-plants-section .grower-plants-grid {
+  gap: 16px;
+}
+.grower-preview-plants-section .grower-plant-image {
+  aspect-ratio: 2 / 1;
+}
+.grower-preview-plants-section .grower-plant-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+}
+.grower-preview-plants-section .grower-plant-copy h3 {
+  font:
+    600 12px/1.3 Inter,
+    "Segoe UI",
+    sans-serif;
+}
+.grower-preview-plants-section .grower-plant-copy span {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 99px;
+  background: #edf4e9;
+  color: #365d3c;
+  font-size: 9px;
+}
 @media (min-width: 1400px) {
   .grower-directory-grid,
   .grower-plants-grid {
@@ -1899,6 +2188,9 @@ h2 {
   .grower-profile-loading {
     grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
     gap: 28px;
+  }
+  .grower-preview-profile-intro {
+    grid-template-columns: minmax(220px, 0.82fr) minmax(0, 1.18fr);
   }
 }
 @media (max-width: 767px) {
@@ -1924,6 +2216,9 @@ h2 {
     gap: 9px;
     padding: 10px;
   }
+  .grower-preview-toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .grower-directory-search {
     min-width: 0;
   }
@@ -1948,6 +2243,10 @@ h2 {
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
   }
+  .grower-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
   .grower-card-content {
     padding: 14px;
   }
@@ -1960,6 +2259,10 @@ h2 {
     gap: 24px;
     padding-bottom: 38px;
   }
+  .grower-preview-profile-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
   .grower-profile-photo,
   .grower-profile-loading-photo {
     width: min(100%, 520px);
@@ -1970,11 +2273,67 @@ h2 {
   .grower-plants-section {
     padding-top: 28px;
   }
+  .grower-preview-total {
+    min-width: 0;
+    margin-top: 0;
+    padding-left: 12px;
+  }
+  .grower-preview-total strong {
+    font-size: 17px;
+  }
+  .grower-preview-branch {
+    right: 15%;
+    width: 95px;
+    opacity: 0.45;
+  }
 }
 @media (max-width: 539px) {
   .grower-directory-grid,
   .grower-plants-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .grower-preview-grid,
+  .grower-preview-plants-section .grower-plants-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grower-preview-grid .grower-card-photo {
+    aspect-ratio: 1.4 / 1;
+  }
+  .grower-preview-grid .grower-card-content {
+    padding: 9px;
+  }
+  .grower-preview-grid .grower-card-content h2 {
+    font-size: 12px;
+  }
+  .grower-preview-grid .grower-preview-avatar {
+    width: 30px;
+    height: 30px;
+  }
+  .grower-preview-grid .grower-specialization-tag {
+    margin-left: 0;
+  }
+  .grower-preview-grid .grower-card-link {
+    font-size: 9px;
+  }
+  .grower-preview-total {
+    gap: 6px;
+    padding-left: 8px;
+  }
+  .grower-preview-total span {
+    display: none;
+  }
+  .grower-preview-pagination {
+    gap: 4px;
+  }
+  .grower-preview-pagination button {
+    width: 30px;
+    height: 30px;
+  }
+  .grower-preview-plants-section .grower-plants-heading {
+    align-items: flex-start;
+  }
+  .grower-preview-plants-section .grower-plants-heading h2 {
+    font-size: 22px;
   }
   .grower-card-photo {
     aspect-ratio: 1.8 / 1;
