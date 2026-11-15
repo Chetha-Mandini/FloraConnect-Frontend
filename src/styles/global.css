@@ -2116,6 +2116,37 @@ h2 {
   }
 }
 
+.grower-directory-page h1 { margin-bottom: 10px; }
+.grower-directory-intro { max-width: 560px; color: var(--muted); }
+.grower-directory-count { color: var(--green); font-size: 12px; margin-top: 14px; }
+.grower-directory-toolbar { margin-block: 32px 38px; }
+.grower-directory-toolbar select { min-height: 44px; }
+.grower-directory-grid, .grower-listings-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.grower-directory-card, .grower-listing-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 5px 18px #203d2710; transition: transform .22s ease, box-shadow .22s ease; }
+.grower-directory-card:hover, .grower-listing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 25px #203d2720; }
+.grower-directory-image { aspect-ratio: 4 / 3; background: #edf3e8; display: grid; place-items: center; color: var(--green); font: 600 42px Georgia, serif; }
+.grower-directory-image img, .grower-profile-image img, .grower-listing-card img { width: 100%; height: 100%; object-fit: cover; }
+.grower-directory-card-body { padding: 18px; }
+.grower-directory-card-body h2 { font: 600 21px/1.2 Georgia, serif; color: var(--green); margin: 5px 0 8px; }
+.grower-directory-card-body p { color: var(--muted); font-size: 13px; }
+.grower-directory-location, .grower-profile-specialization { color: var(--green) !important; font-size: 11px !important; }
+.grower-directory-card .button { margin-top: 16px; width: 100%; text-align: center; }
+.grower-back-link { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: 13px; margin-bottom: 28px; }
+.grower-profile-hero { display: grid; grid-template-columns: 280px 1fr; gap: 42px; align-items: center; max-width: 900px; }
+.grower-profile-image { aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: #edf3e8; }
+.grower-profile-hero h1 { margin: 8px 0 12px; }
+.grower-profile-hero p { max-width: 600px; color: var(--muted); line-height: 1.75; }
+.grower-profile-hero .button { margin-top: 16px; }
+.grower-listings { margin-top: 64px; }
+.grower-listings h2 { font: 600 28px Georgia, serif; color: var(--green); margin-bottom: 22px; }
+.grower-listing-card { display: block; color: var(--green); padding-bottom: 14px; }
+.grower-listing-card img { display: block; aspect-ratio: 4 / 3; margin-bottom: 13px; }
+.grower-listing-card strong, .grower-listing-card span { display: block; padding-inline: 15px; }
+.grower-listing-card span { color: var(--muted); font-size: 12px; margin-top: 5px; }
+@media (max-width: 900px) { .grower-directory-grid, .grower-listings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .grower-directory-grid, .grower-listings-grid { grid-template-columns: 1fr; } .grower-profile-hero { grid-template-columns: 1fr; gap: 24px; } .grower-profile-image { max-width: 280px; } .grower-directory-toolbar { display: grid; } }
+@media (prefers-reduced-motion: reduce) { .grower-directory-card, .grower-listing-card { transition: none; } }
+
 @media (min-width: 375px) and (max-width: 540px) {
   .events-grid {
     grid-template-columns: 1fr;
