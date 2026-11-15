@@ -10,6 +10,7 @@ import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/Registation";
 import FlowerCatalogueRoute from "../pages/FlowerCatalogueRoute";
 import GrowerDirectoryDetailPlaceholder from "../pages/GrowerDirectoryDetailPlaceholder";
+import GrowersPage from "../pages/GrowersPage";
 import {
   loadSuperAdmin,
   loadPlatformAdmin,
@@ -68,6 +69,10 @@ export const routeObjects: RouteObject[] = [
           },
           {
             path: "growers",
+            element: <GrowersPage />,
+          },
+          {
+            path: "growers-legacy",
             element: (
               <CommunityPage
                 title="Growers"
@@ -78,7 +83,7 @@ export const routeObjects: RouteObject[] = [
           },
           {
             path: "growers/:id",
-            element: <GrowerDirectoryDetailPlaceholder type="grower" />,
+            element: <GrowersPage />,
           },
           {
             path: "events",
