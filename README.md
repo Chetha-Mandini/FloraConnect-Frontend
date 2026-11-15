@@ -1,11 +1,12 @@
 # FloraConnect Frontend
 
 #
-develop branch deployed link 
+
+develop branch deployed link
+
 > FE - https://flora-connect-frontend-qemd.vercel.app/
 
 > BE - https://flora-connect-backend-infr.vercel.app/api/health
-
 
 A responsive community homepage built with React, TypeScript, Vite, Tailwind CSS, React Router, Motion for React and Lucide.
 
@@ -35,7 +36,7 @@ The production bundle is generated in `dist/`. On Vercel, select Vite, build wit
 
 The homepage follows the approved reference with an organic Nymphaea nouchali water-lily hero, four quick links, featured flowers, a grower community section, an upcoming events empty state and a curved forest-green footer. Entrances and hover effects respect reduced-motion preferences. Fonts use Inter and Playfair Display with system fallbacks.
 
-`/flowers` opens the grower and nursery listing catalogue; `/flowers?tab=varieties` opens the separate World Flower Varieties reference. The grower catalogue supports combined name, plant type, location and grower filters, with 12 listings per page. The backend currently has no grower-listings API, so no grower listing data or live count is shown until that API is available. `/flowers/:id` and `/growers/:id` are route placeholders until listing and public profile detail endpoints are integrated. The reference catalogue retains its `?q=` search, `?category=` filtering and 40-card pagination. `/growers` and `/events` show empty directories until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?application=grower` for future registration integration. Unknown paths render the existing 404 page.
+`/flowers` opens the grower and nursery listing catalogue; `/flowers?tab=varieties` opens the separate World Flower Varieties reference. The grower catalogue supports combined name, plant type, location and grower filters, with 12 listings per page. `/growers` and `/growers/:id` provide the public grower directory and profile UI, including combined filters, 12-profile pagination, profile/listing empty states, loading and retry states, and a login return destination for inquiries. The deployed backend currently has no public grower, flower-listing or inquiry endpoints; its flower module is empty. These pages remain in an explicit unavailable state until verified public API contracts and data are available. The future directory API must return only published individual growers (excluding nurseries), and the listing API must return only that grower's published plants. The UI does not use sample profiles or expose private member fields. The inquiry action can return a visitor to the grower after login, but a working inquiry still depends on a backend inquiry flow. `/flowers/:id` remains a placeholder until the listing detail endpoint is integrated. The reference catalogue retains its `?q=` search, `?category=` filtering and 40-card pagination. `/events` shows an empty directory until verified records are available. `/contact`, `/privacy` and `/terms` clearly indicate unpublished content. Existing `/login`, `/register`, `/associations` and `/announcements` routes retain their preview behavior. The grower CTA passes `?application=grower` for future registration integration. Unknown paths render the existing 404 page.
 
 ## Implementation files
 
@@ -44,6 +45,7 @@ The homepage follows the approved reference with an organic Nymphaea nouchali wa
 - `src/components/layout/Navbar.tsx`, `Footer.tsx`, `Brand.tsx`: shared responsive application shell.
 - `src/pages/FlowerCataloguePage.tsx`: grower and World Flower Varieties catalogue routes.
 - `src/features/flowers/GrowerFlowerCatalogue.tsx`: grower listing filters, cards and pagination.
+- `src/features/growers/`: reusable public grower cards, filters and directory/profile pages. Live records remain unavailable until the backend publishes confirmed directory and listing endpoints.
 - `src/pages/CommunityPage.tsx`: empty states for unpublished directories and platform information.
 - `src/styles/global.css`: design tokens, responsive layouts and reduced-motion styling.
 - `src/app/routes.tsx`: application routes.
